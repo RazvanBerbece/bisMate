@@ -6,6 +6,8 @@ import (
 	"net/http"
 
 	"github.com/gorilla/websocket"
+
+	"fmt"
 )
 
 // Message -- message object
@@ -30,6 +32,8 @@ func (wserver WSocketServ) InitSocketServer() {
 // HandleConnections -- handler for server connections
 func (wserver WSocketServ) HandleConnections(w http.ResponseWriter, r *http.Request) {
 
+	fmt.Println("Incoming connection ...")
+
 	// upgrade GET request to WS
 	ws, err := wserver.upgrader.Upgrade(w, r, nil)
 	if err != nil {
@@ -52,6 +56,8 @@ func (wserver WSocketServ) HandleConnections(w http.ResponseWriter, r *http.Requ
 			break
 		}
 
+		fmt.Printf("msg : %v", msg)
+
 		// send received message to broadcast chan
 		wserver.broadcast <- msg
 	}
@@ -61,6 +67,7 @@ func (wserver WSocketServ) HandleConnections(w http.ResponseWriter, r *http.Requ
 // HandleMessages -- reads from broadcast and relays to all client over their specific ws connections
 func (wserver WSocketServ) HandleMessages() {
 	for {
+
 		msg := <-wserver.broadcast // get next message from broadcast
 
 		for client := range wserver.clients {
