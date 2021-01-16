@@ -1,0 +1,757 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		039560DC8F34AB58B45E8FB8CABA6389 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		3A4B71505922B7978F5B56C5BC4628DC /* Pods-bisMateClientTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2E21ACC5EB6AF58868500B07416B7891 /* Pods-bisMateClientTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4504BD0610C7E02CEEC0D50E1116DE15 /* Pods-bisMateClientTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 630DA86CFE917AE1BFE1257C6C4CDB7B /* Pods-bisMateClientTests-dummy.m */; };
+		50F360131EEED7C9BDA94586148F714B /* Pods-bisMateClient-bisMateClientUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 77B4FB074A27C880B5137C03CE5E6648 /* Pods-bisMateClient-bisMateClientUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6A53890F728D8D3B57A224AFA402ECF2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		789C266D43B2A2A3B94DF0B91881E877 /* Pods-bisMateClient-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E2F7CE9EC669F79362101B49F51235 /* Pods-bisMateClient-dummy.m */; };
+		8CAAEBC9E055A9752E7E847587E7530E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
+		96677CFDEB8BA4EB0F2165C6851A26BB /* Pods-bisMateClient-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D6AD6DC582F47828535425E8023BE7D2 /* Pods-bisMateClient-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E093AC9DE296084D4D7BDDA521F0EDEC /* Pods-bisMateClient-bisMateClientUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9460D926F3F5CF6EC5C169A37FDE83 /* Pods-bisMateClient-bisMateClientUITests-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9B77500AF005E17B234BD85C51A5EFAC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 533D427FA37B9C6455ACDAC3836D57ED;
+			remoteInfo = "Pods-bisMateClient";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0C1CF8472ED5B6FE1CC457982AC1A5EF /* Pods_bisMateClientTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_bisMateClientTests.framework; path = "Pods-bisMateClientTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1CAFAAE72CA9E39F56DB4795CDC25D44 /* Pods-bisMateClientTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-bisMateClientTests.modulemap"; sourceTree = "<group>"; };
+		29F069755E03032F5FDB9820E1A41B81 /* Pods-bisMateClient-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-bisMateClient-Info.plist"; sourceTree = "<group>"; };
+		2E21ACC5EB6AF58868500B07416B7891 /* Pods-bisMateClientTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-bisMateClientTests-umbrella.h"; sourceTree = "<group>"; };
+		3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		4D9832734D5CC47AA068E582970570D3 /* Pods-bisMateClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-bisMateClient.debug.xcconfig"; sourceTree = "<group>"; };
+		5CCAAB05F382A5026A49C2B329F26D0D /* Pods_bisMateClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_bisMateClient.framework; path = "Pods-bisMateClient.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F72E066BC24B1926D5FD6968C0A8C80 /* Pods-bisMateClientTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-bisMateClientTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		630DA86CFE917AE1BFE1257C6C4CDB7B /* Pods-bisMateClientTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-bisMateClientTests-dummy.m"; sourceTree = "<group>"; };
+		688398A9DBDC0D66F0ED96CE21A6FF0F /* Pods-bisMateClientTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-bisMateClientTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		77B4FB074A27C880B5137C03CE5E6648 /* Pods-bisMateClient-bisMateClientUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-bisMateClient-bisMateClientUITests-umbrella.h"; sourceTree = "<group>"; };
+		8654898C03C4A122F81AC09E5ACD7F25 /* Pods_bisMateClient_bisMateClientUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_bisMateClient_bisMateClientUITests.framework; path = "Pods-bisMateClient-bisMateClientUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8844E3DF6FE87DE1FCBF9F646258CBE4 /* Pods-bisMateClient-bisMateClientUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-bisMateClient-bisMateClientUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		AC9460D926F3F5CF6EC5C169A37FDE83 /* Pods-bisMateClient-bisMateClientUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-bisMateClient-bisMateClientUITests-dummy.m"; sourceTree = "<group>"; };
+		B0CBB62822E6D9D0C607F013B0421266 /* Pods-bisMateClient-bisMateClientUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-bisMateClient-bisMateClientUITests.modulemap"; sourceTree = "<group>"; };
+		B1267D20D9BED13737E644AFB382EFC5 /* Pods-bisMateClientTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-bisMateClientTests.release.xcconfig"; sourceTree = "<group>"; };
+		C3A7A565EF765F38160348BDDD2B10A8 /* Pods-bisMateClient.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-bisMateClient.modulemap"; sourceTree = "<group>"; };
+		CAB7E5748E7A2CFB1327AFE2F450EB7F /* Pods-bisMateClient-bisMateClientUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-bisMateClient-bisMateClientUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		CBDF490E10F5166971980C90CEC925BF /* Pods-bisMateClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-bisMateClient.release.xcconfig"; sourceTree = "<group>"; };
+		D6AD6DC582F47828535425E8023BE7D2 /* Pods-bisMateClient-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-bisMateClient-umbrella.h"; sourceTree = "<group>"; };
+		DF86FEC5BD0F6C71E150F8F62CF0F1BA /* Pods-bisMateClient-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-bisMateClient-acknowledgements.markdown"; sourceTree = "<group>"; };
+		E587D58D7CCBD2A17726B92BEA4FC2D5 /* Pods-bisMateClientTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-bisMateClientTests-Info.plist"; sourceTree = "<group>"; };
+		E69FE62D9C8E613AF750C3C15EF97463 /* Pods-bisMateClient-bisMateClientUITests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-bisMateClient-bisMateClientUITests-Info.plist"; sourceTree = "<group>"; };
+		E7E2F7CE9EC669F79362101B49F51235 /* Pods-bisMateClient-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-bisMateClient-dummy.m"; sourceTree = "<group>"; };
+		EAB70C5ED586B9EA85C8015CF79347A5 /* Pods-bisMateClientTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-bisMateClientTests.debug.xcconfig"; sourceTree = "<group>"; };
+		EEC53CF4F3EC7C6CAF36468D5031705D /* Pods-bisMateClient-bisMateClientUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-bisMateClient-bisMateClientUITests.release.xcconfig"; sourceTree = "<group>"; };
+		F1B91346084AEB6CEBA561E7F4A5FFD5 /* Pods-bisMateClient-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-bisMateClient-acknowledgements.plist"; sourceTree = "<group>"; };
+		FC2411C15CBA33DB41FA82D9C3C66E1A /* Pods-bisMateClient-bisMateClientUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-bisMateClient-bisMateClientUITests-acknowledgements.plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5DA4C52B329790AF06ABE6970C990581 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				039560DC8F34AB58B45E8FB8CABA6389 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		99A1C7AFFE90FF8D263C48136A62792D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CAAEBC9E055A9752E7E847587E7530E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD564905F95D8783552908714C03F143 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A53890F728D8D3B57A224AFA402ECF2 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		108699BA0F4EF887348209A93964B522 /* Pods-bisMateClientTests */ = {
+			isa = PBXGroup;
+			children = (
+				1CAFAAE72CA9E39F56DB4795CDC25D44 /* Pods-bisMateClientTests.modulemap */,
+				5F72E066BC24B1926D5FD6968C0A8C80 /* Pods-bisMateClientTests-acknowledgements.markdown */,
+				688398A9DBDC0D66F0ED96CE21A6FF0F /* Pods-bisMateClientTests-acknowledgements.plist */,
+				630DA86CFE917AE1BFE1257C6C4CDB7B /* Pods-bisMateClientTests-dummy.m */,
+				E587D58D7CCBD2A17726B92BEA4FC2D5 /* Pods-bisMateClientTests-Info.plist */,
+				2E21ACC5EB6AF58868500B07416B7891 /* Pods-bisMateClientTests-umbrella.h */,
+				EAB70C5ED586B9EA85C8015CF79347A5 /* Pods-bisMateClientTests.debug.xcconfig */,
+				B1267D20D9BED13737E644AFB382EFC5 /* Pods-bisMateClientTests.release.xcconfig */,
+			);
+			name = "Pods-bisMateClientTests";
+			path = "Target Support Files/Pods-bisMateClientTests";
+			sourceTree = "<group>";
+		};
+		268B5E2DAE85DBED8199E73461D41ED9 /* Pods-bisMateClient-bisMateClientUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B0CBB62822E6D9D0C607F013B0421266 /* Pods-bisMateClient-bisMateClientUITests.modulemap */,
+				8844E3DF6FE87DE1FCBF9F646258CBE4 /* Pods-bisMateClient-bisMateClientUITests-acknowledgements.markdown */,
+				FC2411C15CBA33DB41FA82D9C3C66E1A /* Pods-bisMateClient-bisMateClientUITests-acknowledgements.plist */,
+				AC9460D926F3F5CF6EC5C169A37FDE83 /* Pods-bisMateClient-bisMateClientUITests-dummy.m */,
+				E69FE62D9C8E613AF750C3C15EF97463 /* Pods-bisMateClient-bisMateClientUITests-Info.plist */,
+				77B4FB074A27C880B5137C03CE5E6648 /* Pods-bisMateClient-bisMateClientUITests-umbrella.h */,
+				CAB7E5748E7A2CFB1327AFE2F450EB7F /* Pods-bisMateClient-bisMateClientUITests.debug.xcconfig */,
+				EEC53CF4F3EC7C6CAF36468D5031705D /* Pods-bisMateClient-bisMateClientUITests.release.xcconfig */,
+			);
+			name = "Pods-bisMateClient-bisMateClientUITests";
+			path = "Target Support Files/Pods-bisMateClient-bisMateClientUITests";
+			sourceTree = "<group>";
+		};
+		58D17A54EB05DC7685A6F8A006C599B1 /* Pods-bisMateClient */ = {
+			isa = PBXGroup;
+			children = (
+				C3A7A565EF765F38160348BDDD2B10A8 /* Pods-bisMateClient.modulemap */,
+				DF86FEC5BD0F6C71E150F8F62CF0F1BA /* Pods-bisMateClient-acknowledgements.markdown */,
+				F1B91346084AEB6CEBA561E7F4A5FFD5 /* Pods-bisMateClient-acknowledgements.plist */,
+				E7E2F7CE9EC669F79362101B49F51235 /* Pods-bisMateClient-dummy.m */,
+				29F069755E03032F5FDB9820E1A41B81 /* Pods-bisMateClient-Info.plist */,
+				D6AD6DC582F47828535425E8023BE7D2 /* Pods-bisMateClient-umbrella.h */,
+				4D9832734D5CC47AA068E582970570D3 /* Pods-bisMateClient.debug.xcconfig */,
+				CBDF490E10F5166971980C90CEC925BF /* Pods-bisMateClient.release.xcconfig */,
+			);
+			name = "Pods-bisMateClient";
+			path = "Target Support Files/Pods-bisMateClient";
+			sourceTree = "<group>";
+		};
+		6E116C2D38A58DB022864D673C6C4ECF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5CCAAB05F382A5026A49C2B329F26D0D /* Pods_bisMateClient.framework */,
+				8654898C03C4A122F81AC09E5ACD7F25 /* Pods_bisMateClient_bisMateClientUITests.framework */,
+				0C1CF8472ED5B6FE1CC457982AC1A5EF /* Pods_bisMateClientTests.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C0834CEBB1379A84116EF29F93051C60 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		CB90522260D0F23AEF2FAEC0607B97E9 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				58D17A54EB05DC7685A6F8A006C599B1 /* Pods-bisMateClient */,
+				268B5E2DAE85DBED8199E73461D41ED9 /* Pods-bisMateClient-bisMateClientUITests */,
+				108699BA0F4EF887348209A93964B522 /* Pods-bisMateClientTests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
+				6E116C2D38A58DB022864D673C6C4ECF /* Products */,
+				CB90522260D0F23AEF2FAEC0607B97E9 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C0834CEBB1379A84116EF29F93051C60 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		91C72129BAC436F70DF0307E5E07529A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50F360131EEED7C9BDA94586148F714B /* Pods-bisMateClient-bisMateClientUITests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7B4D640F9A67D537BB1D418F355595F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96677CFDEB8BA4EB0F2165C6851A26BB /* Pods-bisMateClient-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA6EEFA9C815F04A0CA83E638B28CAE6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A4B71505922B7978F5B56C5BC4628DC /* Pods-bisMateClientTests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		1D42865817144522B17FF18A6B2A2A9E /* Pods-bisMateClient-bisMateClientUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E758145AB50DA82EF08CCDDEF0CED1C4 /* Build configuration list for PBXNativeTarget "Pods-bisMateClient-bisMateClientUITests" */;
+			buildPhases = (
+				91C72129BAC436F70DF0307E5E07529A /* Headers */,
+				81090F35EA72A0967FABE5B460070ACF /* Sources */,
+				AD564905F95D8783552908714C03F143 /* Frameworks */,
+				946D8FCA23F0622AF9FFA398A7673FAD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-bisMateClient-bisMateClientUITests";
+			productName = "Pods-bisMateClient-bisMateClientUITests";
+			productReference = 8654898C03C4A122F81AC09E5ACD7F25 /* Pods_bisMateClient_bisMateClientUITests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		533D427FA37B9C6455ACDAC3836D57ED /* Pods-bisMateClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6C2066446E642045853780D75E277C62 /* Build configuration list for PBXNativeTarget "Pods-bisMateClient" */;
+			buildPhases = (
+				A7B4D640F9A67D537BB1D418F355595F /* Headers */,
+				AE70958F45A2216B81ABF4E802814980 /* Sources */,
+				99A1C7AFFE90FF8D263C48136A62792D /* Frameworks */,
+				6D6E3F783A8602E166019DCB6833188F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-bisMateClient";
+			productName = "Pods-bisMateClient";
+			productReference = 5CCAAB05F382A5026A49C2B329F26D0D /* Pods_bisMateClient.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C38FCD4EB722FEAC1760770A8677AC81 /* Pods-bisMateClientTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6E3906CCAF87EDCD4D3E5253727CFFB2 /* Build configuration list for PBXNativeTarget "Pods-bisMateClientTests" */;
+			buildPhases = (
+				EA6EEFA9C815F04A0CA83E638B28CAE6 /* Headers */,
+				7F58B50FA93C7251EE24F1AFC88F9002 /* Sources */,
+				5DA4C52B329790AF06ABE6970C990581 /* Frameworks */,
+				0721DA7F6B722C2723258D72E80B64FC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D28EF859C2B2418AE666FC523E430A5F /* PBXTargetDependency */,
+			);
+			name = "Pods-bisMateClientTests";
+			productName = "Pods-bisMateClientTests";
+			productReference = 0C1CF8472ED5B6FE1CC457982AC1A5EF /* Pods_bisMateClientTests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1100;
+				LastUpgradeCheck = 1100;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = 6E116C2D38A58DB022864D673C6C4ECF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				533D427FA37B9C6455ACDAC3836D57ED /* Pods-bisMateClient */,
+				1D42865817144522B17FF18A6B2A2A9E /* Pods-bisMateClient-bisMateClientUITests */,
+				C38FCD4EB722FEAC1760770A8677AC81 /* Pods-bisMateClientTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0721DA7F6B722C2723258D72E80B64FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D6E3F783A8602E166019DCB6833188F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		946D8FCA23F0622AF9FFA398A7673FAD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7F58B50FA93C7251EE24F1AFC88F9002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4504BD0610C7E02CEEC0D50E1116DE15 /* Pods-bisMateClientTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		81090F35EA72A0967FABE5B460070ACF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E093AC9DE296084D4D7BDDA521F0EDEC /* Pods-bisMateClient-bisMateClientUITests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE70958F45A2216B81ABF4E802814980 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				789C266D43B2A2A3B94DF0B91881E877 /* Pods-bisMateClient-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D28EF859C2B2418AE666FC523E430A5F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-bisMateClient";
+			target = 533D427FA37B9C6455ACDAC3836D57ED /* Pods-bisMateClient */;
+			targetProxy = 9B77500AF005E17B234BD85C51A5EFAC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		22C802E3057AB71E26062B1A3A36782C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CBDF490E10F5166971980C90CEC925BF /* Pods-bisMateClient.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-bisMateClient/Pods-bisMateClient-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-bisMateClient/Pods-bisMateClient.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		387146D2CA5858B91B3048B9832CDC37 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D9832734D5CC47AA068E582970570D3 /* Pods-bisMateClient.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-bisMateClient/Pods-bisMateClient-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-bisMateClient/Pods-bisMateClient.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		3895BF3B61BC9BCEE4883EF136AF4CB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B1267D20D9BED13737E644AFB382EFC5 /* Pods-bisMateClientTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-bisMateClientTests/Pods-bisMateClientTests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-bisMateClientTests/Pods-bisMateClientTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		6CEED82E753FD5679F7A02259B6E09FE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CAB7E5748E7A2CFB1327AFE2F450EB7F /* Pods-bisMateClient-bisMateClientUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-bisMateClient-bisMateClientUITests/Pods-bisMateClient-bisMateClientUITests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-bisMateClient-bisMateClientUITests/Pods-bisMateClient-bisMateClientUITests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		7CA42D472071621960DCACDC01D5C94D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EAB70C5ED586B9EA85C8015CF79347A5 /* Pods-bisMateClientTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-bisMateClientTests/Pods-bisMateClientTests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-bisMateClientTests/Pods-bisMateClientTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		AAE100FF8C9C4FA388CD2C3365F9B449 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		D342A46230681AF67BCCDD62FAB93BF7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EEC53CF4F3EC7C6CAF36468D5031705D /* Pods-bisMateClient-bisMateClientUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-bisMateClient-bisMateClientUITests/Pods-bisMateClient-bisMateClientUITests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-bisMateClient-bisMateClientUITests/Pods-bisMateClient-bisMateClientUITests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		F0D3E8BE5BBDC05E33D6B4B1E8562585 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAE100FF8C9C4FA388CD2C3365F9B449 /* Debug */,
+				F0D3E8BE5BBDC05E33D6B4B1E8562585 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6C2066446E642045853780D75E277C62 /* Build configuration list for PBXNativeTarget "Pods-bisMateClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				387146D2CA5858B91B3048B9832CDC37 /* Debug */,
+				22C802E3057AB71E26062B1A3A36782C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6E3906CCAF87EDCD4D3E5253727CFFB2 /* Build configuration list for PBXNativeTarget "Pods-bisMateClientTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7CA42D472071621960DCACDC01D5C94D /* Debug */,
+				3895BF3B61BC9BCEE4883EF136AF4CB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E758145AB50DA82EF08CCDDEF0CED1C4 /* Build configuration list for PBXNativeTarget "Pods-bisMateClient-bisMateClientUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6CEED82E753FD5679F7A02259B6E09FE /* Debug */,
+				D342A46230681AF67BCCDD62FAB93BF7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}
