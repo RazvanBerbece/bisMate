@@ -41,12 +41,14 @@ class WSClient {
     }
     
     /** WebSocket Methods -- will need completion handlers at some point */
-    public func openConn() { // opens connection to the websocket server
+    public func openConn(callback: @escaping (Bool) -> Void) { // opens connection to the websocket server
         self.webSocketTask!.resume()
+        callback(true)
     }
     
     public func sendMessage(fromID: Int, toID: Int, inputMessage: String) { // sends message to ws server
         do {
+            // Encode message using the EncodableMessage struct
             let encoder = JSONEncoder()
             let data = try encoder.encode(EncodableMessage(text: inputMessage, fromID: fromID, toID: toID))
             let message = URLSessionWebSocketTask.Message.data(data)
@@ -65,7 +67,7 @@ class WSClient {
         }
     }
     
-    public func getMessage() { // reads messages received from server
+    public func getMessage(callback: @escaping (String) -> Void) { // reads messages received from server
         self.webSocketTask!.receive {
             (result) in
             switch result {
@@ -74,11 +76,13 @@ class WSClient {
             case .success(let message):
                 switch message {
                 case .string(let text):
+                    // Convert the stringified json response to a Swift dictionary obj
                     if let data = text.data(using: String.Encoding.utf8) {
                         do {
                             if let messageObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any] {
                                 // Use this dictionary
-                                print("Received on \(self.clientID) : " + "\(messageObject["text"]!)")
+                                print(messageObject)
+                                print("Received on \(String(describing: self.clientID!)) : " + "\(messageObject["text"]!)")
                             }
                         } catch {
                             print(error)
@@ -90,7 +94,10 @@ class WSClient {
                     fatalError()
                 }
                 // call again to receive (real-time behaviour)
-                self.getMessage()
+                self.getMessage() {
+                    (messageAux) in
+                    // NOTHING HERE
+                }
             }
         }
     }
