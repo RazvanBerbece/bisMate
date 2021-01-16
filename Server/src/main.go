@@ -14,7 +14,7 @@ func main() {
 	wserver := wsockets.WSocketServ{}
 	wserver.InitSocketServer()
 
-	// Configure websocket route
+	// Configure websocket route -- clients will send an id query param (clientID : <id here>) that will be used to enable one-on-one chats
 	http.HandleFunc("/ws", wserver.HandleConnections)
 
 	// Listen for incoming messages

@@ -9,17 +9,18 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let wsclient = WSClient()
+    let wsclientOne = WSClient(id: 1)
+    let wsclientTwo = WSClient(id: 2)
 
     override func viewDidLoad() {
         
-        wsclient.openConn()
+        wsclientOne.openConn()
+        wsclientTwo.openConn()
         super.viewDidLoad()
         
-        wsclient.sendMessage(message: "Hello server !") {
-            (response) in
-            print("Message sent !")
-        }
+        wsclientOne.sendMessage(fromID: 1, toID: 2, inputMessage: "Hello from 1 !!")
+        wsclientTwo.sendMessage(fromID: 2, toID: 1, inputMessage: "Hello from 2 !!")
+        wsclientOne.getMessage()
         
     }
 
