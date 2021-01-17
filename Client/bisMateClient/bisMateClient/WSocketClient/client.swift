@@ -106,11 +106,11 @@ public class WSClient {
 
 public class HTTPClient {
     
-    private let clientID : Int? // user token ?
+    private let token : String? // user token ?
     
     /** Constructor */
-    init(id: Int) {
-        self.clientID = id
+    init(token: String) {
+        self.token = token
     }
     
     /** Tests if the HTTP server is up and running */
@@ -121,8 +121,33 @@ public class HTTPClient {
         components.host = "localhost"
         components.port = 8000
         components.path = "/conn"
+        
+        let url = components.url
+        let task = URLSession.shared.dataTask(with: url!) {
+            (data, response, error) in
+            guard let data = data
+            else {
+                callback(0)
+                return
+            }
+            print(String(data: data, encoding: .utf8)!)
+            callback(1)
+        }
+        task.resume()
+    
+    }
+    
+    /** Initiates an operation on the server using the current user's token */
+    public func sendOperationWithToken(operation: String, callback: @escaping (Int) -> Void) {
+        
+        var components = URLComponents()
+        components.scheme = "http"
+        components.host = "localhost"
+        components.port = 8000
+        components.path = "/verify"
         components.queryItems = [
-            URLQueryItem(name: "clientID", value: "\(String(describing: self.clientID!))")
+            URLQueryItem(name: "token", value: self.token),
+            URLQueryItem(name: "operation", value: operation)
         ]
         
         let url = components.url

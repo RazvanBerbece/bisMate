@@ -11,7 +11,7 @@ import Firebase
 class ViewController: UIViewController {
     
     var fbClient = FirebaseAuthClient()
-    let httpClient = HTTPClient(id: 1)
+    let httpClient = HTTPClient(token: "tokenHere")
 
     override func viewDidLoad() {
         
