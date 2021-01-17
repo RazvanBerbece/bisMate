@@ -46,6 +46,7 @@ class WSClient {
         callback(true)
     }
     
+    /** Send message over websocket to user with ID from current user ID */
     public func sendMessage(fromID: Int, toID: Int, inputMessage: String) { // sends message to ws server
         do {
             // Encode message using the EncodableMessage struct
@@ -67,6 +68,7 @@ class WSClient {
         }
     }
     
+    /** Receive message over websocket on current ID */
     public func getMessage(callback: @escaping (String) -> Void) { // reads messages received from server
         self.webSocketTask!.receive {
             (result) in
@@ -100,6 +102,13 @@ class WSClient {
                 }
             }
         }
+    }
+    
+    /** ------------------- Utils ------------------- */
+    
+    /** Send user token to server for verification */
+    public func sendToken(token: String, callback: @escaping (String) -> Void) {
+        // TODO
     }
 
 }

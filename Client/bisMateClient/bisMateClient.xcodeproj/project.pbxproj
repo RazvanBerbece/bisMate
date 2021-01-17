@@ -3,12 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1E4C6EB6629E30BEF87ADAF0 /* Pods_bisMateClient_bisMateClientUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D883B478B8040580143DC0F /* Pods_bisMateClient_bisMateClientUITests.framework */; };
-		402EFB2479158D07393E9C8C /* Pods_bisMateClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83B6EAB2ABEDBD66CCDF697E /* Pods_bisMateClient.framework */; };
+		34A6EDCD8BCE4D0D19DA2684 /* Pods_bisMateClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CDC8C703057CFFD95ECE33 /* Pods_bisMateClient.framework */; };
+		6F0509B925B3A255001F7521 /* FirebaseAuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0509B825B3A255001F7521 /* FirebaseAuthClient.swift */; };
+		6F0509BA25B3A255001F7521 /* FirebaseAuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0509B825B3A255001F7521 /* FirebaseAuthClient.swift */; };
+		6F0509D125B3A41C001F7521 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F0509D025B3A41C001F7521 /* GoogleService-Info.plist */; };
+		6F0509D225B3A41C001F7521 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F0509D025B3A41C001F7521 /* GoogleService-Info.plist */; };
 		6F78C27725B20D1F0006C01B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F78C27625B20D1F0006C01B /* AppDelegate.swift */; };
 		6F78C27925B20D1F0006C01B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F78C27825B20D1F0006C01B /* SceneDelegate.swift */; };
 		6F78C27B25B20D1F0006C01B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F78C27A25B20D1F0006C01B /* ViewController.swift */; };
@@ -19,7 +22,8 @@
 		6F78C29925B20D210006C01B /* bisMateClientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F78C29825B20D210006C01B /* bisMateClientUITests.swift */; };
 		6F78C2AB25B20D450006C01B /* client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F78C2AA25B20D450006C01B /* client.swift */; };
 		6F78C2AC25B20D450006C01B /* client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F78C2AA25B20D450006C01B /* client.swift */; };
-		F153AE70660543C605AE58E1 /* Pods_bisMateClientTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAB6621C824A258079450A39 /* Pods_bisMateClientTests.framework */; };
+		D338478AAF1EFA4264B0E846 /* Pods_bisMateClientTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F1248B4AA016E6E94B12427 /* Pods_bisMateClientTests.framework */; };
+		EA9E7669F0D546DC7692ADDD /* Pods_bisMateClient_bisMateClientUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AB18537911350DF9C795CC9 /* Pods_bisMateClient_bisMateClientUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,8 +44,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00ABFE8C0EA67442E24954D5 /* Pods-bisMateClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bisMateClient.release.xcconfig"; path = "Target Support Files/Pods-bisMateClient/Pods-bisMateClient.release.xcconfig"; sourceTree = "<group>"; };
-		3D883B478B8040580143DC0F /* Pods_bisMateClient_bisMateClientUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bisMateClient_bisMateClientUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F1248B4AA016E6E94B12427 /* Pods_bisMateClientTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bisMateClientTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1AB18537911350DF9C795CC9 /* Pods_bisMateClient_bisMateClientUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bisMateClient_bisMateClientUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1AE8AEA49BF94C24766BD913 /* Pods-bisMateClientTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bisMateClientTests.debug.xcconfig"; path = "Target Support Files/Pods-bisMateClientTests/Pods-bisMateClientTests.debug.xcconfig"; sourceTree = "<group>"; };
+		34A3EC3541797EC6C77BAEE2 /* Pods-bisMateClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bisMateClient.debug.xcconfig"; path = "Target Support Files/Pods-bisMateClient/Pods-bisMateClient.debug.xcconfig"; sourceTree = "<group>"; };
+		50DA21A926165C2D010AF19B /* Pods-bisMateClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bisMateClient.release.xcconfig"; path = "Target Support Files/Pods-bisMateClient/Pods-bisMateClient.release.xcconfig"; sourceTree = "<group>"; };
+		6F0509B825B3A255001F7521 /* FirebaseAuthClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthClient.swift; sourceTree = "<group>"; };
+		6F0509D025B3A41C001F7521 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6F78C27325B20D1F0006C01B /* bisMateClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bisMateClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F78C27625B20D1F0006C01B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6F78C27825B20D1F0006C01B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,13 +66,10 @@
 		6F78C29825B20D210006C01B /* bisMateClientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bisMateClientUITests.swift; sourceTree = "<group>"; };
 		6F78C29A25B20D210006C01B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6F78C2AA25B20D450006C01B /* client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = client.swift; sourceTree = "<group>"; };
-		83B6EAB2ABEDBD66CCDF697E /* Pods_bisMateClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bisMateClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		873AA1ACAF78A828D46A7BA8 /* Pods-bisMateClient-bisMateClientUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bisMateClient-bisMateClientUITests.release.xcconfig"; path = "Target Support Files/Pods-bisMateClient-bisMateClientUITests/Pods-bisMateClient-bisMateClientUITests.release.xcconfig"; sourceTree = "<group>"; };
-		A571E35206809E9E271CEBD6 /* Pods-bisMateClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bisMateClient.debug.xcconfig"; path = "Target Support Files/Pods-bisMateClient/Pods-bisMateClient.debug.xcconfig"; sourceTree = "<group>"; };
-		AC63676A82A0FCF1FA97F625 /* Pods-bisMateClient-bisMateClientUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bisMateClient-bisMateClientUITests.debug.xcconfig"; path = "Target Support Files/Pods-bisMateClient-bisMateClientUITests/Pods-bisMateClient-bisMateClientUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		CAB6621C824A258079450A39 /* Pods_bisMateClientTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bisMateClientTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CB2D664DA865743DD3DEE040 /* Pods-bisMateClientTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bisMateClientTests.release.xcconfig"; path = "Target Support Files/Pods-bisMateClientTests/Pods-bisMateClientTests.release.xcconfig"; sourceTree = "<group>"; };
-		DBD9640C4F1F94B8DC480F9E /* Pods-bisMateClientTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bisMateClientTests.debug.xcconfig"; path = "Target Support Files/Pods-bisMateClientTests/Pods-bisMateClientTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B13868E49069679E2F6EAE45 /* Pods-bisMateClientTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bisMateClientTests.release.xcconfig"; path = "Target Support Files/Pods-bisMateClientTests/Pods-bisMateClientTests.release.xcconfig"; sourceTree = "<group>"; };
+		B501386EC0EDC9BD0C7D7D0B /* Pods-bisMateClient-bisMateClientUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bisMateClient-bisMateClientUITests.release.xcconfig"; path = "Target Support Files/Pods-bisMateClient-bisMateClientUITests/Pods-bisMateClient-bisMateClientUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C083E03F140B786890EE5ED7 /* Pods-bisMateClient-bisMateClientUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bisMateClient-bisMateClientUITests.debug.xcconfig"; path = "Target Support Files/Pods-bisMateClient-bisMateClientUITests/Pods-bisMateClient-bisMateClientUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		D0CDC8C703057CFFD95ECE33 /* Pods_bisMateClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bisMateClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				402EFB2479158D07393E9C8C /* Pods_bisMateClient.framework in Frameworks */,
+				34A6EDCD8BCE4D0D19DA2684 /* Pods_bisMateClient.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,7 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F153AE70660543C605AE58E1 /* Pods_bisMateClientTests.framework in Frameworks */,
+				D338478AAF1EFA4264B0E846 /* Pods_bisMateClientTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,21 +93,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E4C6EB6629E30BEF87ADAF0 /* Pods_bisMateClient_bisMateClientUITests.framework in Frameworks */,
+				EA9E7669F0D546DC7692ADDD /* Pods_bisMateClient_bisMateClientUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		42B8DC25FF5405F4695669E3 /* Frameworks */ = {
+		690C02E0D87EC53497E354F1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				83B6EAB2ABEDBD66CCDF697E /* Pods_bisMateClient.framework */,
-				3D883B478B8040580143DC0F /* Pods_bisMateClient_bisMateClientUITests.framework */,
-				CAB6621C824A258079450A39 /* Pods_bisMateClientTests.framework */,
+				D0CDC8C703057CFFD95ECE33 /* Pods_bisMateClient.framework */,
+				1AB18537911350DF9C795CC9 /* Pods_bisMateClient_bisMateClientUITests.framework */,
+				0F1248B4AA016E6E94B12427 /* Pods_bisMateClientTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6F0509B725B3A240001F7521 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				6F0509B825B3A255001F7521 /* FirebaseAuthClient.swift */,
+			);
+			path = Firebase;
 			sourceTree = "<group>";
 		};
 		6F78C26A25B20D1F0006C01B = {
@@ -112,7 +126,7 @@
 				6F78C29725B20D210006C01B /* bisMateClientUITests */,
 				6F78C27425B20D1F0006C01B /* Products */,
 				78D2717937F893F85BDE5102 /* Pods */,
-				42B8DC25FF5405F4695669E3 /* Frameworks */,
+				690C02E0D87EC53497E354F1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,6 +143,7 @@
 		6F78C27525B20D1F0006C01B /* bisMateClient */ = {
 			isa = PBXGroup;
 			children = (
+				6F0509B725B3A240001F7521 /* Firebase */,
 				6F78C2A925B20D2C0006C01B /* WSocketClient */,
 				6F78C27625B20D1F0006C01B /* AppDelegate.swift */,
 				6F78C27825B20D1F0006C01B /* SceneDelegate.swift */,
@@ -136,6 +151,7 @@
 				6F78C27C25B20D1F0006C01B /* Main.storyboard */,
 				6F78C27F25B20D210006C01B /* Assets.xcassets */,
 				6F78C28125B20D210006C01B /* LaunchScreen.storyboard */,
+				6F0509D025B3A41C001F7521 /* GoogleService-Info.plist */,
 				6F78C28425B20D210006C01B /* Info.plist */,
 			);
 			path = bisMateClient;
@@ -170,12 +186,12 @@
 		78D2717937F893F85BDE5102 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A571E35206809E9E271CEBD6 /* Pods-bisMateClient.debug.xcconfig */,
-				00ABFE8C0EA67442E24954D5 /* Pods-bisMateClient.release.xcconfig */,
-				AC63676A82A0FCF1FA97F625 /* Pods-bisMateClient-bisMateClientUITests.debug.xcconfig */,
-				873AA1ACAF78A828D46A7BA8 /* Pods-bisMateClient-bisMateClientUITests.release.xcconfig */,
-				DBD9640C4F1F94B8DC480F9E /* Pods-bisMateClientTests.debug.xcconfig */,
-				CB2D664DA865743DD3DEE040 /* Pods-bisMateClientTests.release.xcconfig */,
+				34A3EC3541797EC6C77BAEE2 /* Pods-bisMateClient.debug.xcconfig */,
+				50DA21A926165C2D010AF19B /* Pods-bisMateClient.release.xcconfig */,
+				C083E03F140B786890EE5ED7 /* Pods-bisMateClient-bisMateClientUITests.debug.xcconfig */,
+				B501386EC0EDC9BD0C7D7D0B /* Pods-bisMateClient-bisMateClientUITests.release.xcconfig */,
+				1AE8AEA49BF94C24766BD913 /* Pods-bisMateClientTests.debug.xcconfig */,
+				B13868E49069679E2F6EAE45 /* Pods-bisMateClientTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -187,10 +203,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6F78C29D25B20D210006C01B /* Build configuration list for PBXNativeTarget "bisMateClient" */;
 			buildPhases = (
-				08A84C97E2F3C85A76CAB230 /* [CP] Check Pods Manifest.lock */,
+				343F008DB2604A825FC55505 /* [CP] Check Pods Manifest.lock */,
 				6F78C26F25B20D1F0006C01B /* Sources */,
 				6F78C27025B20D1F0006C01B /* Frameworks */,
 				6F78C27125B20D1F0006C01B /* Resources */,
+				8937C27CE5DDE18350E02C2E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -205,10 +222,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6F78C2A025B20D210006C01B /* Build configuration list for PBXNativeTarget "bisMateClientTests" */;
 			buildPhases = (
-				C105446F3B16A5D4B2CC0C45 /* [CP] Check Pods Manifest.lock */,
+				618B1A7AEDEA4159BDAB120F /* [CP] Check Pods Manifest.lock */,
 				6F78C28525B20D210006C01B /* Sources */,
 				6F78C28625B20D210006C01B /* Frameworks */,
 				6F78C28725B20D210006C01B /* Resources */,
+				39C883F9038D27E9E67960CD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -224,10 +242,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6F78C2A325B20D210006C01B /* Build configuration list for PBXNativeTarget "bisMateClientUITests" */;
 			buildPhases = (
-				7FEE0EB5EB221C47F634E594 /* [CP] Check Pods Manifest.lock */,
+				32F48F4381516E1E33FE63CA /* [CP] Check Pods Manifest.lock */,
 				6F78C29025B20D210006C01B /* Sources */,
 				6F78C29125B20D210006C01B /* Frameworks */,
 				6F78C29225B20D210006C01B /* Resources */,
+				625DF2847C02A08097F99415 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -287,6 +306,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F78C28325B20D210006C01B /* LaunchScreen.storyboard in Resources */,
+				6F0509D125B3A41C001F7521 /* GoogleService-Info.plist in Resources */,
 				6F78C28025B20D210006C01B /* Assets.xcassets in Resources */,
 				6F78C27E25B20D1F0006C01B /* Main.storyboard in Resources */,
 			);
@@ -296,6 +316,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F0509D225B3A41C001F7521 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,29 +330,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		08A84C97E2F3C85A76CAB230 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-bisMateClient-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7FEE0EB5EB221C47F634E594 /* [CP] Check Pods Manifest.lock */ = {
+		32F48F4381516E1E33FE63CA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -353,7 +352,46 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C105446F3B16A5D4B2CC0C45 /* [CP] Check Pods Manifest.lock */ = {
+		343F008DB2604A825FC55505 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-bisMateClient-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		39C883F9038D27E9E67960CD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bisMateClientTests/Pods-bisMateClientTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bisMateClientTests/Pods-bisMateClientTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bisMateClientTests/Pods-bisMateClientTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		618B1A7AEDEA4159BDAB120F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -375,6 +413,40 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		625DF2847C02A08097F99415 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bisMateClient-bisMateClientUITests/Pods-bisMateClient-bisMateClientUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bisMateClient-bisMateClientUITests/Pods-bisMateClient-bisMateClientUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bisMateClient-bisMateClientUITests/Pods-bisMateClient-bisMateClientUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8937C27CE5DDE18350E02C2E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bisMateClient/Pods-bisMateClient-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-bisMateClient/Pods-bisMateClient-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bisMateClient/Pods-bisMateClient-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -384,6 +456,7 @@
 			files = (
 				6F78C27B25B20D1F0006C01B /* ViewController.swift in Sources */,
 				6F78C27725B20D1F0006C01B /* AppDelegate.swift in Sources */,
+				6F0509B925B3A255001F7521 /* FirebaseAuthClient.swift in Sources */,
 				6F78C2AB25B20D450006C01B /* client.swift in Sources */,
 				6F78C27925B20D1F0006C01B /* SceneDelegate.swift in Sources */,
 			);
@@ -393,6 +466,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F0509BA25B3A255001F7521 /* FirebaseAuthClient.swift in Sources */,
 				6F78C2AC25B20D450006C01B /* client.swift in Sources */,
 				6F78C28E25B20D210006C01B /* bisMateClientTests.swift in Sources */,
 			);
@@ -559,7 +633,7 @@
 		};
 		6F78C29E25B20D210006C01B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A571E35206809E9E271CEBD6 /* Pods-bisMateClient.debug.xcconfig */;
+			baseConfigurationReference = 34A3EC3541797EC6C77BAEE2 /* Pods-bisMateClient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -579,7 +653,7 @@
 		};
 		6F78C29F25B20D210006C01B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 00ABFE8C0EA67442E24954D5 /* Pods-bisMateClient.release.xcconfig */;
+			baseConfigurationReference = 50DA21A926165C2D010AF19B /* Pods-bisMateClient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -599,7 +673,7 @@
 		};
 		6F78C2A125B20D210006C01B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DBD9640C4F1F94B8DC480F9E /* Pods-bisMateClientTests.debug.xcconfig */;
+			baseConfigurationReference = 1AE8AEA49BF94C24766BD913 /* Pods-bisMateClientTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -622,7 +696,7 @@
 		};
 		6F78C2A225B20D210006C01B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB2D664DA865743DD3DEE040 /* Pods-bisMateClientTests.release.xcconfig */;
+			baseConfigurationReference = B13868E49069679E2F6EAE45 /* Pods-bisMateClientTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -645,7 +719,7 @@
 		};
 		6F78C2A425B20D210006C01B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AC63676A82A0FCF1FA97F625 /* Pods-bisMateClient-bisMateClientUITests.debug.xcconfig */;
+			baseConfigurationReference = C083E03F140B786890EE5ED7 /* Pods-bisMateClient-bisMateClientUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -666,7 +740,7 @@
 		};
 		6F78C2A525B20D210006C01B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 873AA1ACAF78A828D46A7BA8 /* Pods-bisMateClient-bisMateClientUITests.release.xcconfig */;
+			baseConfigurationReference = B501386EC0EDC9BD0C7D7D0B /* Pods-bisMateClient-bisMateClientUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
