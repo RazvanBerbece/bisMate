@@ -11,6 +11,7 @@ import Firebase
 class ViewController: UIViewController {
     
     var fbClient = FirebaseAuthClient()
+    let httpClient = HTTPClient(id: 1)
 
     override func viewDidLoad() {
         
@@ -39,6 +40,11 @@ class ViewController: UIViewController {
             if !result {
                 print("signIn() err")
             }
+        }
+        
+        self.httpClient.testHTTPConn() {
+            (result) in
+            print(result)
         }
         
     }

@@ -15,9 +15,8 @@ struct EncodableMessage: Codable {
 }
 
 /** Handles websocket connection to server, sending & receiving messages */
-class WSClient {
+public class WSClient {
     
-    private let wsAddress       : String?
     private let urlSession      : URLSession?
     private let webSocketTask   : URLSessionWebSocketTask?
     private let clientID        : Int?
@@ -26,7 +25,6 @@ class WSClient {
     init(id: Int) {
         
         self.clientID = id
-        self.wsAddress = "ws://localhost:8000/ws"
         self.urlSession = URLSession(configuration: .default)
         
         var components = URLComponents()
@@ -103,12 +101,43 @@ class WSClient {
             }
         }
     }
-    
-    /** ------------------- Utils ------------------- */
-    
-    /** Send user token to server for verification */
-    public func sendToken(token: String, callback: @escaping (String) -> Void) {
-        // TODO
-    }
 
+}
+
+public class HTTPClient {
+    
+    private let clientID : Int? // user token ?
+    
+    /** Constructor */
+    init(id: Int) {
+        self.clientID = id
+    }
+    
+    /** Tests if the HTTP server is up and running */
+    public func testHTTPConn(callback: @escaping (Int) -> Void) {
+        
+        var components = URLComponents()
+        components.scheme = "http"
+        components.host = "localhost"
+        components.port = 8000
+        components.path = "/conn"
+        components.queryItems = [
+            URLQueryItem(name: "clientID", value: "\(String(describing: self.clientID!))")
+        ]
+        
+        let url = components.url
+        let task = URLSession.shared.dataTask(with: url!) {
+            (data, response, error) in
+            guard let data = data
+            else {
+                callback(0)
+                return
+            }
+            print(String(data: data, encoding: .utf8)!)
+            callback(1)
+        }
+        task.resume()
+    
+    }
+    
 }
