@@ -15,9 +15,8 @@ struct EncodableMessage: Codable {
 }
 
 /** Handles websocket connection to server, sending & receiving messages */
-class WSClient {
+public class WSClient {
     
-    private let wsAddress       : String?
     private let urlSession      : URLSession?
     private let webSocketTask   : URLSessionWebSocketTask?
     private let clientID        : Int?
@@ -26,7 +25,6 @@ class WSClient {
     init(id: Int) {
         
         self.clientID = id
-        self.wsAddress = "ws://localhost:8000/ws"
         self.urlSession = URLSession(configuration: .default)
         
         var components = URLComponents()
@@ -46,6 +44,7 @@ class WSClient {
         callback(true)
     }
     
+    /** Send message over websocket to user with ID from current user ID */
     public func sendMessage(fromID: Int, toID: Int, inputMessage: String) { // sends message to ws server
         do {
             // Encode message using the EncodableMessage struct
@@ -67,6 +66,7 @@ class WSClient {
         }
     }
     
+    /** Receive message over websocket on current ID */
     public func getMessage(callback: @escaping (String) -> Void) { // reads messages received from server
         self.webSocketTask!.receive {
             (result) in
@@ -102,4 +102,67 @@ class WSClient {
         }
     }
 
+}
+
+public class HTTPClient {
+    
+    private let token : String? // user token ?
+    
+    /** Constructor */
+    init(token: String) {
+        self.token = token
+    }
+    
+    /** Tests if the HTTP server is up and running */
+    public func testHTTPConn(callback: @escaping (Int) -> Void) {
+        
+        var components = URLComponents()
+        components.scheme = "http"
+        components.host = "localhost"
+        components.port = 8000
+        components.path = "/conn"
+        
+        let url = components.url
+        let task = URLSession.shared.dataTask(with: url!) {
+            (data, response, error) in
+            guard let data = data
+            else {
+                callback(0)
+                return
+            }
+            print(String(data: data, encoding: .utf8)!)
+            callback(1)
+        }
+        task.resume()
+    
+    }
+    
+    /** Initiates an operation on the server using the current user's token */
+    public func sendOperationWithToken(operation: String, callback: @escaping (Int) -> Void) {
+        
+        var components = URLComponents()
+        components.scheme = "http"
+        components.host = "localhost"
+        components.port = 8000
+        components.path = "/verify"
+        components.queryItems = [
+            URLQueryItem(name: "token", value: self.token),
+            URLQueryItem(name: "operation", value: operation)
+        ]
+        
+        let url = components.url
+        let task = URLSession.shared.dataTask(with: url!) {
+            (data, response, error) in
+            guard let data = data
+            else {
+                callback(0)
+                return
+            }
+            print(String(data: data, encoding: .utf8)!)
+            callback(1)
+        }
+        task.resume()
+    
+    }
+    
 }

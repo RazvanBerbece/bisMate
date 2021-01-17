@@ -1,0 +1,6 @@
+framework module Pods_bisMateClient_bisMateClientUITests {
+  umbrella header "Pods-bisMateClient-bisMateClientUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

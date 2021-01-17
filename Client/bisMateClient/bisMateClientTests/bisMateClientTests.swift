@@ -7,6 +7,7 @@
 
 import XCTest
 @testable import bisMateClient
+import Firebase
 
 class bisMateClientTests: XCTestCase {
 
@@ -68,7 +69,28 @@ class bisMateClientTests: XCTestCase {
                 }
             }
         }
+    }
+    
+    // Test if default account can signin
+    func testSignIn() {
         
+        _ = Auth.auth().addStateDidChangeListener { (auth, user) in
+            if let user = user {
+                let email = user.email
+                XCTAssertEqual(email, "test1@yahoo.com", "Email not matching")
+            }
+        }
+        
+        let firebaseAuth = FirebaseAuthClient()
+        firebaseAuth.signIn(email: "test1@yahoo.com", pass: "test12345") {
+            (result) in
+            if result {
+                // SUCCESS, DO NOTHING AND WAIT FOR HANDLER
+            }
+            else {
+                XCTFail()
+            }
+        }
     }
 
 }
