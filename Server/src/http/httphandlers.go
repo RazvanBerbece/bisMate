@@ -2,6 +2,7 @@ package httphandlers
 
 import (
 	"context"
+	"fmt"
 
 	"encoding/json"
 
@@ -10,6 +11,8 @@ import (
 	"net/http"
 
 	fbadmin "bismateServer/firebase"
+
+	"firebase.google.com/go/auth"
 )
 
 // HTTPResponse -- generic response for incoming HTTP requests
@@ -17,17 +20,18 @@ type HTTPResponse struct {
 	TransactionID int
 	Result        int
 	Data          string
+	Message       string
 }
 
 // HTTPServ -- handlers for HTTP requests from client
 type HTTPServ struct {
-	CurrentToken string
+	CurrentToken auth.Token
 	App          fbadmin.FirebaseApp
 }
 
 // HTTPInit -- initialises the struct variables
 func (httpserver *HTTPServ) HTTPInit() {
-	httpserver.CurrentToken = ""
+	httpserver.CurrentToken = auth.Token{}
 	httpserver.App.InitFirebase()
 }
 
@@ -37,7 +41,8 @@ func (httpserver *HTTPServ) HandleConn(w http.ResponseWriter, r *http.Request) {
 	data := HTTPResponse{}
 	data.TransactionID = 0
 	data.Result = 1
-	data.Data = "Hello World!"
+	data.Data = "0"
+	data.Message = "Hello World"
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
@@ -48,7 +53,7 @@ func (httpserver *HTTPServ) HandleConn(w http.ResponseWriter, r *http.Request) {
 // HandleTokenVerify -- handler for server verify transactions
 func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Request) {
 
-	httpserver.CurrentToken = r.URL.Query().Get("token")
+	receivedToken := r.URL.Query().Get("token")
 	/*
 		operations :
 		0 = Change Bio
@@ -63,33 +68,65 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 	*/
 	operation := r.URL.Query().Get("operation")
 
+	// other query params
+	// change pass, change display name, change email all have only one param, input = <string>
+	// so we use that
+	input := r.URL.Query().Get("input")
+
 	log.Printf("Incoming verify request with op: %s ...\n", operation)
 
 	// Verify logic
-	token, err := httpserver.App.Auth.VerifyIDToken(context.Background(), httpserver.CurrentToken)
+	token, err := httpserver.App.Auth.VerifyIDToken(context.Background(), receivedToken)
 	if err != nil { // err
 		log.Printf("TokenVerify err : %v\n", err)
 		// Response logic
 		data := HTTPResponse{}
 		data.TransactionID = 1
 		data.Result = 0
-		data.Data = "Error while verifying token."
+		data.Data = "0"
+		data.Message = "Error while verifying token."
 
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode(data)
 	} else { // success
 		log.Print("Verified ID token successfully")
+		httpserver.CurrentToken = *token
 		switch operation {
 		case "1":
 			// change display name
-			log.Printf("token : %v", token)
+			status := -1 // uninit
+			httpserver.App.ChangeDisplayName(input, &status, httpserver.CurrentToken.UID)
+
+			if status == 1 {
+				data := HTTPResponse{}
+				data.TransactionID = 1
+				data.Result = 1
+				data.Data = input
+				data.Message = fmt.Sprint("Successfully changed display name to ", input, " !")
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			} else {
+				data := HTTPResponse{}
+				data.TransactionID = 1
+				data.Result = 0
+				data.Data = "0"
+				data.Message = "Failed changing the display name. Try again later."
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			}
+
 		default:
 			// operation not recognised
 			data := HTTPResponse{}
 			data.TransactionID = 1
 			data.Result = 0
-			data.Data = "Operation not recognised."
+			data.Data = "0"
+			data.Message = "Operation not recognised."
 
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusCreated)

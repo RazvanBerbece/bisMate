@@ -61,10 +61,26 @@ func (fbapp *FirebaseApp) SignUp(email string, pass string) {
 		Disabled(false)
 	u, err := fbapp.Auth.CreateUser(context.Background(), params)
 	if err != nil {
-		log.Fatalf("error creating user: %v\n", err)
+		log.Printf("error creating user: %v\n", err)
 	}
 	log.Printf("Successfully created user: %v\n", u.UID)
 
 }
 
 // SignIn -- on Client, then will use tokens
+
+// Operations
+// ChangeDisplayName -- changes user's display name
+func (fbapp *FirebaseApp) ChangeDisplayName(newName string, status *int, UID string) {
+
+	// build create request and send
+	params := (&auth.UserToUpdate{}).
+		DisplayName(newName)
+	u, err := fbapp.Auth.UpdateUser(context.Background(), UID, params)
+	if err != nil {
+		log.Printf("error updating user: %v\n", err)
+		*status = 0
+	}
+	log.Printf("Successfully updated user: %v\n", u.UID)
+	*status = 1
+}
