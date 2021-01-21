@@ -11,8 +11,8 @@ import Firebase
 class ViewController: UIViewController {
     
     var fbClient = FirebaseAuthClient()
-    let httpClient = HTTPClient(token: "tokenHere")
-
+    let httpClient = HTTPClient(token: "def")
+    
     override func viewDidLoad() {
         
         // listen for signin state
@@ -25,28 +25,37 @@ class ViewController: UIViewController {
                         return
                     }
                     // set current user
-                    self.fbClient.setCurrentUser(withUser: User(email: user.email, displayName: user.displayName, UID: user.uid, token: idToken))
-                    print(self.fbClient.getCurrentUser())
-                    // send token to backend TODO
+                    self.fbClient.setCurrentUser(withUser: User(email: user.email!, displayName: user.displayName!, UID: user.uid, token: idToken!))
+                    let User : User = self.fbClient.getCurrentUser()
+                    // send token to backend
+                    self.httpClient.setToken(newTok: User.getToken())
+                    self.httpClient.sendOperationWithToken(operation: "1", input: "New Name") {
+                        (result) in
+                        self.fbClient.getCurrentUser().setDisplayName(newName: "New Name")
+                    }
                 }
             }
         }
         
         super.viewDidLoad()
         
-        // temporary -- sign in with test account
-        self.fbClient.signIn(email: "test1@yahoo.com", pass: "test12345") {
+        // behavioural test
+        self.httpClient.testHTTPConn() {
             (result) in
-            if !result {
-                print("signIn() err")
+            if (result != 0) {
+                // temporary -- sign in with test account
+                self.fbClient.signIn(email: "test1@yahoo.com", pass: "test12345") {
+                    (result) in
+                    if !result {
+                        print("signIn() err")
+                    }
+                }
+            }
+            else {
+                print("Connection failed.")
             }
         }
         
-        self.httpClient.testHTTPConn() {
-            (result) in
-            print(result)
-        }
-        
     }
-
+    
 }

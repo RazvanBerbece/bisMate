@@ -10,16 +10,16 @@ import XCTest
 import Firebase
 
 class bisMateClientTests: XCTestCase {
-
+    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
-
+    
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
-    // Test if default accounts can communicate
+    // Test -- default accounts can communicate
     func testReceiveMessageDefault() {
         
         let wsClient1 = WSClient(id: 1)
@@ -41,7 +41,7 @@ class bisMateClientTests: XCTestCase {
         
     }
     
-    // Test if default accounts 1 (reads) and 2 (writes) can privately communicate
+    // Test -- default accounts 1 (reads) and 2 (writes) can privately communicate
     func testMessagePrivacyDefault() {
         
         let wsClient1 = WSClient(id: 1)
@@ -71,7 +71,7 @@ class bisMateClientTests: XCTestCase {
         }
     }
     
-    // Test if default account can signin
+    // Test -- default account sign in
     func testSignIn() {
         
         _ = Auth.auth().addStateDidChangeListener { (auth, user) in
@@ -92,5 +92,97 @@ class bisMateClientTests: XCTestCase {
             }
         }
     }
-
+    
+    // Test -- change display name operation
+    func testChangeDisplayName() {
+        
+        let fbClient = FirebaseAuthClient()
+        let httpClient = HTTPClient(token: "def")
+        
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            if let user = user {
+                user.getIDTokenForcingRefresh(true) {
+                    (idToken, err) in
+                    if err != nil {
+                        // set current user
+                        fbClient.setCurrentUser(withUser: User(email: user.email!, displayName: user.displayName!, UID: user.uid, token: idToken!))
+                        let User : User = fbClient.getCurrentUser()
+                        httpClient.setToken(newTok: User.getToken())
+                        httpClient.sendOperationWithToken(operation: "1", input: "Test Name") {
+                            (result) in
+                            fbClient.getCurrentUser().setDisplayName(newName: "Test Name")
+                            if (result != 0) {
+                                XCTAssertEqual(fbClient.getCurrentUser().getDisplayName(), "Test Name")
+                            }
+                            else {
+                                XCTFail()
+                            }
+                        }
+                    }
+                    else {
+                        XCTFail()
+                    }
+                    
+                }
+            }
+            else {
+                XCTFail()
+            }
+        }
+        
+        let firebaseAuth = FirebaseAuthClient()
+        firebaseAuth.signIn(email: "test1@yahoo.com", pass: "test12345") {
+            (result) in
+            if result {
+                // SUCCESS, DO NOTHING AND WAIT FOR HANDLER
+            }
+            else {
+                XCTFail()
+            }
+        }
+    }
+    
+    // Test -- unknown operation
+    func testUnknownOperation() {
+        
+        let fbClient = FirebaseAuthClient()
+        let httpClient = HTTPClient(token: "def")
+        
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            if let user = user {
+                user.getIDTokenForcingRefresh(true) {
+                    (idToken, err) in
+                    if err != nil {
+                        // set current user
+                        fbClient.setCurrentUser(withUser: User(email: user.email!, displayName: user.displayName!, UID: user.uid, token: idToken!))
+                        let User : User = fbClient.getCurrentUser()
+                        httpClient.setToken(newTok: User.getToken())
+                        httpClient.sendOperationWithToken(operation: "undefined", input: "undefined") {
+                            (result) in
+                            XCTAssertEqual(result, 0, "Server finished an undefined operation")
+                        }
+                    }
+                    else {
+                        XCTFail()
+                    }
+                    
+                }
+            }
+            else {
+                XCTFail()
+            }
+        }
+        
+        let firebaseAuth = FirebaseAuthClient()
+        firebaseAuth.signIn(email: "test1@yahoo.com", pass: "test12345") {
+            (result) in
+            if result {
+                // SUCCESS, DO NOTHING AND WAIT FOR HANDLER
+            }
+            else {
+                XCTFail()
+            }
+        }
+    }
+    
 }

@@ -7,6 +7,7 @@ target 'bisMateClient' do
 
   # Pods for bisMateClient
   pod 'Firebase/Auth'
+  pod 'SwiftyJSON', '~> 4.0'
 
   target 'bisMateClientTests' do
     inherit! :search_paths

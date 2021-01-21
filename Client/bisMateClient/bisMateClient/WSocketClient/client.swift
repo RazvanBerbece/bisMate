@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 /** Represents JSON encodable data that can be sent to the server */
 struct EncodableMessage: Codable {
@@ -101,16 +102,21 @@ public class WSClient {
             }
         }
     }
-
+    
 }
 
 public class HTTPClient {
     
-    private let token : String? // user token ?
+    private var token : String? // user token ?
     
     /** Constructor */
     init(token: String) {
         self.token = token
+    }
+    
+    /** Setters */
+    public func setToken(newTok: String) {
+        self.token = newTok
     }
     
     /** Tests if the HTTP server is up and running */
@@ -130,39 +136,51 @@ public class HTTPClient {
                 callback(0)
                 return
             }
-            print(String(data: data, encoding: .utf8)!)
             callback(1)
         }
         task.resume()
-    
+        
     }
     
     /** Initiates an operation on the server using the current user's token */
-    public func sendOperationWithToken(operation: String, callback: @escaping (Int) -> Void) {
+    public func sendOperationWithToken(operation: String, input: String, callback: @escaping (Int) -> Void) {
         
         var components = URLComponents()
         components.scheme = "http"
         components.host = "localhost"
         components.port = 8000
-        components.path = "/verify"
+        components.path = "/operation"
         components.queryItems = [
             URLQueryItem(name: "token", value: self.token),
-            URLQueryItem(name: "operation", value: operation)
+            URLQueryItem(name: "operation", value: operation),
+            URLQueryItem(name: "input", value: input)
         ]
         
         let url = components.url
         let task = URLSession.shared.dataTask(with: url!) {
             (data, response, error) in
-            guard let data = data
-            else {
+            guard let data = data else {
                 callback(0)
                 return
             }
-            print(String(data: data, encoding: .utf8)!)
-            callback(1)
+            
+            // server response parsing
+            let jsonString = String(data: data, encoding: .utf8)
+            let jsonData = jsonString!.data(using: .utf8)
+            if let json = try? JSON(data: jsonData!) {
+                if (json["Result"] != 0) {
+                    callback(1)
+                }
+                else {
+                    callback(0)
+                }
+            }
+            else {
+                callback(0)
+            }
         }
         task.resume()
-    
+        
     }
     
 }
