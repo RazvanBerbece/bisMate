@@ -18,10 +18,10 @@ Server is built using Golang (or Go, for short).
 
 ## API Responses
 Response {
-    "TransactionID" : int
-    "Result" : int
-    "Data" : string
-    "Message" : string
+    "TransactionID" : int,
+    "Result" : int,
+    "Data" : string,
+    "Message" : string,
 }
 
 ## API Endpoints
