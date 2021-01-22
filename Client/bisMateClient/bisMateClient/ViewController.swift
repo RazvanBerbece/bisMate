@@ -29,9 +29,9 @@ class ViewController: UIViewController {
                     let User : User = self.fbClient.getCurrentUser()
                     // send token to backend
                     self.httpClient.setToken(newTok: User.getToken())
-                    self.httpClient.sendOperationWithToken(operation: "1", input: "New Name") {
+                    self.httpClient.sendOperationWithToken(operation: "0", input: "") {
                         (result) in
-                        self.fbClient.getCurrentUser().setDisplayName(newName: "New Name")
+                        print(result)
                     }
                 }
             }

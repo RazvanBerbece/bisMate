@@ -168,6 +168,7 @@ public class HTTPClient {
             let jsonString = String(data: data, encoding: .utf8)
             let jsonData = jsonString!.data(using: .utf8)
             if let json = try? JSON(data: jsonData!) {
+                print(json)
                 if (json["Result"] != 0) {
                     callback(1)
                 }
