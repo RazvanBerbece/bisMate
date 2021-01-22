@@ -17,16 +17,17 @@ Connecting-type app for people to match profesionally and discuss/implement busi
 Server is built using Golang (or Go, for short).
 
 ## API Responses
-The responses are a struct with the following fields :
-• TransactionID : int
-• Result : int
-• Data : string
-• Message : string
+Response {
+    "TransactionID" : int
+    "Result" : int
+    "Data" : string
+    "Message" : string
+}
 
-## API Calls
-1. [localhost:port/ws]("http://localhost:8000/ws") -- Web Socket entry point for device (mainly used for messaging use case)
-2. [localhost:port/conn]("http://localhost:8000/conn") -- Tests Go server 
-3. localhost:port/operation?token=<String>&operation=<String>&input=<String> -- Uses the token param to verify a transaction (gets User ID from token verification) and then processes the operation specified in the operation parameter using the data in the input field
+## API Endpoints
+1. [/ws]("http://localhost:8000/ws") -- Web Socket entry point for device (mainly used for messaging use case)
+2. [/conn]("http://localhost:8000/conn") -- Tests Go server 
+3. [/operation?token=<String>&operation=<String>&input=<String>]("http://localhost:8000/operation?token=<String>&operation=<String>&input=<String>") -- Uses the token param to verify a transaction (gets User ID from token verification) and then processes the operation specified in the operation parameter using the data in the input field
 
 ## Go Frameworks 
 - [Gorilla Websocket]("https://github.com/gorilla/websocket")
