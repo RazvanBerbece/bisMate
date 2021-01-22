@@ -16,6 +16,26 @@ import (
 	"os"
 )
 
+// User -- logic representation of a FB user
+type User struct {
+	UID           string
+	Email         string
+	DisplayName   string
+	PhoneNumber   string
+	PhotoURL      string
+	EmailVerified bool
+}
+
+// SetUser -- sets a User structure with input data
+func (user *User) SetUser(UID string, Email string, DisplayName string, PhoneNumber string, PhotoURL string, EmailVerified bool) {
+	user.DisplayName = DisplayName
+	user.UID = UID
+	user.Email = Email
+	user.PhoneNumber = PhoneNumber
+	user.PhotoURL = PhotoURL
+	user.EmailVerified = EmailVerified
+}
+
 // FirebaseApp -- holds the app reference for fb operations
 type FirebaseApp struct {
 	App  firebase.App
@@ -70,6 +90,25 @@ func (fbapp *FirebaseApp) SignUp(email string, pass string) {
 // SignIn -- on Client, then will use tokens
 
 // Operations
+
+// GetUserProfile -- gets the user profile using the UID param
+func (fbapp *FirebaseApp) GetUserProfile(status *int, UID string) User {
+
+	u, err := fbapp.Auth.GetUser(context.Background(), UID)
+	if err != nil {
+		log.Printf("error getting user: %v\n", err)
+		*status = 0
+	}
+
+	// init user structure with response data
+	user := User{}
+	user.SetUser(u.UID, u.Email, u.DisplayName, u.PhoneNumber, u.PhotoURL, u.EmailVerified)
+	*status = 1
+
+	return user
+
+}
+
 // ChangeDisplayName -- changes user's display name
 func (fbapp *FirebaseApp) ChangeDisplayName(newName string, status *int, UID string) {
 
