@@ -19,7 +19,7 @@ import (
 type HTTPResponse struct {
 	TransactionID int
 	Result        int
-	Data          string
+	Data          interface{}
 	Message       string
 }
 
@@ -53,12 +53,13 @@ func (httpserver *HTTPServ) HandleConn(w http.ResponseWriter, r *http.Request) {
 // HandleTokenVerify -- handler for server verify transactions
 func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Request) {
 
-	receivedToken := r.URL.Query().Get("token")
+	receivedToken := r.URL.Query().Get("token") // all ops use the token
 	/*
 		operations :
-		0 = Change Bio
-		1 = Change Display Name
-		2 = Add Profile Picture
+		0 = Get User Profile
+		1 = Change Bio
+		2 = Change Display Name
+		3 = Add Profile Picture
 
 		d = Delete Account
 		c = Change Password
@@ -93,14 +94,41 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 		log.Print("Verified ID token successfully")
 		httpserver.CurrentToken = *token
 		switch operation {
-		case "1":
+		case "0":
+			// get user profile data
+			status := -1 // uninit
+			user := httpserver.App.GetUserProfile(&status, httpserver.CurrentToken.UID)
+
+			if status == 1 { // successfully got user
+				data := HTTPResponse{}
+				data.TransactionID = 0
+				data.Result = 1
+				data.Data = user
+				data.Message = "User retrieved successfully."
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			} else { // failed to get user
+				data := HTTPResponse{}
+				data.TransactionID = 0
+				data.Result = 0
+				data.Data = 0
+				data.Message = "Get user failed."
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			}
+
+		case "2":
 			// change display name
 			status := -1 // uninit
 			httpserver.App.ChangeDisplayName(input, &status, httpserver.CurrentToken.UID)
 
 			if status == 1 {
 				data := HTTPResponse{}
-				data.TransactionID = 1
+				data.TransactionID = 2
 				data.Result = 1
 				data.Data = input
 				data.Message = fmt.Sprint("Successfully changed display name to ", input, " !")
@@ -110,7 +138,7 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 				json.NewEncoder(w).Encode(data)
 			} else {
 				data := HTTPResponse{}
-				data.TransactionID = 1
+				data.TransactionID = 2
 				data.Result = 0
 				data.Data = "0"
 				data.Message = "Failed changing the display name. Try again later."
