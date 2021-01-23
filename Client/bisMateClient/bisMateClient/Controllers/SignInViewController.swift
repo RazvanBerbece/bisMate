@@ -15,50 +15,26 @@ class SignInViewController: UIViewController {
     @IBOutlet weak var textFieldEmail: UITextField!
     @IBOutlet weak var textFieldPassword: UITextField!
     
-    // HTTP Client APIs
+    // Labels
+    @IBOutlet weak var labelSignInErr: UILabel!
+    
+    // Firebase Client API
     var FirebaseClient = FirebaseAuthClient()
     
-    // Default user data
-    var CurrentUser = User(UID: "def", email: "def", displayName: "def", phoneNumber: "def", photoURL: "def", emailVerified: false, token: "def")
+    // Received User Data after sign in
+    var FirebaseUser: FirebaseAuth.User?
+    var status = 0
     
     override func viewDidLoad() {
-        
-        // Auth state listener here, perform segue after successful data received
-        Auth.auth().addStateDidChangeListener { (auth, user) in
-            if let user = user {
-                user.getIDTokenForcingRefresh(true) {
-                    // get token that can be used for backend ops
-                    (idToken, err) in
-                    
-                    if let error = err {
-                        print("token err: \(String(describing: error))")
-                        return
-                    }
-                    
-                    // set current user now that the token is available
-                    self.CurrentUser.setUID(newUID: user.uid)
-                    self.CurrentUser.setEmail(newEmail: user.email!)
-                    self.CurrentUser.setDisplayName(newName: user.displayName!)
-                    self.CurrentUser.setPhoneNumber(newNo: user.phoneNumber ?? "No phone number added.")
-                    // self.currentUser.setPhotoURL(newURL: user.photoURL)
-                    if (user.isEmailVerified) {
-                        self.CurrentUser.setEmailVerified()
-                    }
-                    self.CurrentUser.setToken(newToken: idToken!)
-                    
-                    // Perform segue to user dashboard (CurrentUser gets sent)
-                    // TODO
-                    print(self.CurrentUser.getDisplayName())
-                }
-            }
-        }
-        
         super.viewDidLoad()
-        
-        
     }
     
     /** Methods */
+    private func initComponents() {
+        self.labelSignInErr.alpha = 0
+        self.labelSignInErr.text = ""
+    }
+    
     @IBAction private func close() {
         dismiss(animated: true, completion: nil)
     }
@@ -72,20 +48,41 @@ class SignInViewController: UIViewController {
         // if both inputs are not empty, call the sign in function
         if (inputEmail != "" && inputPass != "") {
             self.FirebaseClient.signIn(email: inputEmail!, pass: inputPass!) {
-                (result) in
+                (result, user) in
                 if (result) {
                     print("Sign in successful.")
+                    self.status = 1
+                    // move to next view
+                    self.FirebaseUser = user
+                    self.performSegue(withIdentifier: "SignInSuccess", sender: self)
                 }
                 else {
-                    print("Sign in failed.")
+                    // print("Sign in failed.")
+                    self.labelSignInErr.text = "An error occured while signing in. Check your credentials and try again."
+                    self.labelSignInErr.alpha = 1
+                    self.labelSignInErr.fadeOut(duration: 4, delay: 3.5)
+                    self.labelSignInErr.textColor = UIColor(ciColor: .red)
                 }
             }
         }
         else {
             // Inputs empty
             print("Input field/s empty.")
+            self.labelSignInErr.text = "The login credentials can't be empty. Fill in your email and password and try agaian."
+            self.labelSignInErr.alpha = 1
+            self.labelSignInErr.fadeOut(duration: 4, delay: 3.5)
+            self.labelSignInErr.textColor = UIColor(ciColor: .red)
         }
-        
+    }
+    
+    // data passing on segues
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.destination is UserDashboardViewController
+        {
+            let vc = segue.destination as? UserDashboardViewController
+            vc?.fbUser = FirebaseUser
+        }
     }
     
 }
