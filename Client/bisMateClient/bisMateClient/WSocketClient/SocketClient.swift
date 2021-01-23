@@ -16,7 +16,7 @@ struct EncodableMessage: Codable {
 }
 
 /** Handles websocket connection to server, sending & receiving messages */
-public class WSClient {
+public class SocketClient {
     
     private let urlSession      : URLSession?
     private let webSocketTask   : URLSessionWebSocketTask?
