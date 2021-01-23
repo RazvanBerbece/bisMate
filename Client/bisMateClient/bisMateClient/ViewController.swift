@@ -7,55 +7,75 @@
 
 import UIKit
 import Firebase
+import SwiftyJSON // for JSON type
 
 class ViewController: UIViewController {
     
-    var fbClient = FirebaseAuthClient()
-    let httpClient = HTTPClient(token: "def")
+    // UI components
+    // Labels
+    @IBOutlet weak var labelTitleFirst: UILabel!
+    @IBOutlet weak var labelTitleSecond: UILabel!
+    @IBOutlet weak var labelMainText: UILabel!
+    @IBOutlet weak var labelJoinUs: UILabel!
+    
+    // Buttons
+    @IBOutlet weak var buttonSignUp: UIButton!
+    @IBOutlet weak var buttonSignIn: UIButton!
     
     override func viewDidLoad() {
         
-        // listen for signin state
-        Auth.auth().addStateDidChangeListener { (auth, user) in
-            if let user = user {
-                user.getIDTokenForcingRefresh(true) {
-                    (idToken, err) in
-                    if let error = err {
-                        print("token err: \(String(describing: error))")
-                        return
-                    }
-                    // set current user
-                    self.fbClient.setCurrentUser(withUser: User(email: user.email!, displayName: user.displayName!, UID: user.uid, token: idToken!))
-                    let User : User = self.fbClient.getCurrentUser()
-                    // send token to backend
-                    self.httpClient.setToken(newTok: User.getToken())
-                    self.httpClient.sendOperationWithToken(operation: "0", input: "") {
-                        (result) in
-                        print(result)
-                    }
-                }
-            }
-        }
+        // Initialisers
+        self.initAnimatedComponents()
         
         super.viewDidLoad()
         
-        // behavioural test
-        self.httpClient.testHTTPConn() {
-            (result) in
-            if (result != 0) {
-                // temporary -- sign in with test account
-                self.fbClient.signIn(email: "test1@yahoo.com", pass: "test12345") {
-                    (result) in
-                    if !result {
-                        print("signIn() err")
-                    }
-                }
-            }
-            else {
-                print("Connection failed.")
-            }
-        }
+        // animations
+        self.animateComponents()
         
+    }
+    
+    /** Methods */
+    /** Initialises components in this view that are animated */
+    private func initAnimatedComponents() {
+        self.labelTitleFirst.alpha = 0
+        self.labelTitleSecond.alpha = 0
+        self.labelMainText.alpha = 0
+        self.labelJoinUs.alpha = 0
+        self.buttonSignUp.alpha = 0
+        self.buttonSignIn.alpha = 0
+    }
+    
+    /** Animates components in this view  */
+    private func animateComponents() {
+        self.labelTitleFirst.fadeIn(duration: 2, delay: 0) {
+            (finished) in
+            // NOTHING HERE
+        }
+        self.labelTitleSecond.fadeIn(duration: 1.5, delay: 1.5) {
+            (finished) in
+            // NOTHING HERE
+        }
+        self.labelMainText.fadeIn(duration: 1.5, delay: 2) {
+            (finished) in
+            // NOTHING HERE
+        }
+        self.labelJoinUs.fadeIn(duration: 1.25, delay: 3.25) {
+            (finished) in
+            // NOTHING HERE
+        }
+        self.buttonSignUp.fadeIn(duration: 1.25, delay: 3.25) {
+            (finished) in
+            // NOTHING HERE
+        }
+        self.buttonSignIn.fadeIn(duration: 1.25, delay: 3.25) {
+            (finished) in
+            // NOTHING HERE
+        }
+    }
+    
+    @IBAction private func SignInPress() {
+        // 'I already have an account' press
+        performSegue(withIdentifier: "SegueSignIn", sender: self)
     }
     
 }
