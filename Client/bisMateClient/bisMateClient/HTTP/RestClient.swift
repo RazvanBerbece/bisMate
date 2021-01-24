@@ -45,7 +45,7 @@ public class RestClient {
     }
     
     /** Initiates an operation on the server using the current user's token */
-    public func sendOperationWithToken(operation: String, input: String, callback: @escaping (JSON, Int) -> Void) {
+    public func sendOperationWithToken(operation: String, input: String, callback: @escaping (JSON, Int) -> Void) { // closure Int represents presence of error if != 0
         
         var components = URLComponents()
         components.scheme = "http"
@@ -65,11 +65,15 @@ public class RestClient {
                 callback("", 1)
                 return
             }
-            
             // server response parsing
             let json = self.parseResponseData(data: data)
             if (json != "") {
-                callback(json, 0)
+                if (json["Result"] == 1) {
+                    callback(json, 0)
+                }
+                else {
+                    callback(json, 1)
+                }
             }
             else {
                 callback("", 1)

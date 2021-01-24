@@ -105,15 +105,17 @@ class FirebaseAuthClient {
     }
     
     /** Signs in using Firebase */
-    public func signIn(email: String, pass: String, callback: @escaping (Bool) -> Void) {
+    public func signIn(email: String, pass: String, callback: @escaping (Bool, FirebaseAuth.User) -> Void) {
         Auth.auth().signIn(withEmail: email, password: pass) {
             [weak self] authResult, error in
             guard self != nil else { return }
             if error != nil {
                 print(error!)
-                callback(false)
+                callback(false, authResult!.user)
             }
-            callback(true)
+            else {
+                callback(true, authResult!.user)
+            }
         }
     }
 }
