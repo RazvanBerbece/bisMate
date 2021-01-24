@@ -8,6 +8,12 @@
 import UIKit
 import FirebaseAuth
 
+class Singleton {
+    static let sharedInstance = Singleton()
+    var CurrentFirebaseUser: FirebaseAuth.User?
+    var CurrentLocalUser: bisMateClient.User?
+}
+
 class SignInViewController: UIViewController {
     
     // UI Components
@@ -54,6 +60,8 @@ class SignInViewController: UIViewController {
                     self.status = 1
                     // move to next view
                     self.FirebaseUser = user
+                    Singleton.sharedInstance.CurrentFirebaseUser = user
+                    Singleton.sharedInstance.CurrentLocalUser = User(UID: user.uid, email: user.email!, displayName: user.displayName!, phoneNumber: user.phoneNumber ?? "def", photoURL: String(describing: user.photoURL), emailVerified: user.isEmailVerified, token: "def")
                     self.performSegue(withIdentifier: "SignInSuccess", sender: self)
                 }
                 else {
@@ -68,20 +76,10 @@ class SignInViewController: UIViewController {
         else {
             // Inputs empty
             print("Input field/s empty.")
-            self.labelSignInErr.text = "The login credentials can't be empty. Fill in your email and password and try agaian."
+            self.labelSignInErr.text = "The login credentials can't be empty. Fill in your email and password and try again."
             self.labelSignInErr.alpha = 1
             self.labelSignInErr.fadeOut(duration: 4, delay: 3.5)
             self.labelSignInErr.textColor = UIColor(ciColor: .red)
-        }
-    }
-    
-    // data passing on segues
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if segue.destination is UserDashboardViewController
-        {
-            let vc = segue.destination as? UserDashboardViewController
-            vc?.fbUser = FirebaseUser
         }
     }
     

@@ -18,29 +18,35 @@ class UserDashboardViewController: UIViewController {
     var fbUser: FirebaseAuth.User? // received from Firebase, will be translated to local User design
     var CurrentUser = User(UID: "def", email: "def", displayName: "def", phoneNumber: "def", photoURL: "def", emailVerified: false, token: "def")
     
-    // Tab Bar
-    @IBOutlet weak var tabBar: UITabBar!
-    
     override func viewDidLoad() {
-        
         // initialisers
-        self.initComponents()
-        self.getToken()
-        self.loadProfile()
+        self.getToken() {
+            (token) in
+            if (token != "") {
+                self.loadProfile()
+                Singleton.sharedInstance.CurrentLocalUser!.setToken(newToken: token)
+            }
+            else {
+                // err handling token fail
+            }
+        }
         
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if (self.CurrentUser.getUID() != "def") { // reload
+            self.loadProfile()
+        }
+    }
+    
     /** Methods */
     private func loadProfile() {
         // updates view with current user data
-        self.labelGreet.text = "Hello, \(self.CurrentUser.getDisplayName())"
-    }
-    
-    private func initComponents() {
-        self.tabBar.selectedItem = tabBar.items![0] as UITabBarItem
+        self.labelGreet.text = "Hello, \(String(describing: Singleton.sharedInstance.CurrentLocalUser!.getDisplayName())) !"
     }
     
     @IBAction private func signOut() {
@@ -49,25 +55,17 @@ class UserDashboardViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    private func getToken() {
-        self.CurrentUser.setUID(newUID: fbUser!.uid)
-        self.CurrentUser.setEmail(newEmail: fbUser!.email!)
-        self.CurrentUser.setDisplayName(newName: fbUser!.displayName!)
-        self.CurrentUser.setPhoneNumber(newNo: fbUser!.phoneNumber ?? "No phone number added.")
-        // self.currentUser.setPhotoURL(newURL: user.photoURL)
-        if (self.fbUser!.isEmailVerified) {
-            self.CurrentUser.setEmailVerified()
-        }
+    private func getToken(completion: @escaping (String) -> Void) {
+        self.CurrentUser = Singleton.sharedInstance.CurrentLocalUser!
         // called immediately on render to get user token
-        self.fbUser!.getIDTokenForcingRefresh(true) {
+        Singleton.sharedInstance.CurrentFirebaseUser!.getIDTokenForcingRefresh(true) {
             // get token that can be used for backend ops
             (idToken, err) in
-            
             if let error = err {
                 print("token err: \(String(describing: error))")
-                return
+                completion("")
             }
-            self.CurrentUser.setToken(newToken: idToken!)
+            completion(idToken!)
         }
     }
     
