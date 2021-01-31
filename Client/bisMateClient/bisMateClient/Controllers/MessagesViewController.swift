@@ -10,14 +10,21 @@ import UIKit
 /** Simple structure of a message in the message list */
 class Message {
     public var from     : String?
-    public var headline : String?
+    public var text     : String?
     public var time     : String?
+    private var uid     : String?
     
     /** Constructor */
-    init(from: String, headline: String, time: String) {
+    init(from: String, text: String, time: String, uid: String) {
         self.from = from
-        self.headline = headline
+        self.text = text
         self.time = time
+        self.uid = uid
+    }
+    
+    /** Getters */
+    public func getUID() -> String {
+        return self.uid!
     }
 }
 
@@ -51,7 +58,7 @@ class MessagesViewController: UITableViewController {
         
         // Setting cell layout
         cell.textLabel?.text = "\(String(describing: model[indexPath.row].from!))"
-        cell.detailTextLabel?.text = "\(String(describing: model[indexPath.row].headline!))"
+        cell.detailTextLabel?.text = "\(String(describing: model[indexPath.row].text!))"
         cell.imageView?.image = UIImage(systemName: "questionmark")
         
         // Make cells transparent
@@ -59,6 +66,7 @@ class MessagesViewController: UITableViewController {
         cell.backgroundColor = .clear
         
         return cell
+        
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "MessageDetailSegue", sender: indexPath)
@@ -66,14 +74,18 @@ class MessagesViewController: UITableViewController {
     
     // MARK: Utils
     private func messageInit() {
+        
         // tableView init
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.allowsSelection = true
         tableView.isEditing = false;
-        // model init
-        self.model.append(Message(from: "2", headline: "Msg prototype", time: "24:00"))
+        
+        // model init -- in a for loop (uses default uid2 for now)
+        let defaultUID = (Singleton.sharedInstance.CurrentLocalUser!.getUID() == "ezQDaTAMkfM9IL1lQ1dvEKULrHv2" ? "jaq3RAOFuBar41BySERkP0WPugZ2" : "ezQDaTAMkfM9IL1lQ1dvEKULrHv2")
+        self.model.append(Message(from: "Jon Doe", text: "Hello World !", time: "23:33", uid: defaultUID))
+        
     }
     
     // MARK: Segue preparing for detailed message views
@@ -82,7 +94,7 @@ class MessagesViewController: UITableViewController {
             print("Segueing")
             let MessageDetailView = segue.destination as! MessageDetailViewController
             if let indexPath = sender as? IndexPath {
-                MessageDetailView.MessageWithUserID = model[indexPath.row].from
+                MessageDetailView.MessageWithUserID = model[indexPath.row]
             }
         }
     }

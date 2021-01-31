@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftyJSON
+import Starscream
 
 /** Represents JSON encodable data that can be sent to the server */
 struct EncodableMessage: Codable {
@@ -18,15 +19,13 @@ struct EncodableMessage: Codable {
 /** Handles websocket connection to server, sending & receiving messages */
 public class SocketClient {
     
-    private let urlSession      : URLSession?
-    private let webSocketTask   : URLSessionWebSocketTask?
+    public var request          : URLRequest?
     private let clientID        : String?
     
     /** Constructor */
     init(id: String) {
         
         self.clientID = id
-        self.urlSession = URLSession(configuration: .default)
         
         var components = URLComponents()
         components.scheme = "ws"
@@ -36,71 +35,10 @@ public class SocketClient {
         components.queryItems = [
             URLQueryItem(name: "clientID", value: self.clientID)
         ]
-        self.webSocketTask = self.urlSession!.webSocketTask(with: components.url!)
-    }
-    
-    /** WebSocket Methods -- will need completion handlers at some point */
-    public func openConn(callback: @escaping (Bool) -> Void) { // opens connection to the websocket server
-        self.webSocketTask!.resume()
-        callback(true)
-    }
-    
-    /** Send message over websocket to user with ID from current user ID */
-    public func sendMessage(fromID: String, toID: String, inputMessage: String) { // sends message to ws server
-        do {
-            // Encode message using the EncodableMessage struct
-            let encoder = JSONEncoder()
-            let data = try encoder.encode(EncodableMessage(text: inputMessage, fromID: fromID, toID: toID))
-            let message = URLSessionWebSocketTask.Message.data(data)
-            
-            self.webSocketTask!.send(message) {
-                (error) in
-                if let err = error {
-                    // err handling
-                    print(err)
-                }
-            }
-        }
-        catch {
-            // err handling
-            print(error)
-        }
-    }
-    
-    /** Receive message over websocket on current ID */
-    public func getMessage(callback: @escaping (String) -> Void) { // reads messages received from server
-        self.webSocketTask!.receive {
-            (result) in
-            switch result {
-            case .failure(let error):
-                print("Receive err : \(error)")
-            case .success(let message):
-                switch message {
-                case .string(let text):
-                    // Convert the stringified json response to a Swift dictionary obj
-                    if let data = text.data(using: String.Encoding.utf8) {
-                        do {
-                            if let messageObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any] {
-                                // Use this dictionary
-                                print(messageObject)
-                                print("Received on \(String(describing: self.clientID!)) : " + "\(messageObject["text"]!)")
-                            }
-                        } catch {
-                            print(error)
-                        }
-                    }
-                case .data(let data):
-                    print("Received binary message: \(data)")
-                @unknown default:
-                    fatalError()
-                }
-                // call again to receive (real-time behaviour)
-                self.getMessage() {
-                    (messageAux) in
-                    // NOTHING HERE
-                }
-            }
-        }
+        
+        self.request = URLRequest(url: components.url!)
+        // request!.timeoutInterval = 5
+        
     }
     
 }
