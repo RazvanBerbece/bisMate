@@ -402,44 +402,60 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t31-6g-36w">
-                                <rect key="frame" x="20" y="114" width="374" height="640"/>
-                                <viewLayoutGuide key="contentLayoutGuide" id="2FL-Td-4dl"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="w2P-20-b1Z"/>
-                            </scrollView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your message here ..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZyV-sc-eV2">
                                 <rect key="frame" x="20" y="762" width="331" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ytc-f8-h1E">
-                                <rect key="frame" x="359" y="763" width="35" height="33"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ytc-f8-h1E">
+                                <rect key="frame" x="359" y="762.5" width="35" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="35" id="1Lc-i7-6TI"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="35" id="FYD-NU-3cU"/>
+                                    <constraint firstAttribute="height" constant="34" id="jE9-GA-VMx"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="tintColor" cyan="0.0" magenta="0.45000000000000001" yellow="0.16" black="0.19" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
                                 <state key="normal" backgroundImage="arrow.up.circle.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="sendMessageAction" destination="JqB-HE-X8t" eventType="touchUpInside" id="vyM-IG-OBZ"/>
+                                </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MC6-ci-teb">
+                                <rect key="frame" x="20" y="110" width="374" height="644"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="xsk-d6-M79">
+                                        <rect key="frame" x="0.0" y="28" width="374" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xsk-d6-M79" id="MmR-JY-ZKm">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Pu4-uN-ir0"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="t31-6g-36w" firstAttribute="trailing" secondItem="VNA-nM-1I2" secondAttribute="trailingMargin" id="06g-vz-Wty"/>
-                            <constraint firstItem="t31-6g-36w" firstAttribute="leading" secondItem="VNA-nM-1I2" secondAttribute="leadingMargin" id="4V3-sr-MVt"/>
                             <constraint firstItem="ZyV-sc-eV2" firstAttribute="centerY" secondItem="ytc-f8-h1E" secondAttribute="centerY" id="5SP-Jy-J8N"/>
-                            <constraint firstItem="t31-6g-36w" firstAttribute="trailing" secondItem="ytc-f8-h1E" secondAttribute="trailing" id="92l-hd-gge"/>
-                            <constraint firstItem="ytc-f8-h1E" firstAttribute="top" secondItem="t31-6g-36w" secondAttribute="bottom" constant="8.5" id="Eu7-k1-Jnl"/>
+                            <constraint firstItem="MC6-ci-teb" firstAttribute="leading" secondItem="VNA-nM-1I2" secondAttribute="leadingMargin" id="FGs-WH-hh2"/>
+                            <constraint firstItem="Pu4-uN-ir0" firstAttribute="trailing" secondItem="MC6-ci-teb" secondAttribute="trailing" constant="20" id="FmG-XY-dTn"/>
                             <constraint firstItem="Pu4-uN-ir0" firstAttribute="bottom" secondItem="ZyV-sc-eV2" secondAttribute="bottom" constant="17" id="IGV-nN-P2o"/>
                             <constraint firstItem="ytc-f8-h1E" firstAttribute="leading" secondItem="ZyV-sc-eV2" secondAttribute="trailing" constant="8" symbolic="YES" id="IJb-sL-y55"/>
-                            <constraint firstItem="ZyV-sc-eV2" firstAttribute="top" secondItem="t31-6g-36w" secondAttribute="bottom" constant="8" symbolic="YES" id="opG-bL-FuL"/>
-                            <constraint firstItem="t31-6g-36w" firstAttribute="leading" secondItem="ZyV-sc-eV2" secondAttribute="leading" id="uxZ-gv-7UF"/>
-                            <constraint firstItem="t31-6g-36w" firstAttribute="top" secondItem="Pu4-uN-ir0" secondAttribute="top" constant="26" id="vZp-JN-LIm"/>
+                            <constraint firstItem="MC6-ci-teb" firstAttribute="trailing" secondItem="VNA-nM-1I2" secondAttribute="trailingMargin" id="LcT-Bx-sZI"/>
+                            <constraint firstItem="MC6-ci-teb" firstAttribute="top" secondItem="Pu4-uN-ir0" secondAttribute="top" constant="22" id="Sha-ar-RY2"/>
+                            <constraint firstItem="ZyV-sc-eV2" firstAttribute="top" secondItem="MC6-ci-teb" secondAttribute="bottom" constant="8" symbolic="YES" id="ZlL-ln-LaY"/>
+                            <constraint firstItem="MC6-ci-teb" firstAttribute="leading" secondItem="Pu4-uN-ir0" secondAttribute="leading" constant="20" id="b1k-0h-DKz"/>
+                            <constraint firstItem="MC6-ci-teb" firstAttribute="trailing" secondItem="ytc-f8-h1E" secondAttribute="trailing" id="fLG-KS-g9V"/>
+                            <constraint firstItem="MC6-ci-teb" firstAttribute="leading" secondItem="ZyV-sc-eV2" secondAttribute="leading" id="unT-Wp-Kws"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="21D-MH-3b2"/>
                     <connections>
                         <outlet property="fieldMessageInput" destination="ZyV-sc-eV2" id="jqv-iS-bZt"/>
+                        <outlet property="tableViewMessages" destination="MC6-ci-teb" id="iiW-tf-DTJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a6R-zb-87Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

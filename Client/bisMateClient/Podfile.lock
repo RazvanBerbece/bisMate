@@ -42,10 +42,12 @@ PODS:
   - nanopb/decode (2.30907.0)
   - nanopb/encode (2.30907.0)
   - PromisesObjC (1.2.12)
+  - Starscream (4.0.4)
   - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
   - Firebase/Auth
+  - Starscream (~> 4.0.0)
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
@@ -59,6 +61,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - nanopb
     - PromisesObjC
+    - Starscream
     - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -71,8 +74,9 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   nanopb: 59221d7f958fb711001e6a449489542d92ae113e
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 06e4306e0f2d30c17ca3e994cd3c730ece820568
+PODFILE CHECKSUM: a0b56af0f13e37d8ab45e6b2cad624fce4490f01
 
 COCOAPODS: 1.9.3

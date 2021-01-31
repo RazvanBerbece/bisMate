@@ -59,9 +59,9 @@ class SignInViewController: UIViewController {
                     print("Sign in successful.")
                     self.status = 1
                     // move to next view
-                    self.FirebaseUser = user
-                    Singleton.sharedInstance.CurrentFirebaseUser = user
-                    Singleton.sharedInstance.CurrentLocalUser = User(UID: user.uid, email: user.email!, displayName: user.displayName!, phoneNumber: user.phoneNumber ?? "def", photoURL: String(describing: user.photoURL), emailVerified: user.isEmailVerified, token: "def")
+                    self.FirebaseUser = (user as! FirebaseAuth.User)
+                    Singleton.sharedInstance.CurrentFirebaseUser = (user as! FirebaseAuth.User)
+                    Singleton.sharedInstance.CurrentLocalUser = User(UID: self.FirebaseUser!.uid, email: self.FirebaseUser!.email!, displayName: self.FirebaseUser!.displayName ?? self.FirebaseUser!.email!, phoneNumber: self.FirebaseUser!.phoneNumber ?? "def", photoURL: String(describing: self.FirebaseUser!.photoURL), emailVerified: self.FirebaseUser!.isEmailVerified, token: "def")
                     self.performSegue(withIdentifier: "SignInSuccess", sender: self)
                 }
                 else {
