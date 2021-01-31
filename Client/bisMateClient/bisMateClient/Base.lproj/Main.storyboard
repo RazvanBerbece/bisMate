@@ -438,6 +438,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="21D-MH-3b2"/>
+                    <connections>
+                        <outlet property="fieldMessageInput" destination="ZyV-sc-eV2" id="jqv-iS-bZt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a6R-zb-87Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
