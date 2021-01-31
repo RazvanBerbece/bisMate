@@ -6,21 +6,19 @@ import (
 	"net/http"
 
 	"github.com/gorilla/websocket"
-
-	"strconv"
 )
 
 // Message -- message object
 type Message struct {
 	Message string `json:"text"`
-	FromID  int64  `json:"fromID"`
-	ToID    int64  `json:"ToID"`
+	FromID  string `json:"fromID"`
+	ToID    string `json:"ToID"`
 }
 
 // WSocketServ -- WebSocket struct for real-time components of the bisMate system
 type WSocketServ struct {
 	clients    map[*websocket.Conn]bool
-	clientsIDs map[*websocket.Conn]int64
+	clientsIDs map[*websocket.Conn]string
 	broadcast  chan Message
 	upgrader   websocket.Upgrader
 }
@@ -28,7 +26,7 @@ type WSocketServ struct {
 // InitSocketServer -- initialises a WSocket structure
 func (wserver *WSocketServ) InitSocketServer() {
 	wserver.clients = make(map[*websocket.Conn]bool)
-	wserver.clientsIDs = make(map[*websocket.Conn]int64)
+	wserver.clientsIDs = make(map[*websocket.Conn]string)
 	wserver.broadcast = make(chan Message)
 	wserver.upgrader = websocket.Upgrader{}
 }
@@ -37,11 +35,8 @@ func (wserver *WSocketServ) InitSocketServer() {
 func (wserver *WSocketServ) HandleConnections(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("Incoming connection with ID %s ...\n", r.URL.Query().Get("clientID"))
-	currentID, err := strconv.ParseInt(r.URL.Query().Get("clientID"), 0, 64)
-	if err != nil {
-		log.Println("ID err")
-	}
-	log.Printf("Current ID : %d", currentID)
+	currentID := r.URL.Query().Get("clientID")
+	log.Printf("Current ID : %s", currentID)
 
 	// upgrade GET request to WS
 	ws, err := wserver.upgrader.Upgrade(w, r, nil)
