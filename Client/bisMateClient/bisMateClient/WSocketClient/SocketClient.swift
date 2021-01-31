@@ -11,8 +11,8 @@ import SwiftyJSON
 /** Represents JSON encodable data that can be sent to the server */
 struct EncodableMessage: Codable {
     let text: String?
-    let fromID: Int?
-    let toID: Int?
+    let fromID: String?
+    let toID: String?
 }
 
 /** Handles websocket connection to server, sending & receiving messages */
@@ -20,10 +20,10 @@ public class SocketClient {
     
     private let urlSession      : URLSession?
     private let webSocketTask   : URLSessionWebSocketTask?
-    private let clientID        : Int?
+    private let clientID        : String?
     
     /** Constructor */
-    init(id: Int) {
+    init(id: String) {
         
         self.clientID = id
         self.urlSession = URLSession(configuration: .default)
@@ -34,7 +34,7 @@ public class SocketClient {
         components.port = 8000
         components.path = "/ws"
         components.queryItems = [
-            URLQueryItem(name: "clientID", value: "\(String(describing: self.clientID!))")
+            URLQueryItem(name: "clientID", value: self.clientID)
         ]
         self.webSocketTask = self.urlSession!.webSocketTask(with: components.url!)
     }
@@ -46,7 +46,7 @@ public class SocketClient {
     }
     
     /** Send message over websocket to user with ID from current user ID */
-    public func sendMessage(fromID: Int, toID: Int, inputMessage: String) { // sends message to ws server
+    public func sendMessage(fromID: String, toID: String, inputMessage: String) { // sends message to ws server
         do {
             // Encode message using the EncodableMessage struct
             let encoder = JSONEncoder()
