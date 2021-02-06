@@ -21,7 +21,9 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         
+        // Init
         self.initComponents()
+        self.hideKeyboardWhenTappedAround()
         
         super.viewDidLoad()
         // Do any additional setup after loading the view.
