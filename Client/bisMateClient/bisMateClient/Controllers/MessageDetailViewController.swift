@@ -53,7 +53,7 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
     
     /** Socket operations */
     private func initSockets() {
-        socket = WebSocket(request: self.socketClient.request!)
+        socket = WebSocket(request: self.socketClient.request!.request!)
         socket?.delegate = self
         socket?.connect()
     }
@@ -91,13 +91,11 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
         self.tableViewMessages.register(UITableViewCell.self, forCellReuseIdentifier: "CellMsg")
         self.tableViewMessages.allowsSelection = true
         self.tableViewMessages.isEditing = false;
+        self.tableViewMessages.separatorStyle = .none
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return model.count
-    }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75.0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

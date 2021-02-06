@@ -48,6 +48,9 @@ class MessagesViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return model.count
     }
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 65.0
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -78,7 +81,6 @@ class MessagesViewController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.allowsSelection = true
         tableView.isEditing = false;
-        tableView.separatorStyle = .none
         
         // model init -- in a for loop (uses default uid2 for now)
         let defaultUID = (Singleton.sharedInstance.CurrentLocalUser!.getUID() == "ezQDaTAMkfM9IL1lQ1dvEKULrHv2" ? "jaq3RAOFuBar41BySERkP0WPugZ2" : "ezQDaTAMkfM9IL1lQ1dvEKULrHv2")

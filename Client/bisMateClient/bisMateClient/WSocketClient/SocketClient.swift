@@ -8,6 +8,7 @@
 import Foundation
 import SwiftyJSON
 import Starscream
+import Alamofire
 
 /** Represents JSON encodable data that can be sent to the server */
 struct EncodableMessage: Codable {
@@ -19,7 +20,7 @@ struct EncodableMessage: Codable {
 /** Handles websocket connection to server, sending & receiving messages */
 public class SocketClient {
     
-    public var request          : URLRequest?
+    public var request          : Alamofire.Request?
     private let clientID        : String?
     
     /** Constructor */
@@ -29,14 +30,15 @@ public class SocketClient {
         
         var components = URLComponents()
         components.scheme = "ws"
-        components.host = "192.168.120.38"
-        components.port = 443
+        components.host = "macbook.local"
+        components.port = 8000
         components.path = "/ws"
         components.queryItems = [
             URLQueryItem(name: "clientID", value: self.clientID)
         ]
-        
-        self.request = URLRequest(url: components.url!)
+        let url = components.url
+        // self.request = URLRequest(url: components.url!)
+        self.request = AF.request(URLRequest(url: url!))
         // request!.timeoutInterval = 5
         
     }

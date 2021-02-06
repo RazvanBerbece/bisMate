@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftyJSON
+import Alamofire
 
 public class RestClient {
     
@@ -27,20 +28,22 @@ public class RestClient {
         
         var components = URLComponents()
         components.scheme = "http"
-        components.host = "192.168.120.38"
-        components.port = 443
+        components.host = "macbook.local"
+        components.port = 8000
         components.path = "/conn"
         
-        let url = components.url
-        let task = URLSession.shared.dataTask(with: url!) {
-            (data, response, error) in
-            guard let data = data else {
+        let url = components.url?.absoluteString
+        AF.request(url!).response {
+            (response) in
+            switch response.result {
+            case .success(let data):
+                print(data)
+                callback(1)
+            case .failure(let error):
+                print(error)
                 callback(0)
-                return
             }
-            callback(1)
         }
-        task.resume()
         
     }
     
@@ -49,8 +52,8 @@ public class RestClient {
         
         var components = URLComponents()
         components.scheme = "http"
-        components.host = "192.168.120.38"
-        components.port = 443
+        components.host = "macbook.local"
+        components.port = 8000
         components.path = "/operation"
         components.queryItems = [
             URLQueryItem(name: "token", value: self.token),
@@ -58,28 +61,29 @@ public class RestClient {
             URLQueryItem(name: "input", value: input)
         ]
         
-        let url = components.url
-        let task = URLSession.shared.dataTask(with: url!) {
-            (data, response, error) in
-            guard let data = data else {
-                callback("", 1)
-                return
-            }
-            // server response parsing
-            let json = self.parseResponseData(data: data)
-            if (json != "") {
-                if (json["Result"] == 1) {
-                    callback(json, 0)
+        let url = components.url?.absoluteString
+        AF.request(url!).response {
+            (response) in
+            switch response.result {
+            case .success(let data):
+                // server response parsing
+                let json = self.parseResponseData(data: data!)
+                if (json != "") {
+                    if (json["Result"] == 1) {
+                        callback(json, 0)
+                    }
+                    else {
+                        callback(json, 1)
+                    }
                 }
                 else {
-                    callback(json, 1)
+                    callback("", 1)
                 }
-            }
-            else {
-                callback("", 1)
+            case .failure(let error):
+                print(error)
+                callback("", 0)
             }
         }
-        task.resume()
         
     }
     
