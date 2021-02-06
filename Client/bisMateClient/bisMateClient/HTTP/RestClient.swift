@@ -27,7 +27,7 @@ public class RestClient {
         
         var components = URLComponents()
         components.scheme = "http"
-        components.host = "localhost"
+        components.host = "192.168.120.38"
         components.port = 8000
         components.path = "/conn"
         
@@ -49,7 +49,7 @@ public class RestClient {
         
         var components = URLComponents()
         components.scheme = "http"
-        components.host = "localhost"
+        components.host = "192.168.120.38"
         components.port = 8000
         components.path = "/operation"
         components.queryItems = [

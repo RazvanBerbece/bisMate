@@ -45,6 +45,7 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
         // Init
         self.initSockets()
         self.tableInit()
+        self.hideKeyboardWhenTappedAround()
         
         super.viewDidLoad()
         
