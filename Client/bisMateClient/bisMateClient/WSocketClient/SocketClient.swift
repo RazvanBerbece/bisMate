@@ -30,7 +30,7 @@ public class SocketClient {
         var components = URLComponents()
         components.scheme = "ws"
         components.host = "192.168.120.38"
-        components.port = 8000
+        components.port = 443
         components.path = "/ws"
         components.queryItems = [
             URLQueryItem(name: "clientID", value: self.clientID)

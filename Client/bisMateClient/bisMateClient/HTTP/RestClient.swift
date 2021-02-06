@@ -28,7 +28,7 @@ public class RestClient {
         var components = URLComponents()
         components.scheme = "http"
         components.host = "192.168.120.38"
-        components.port = 8000
+        components.port = 443
         components.path = "/conn"
         
         let url = components.url
@@ -50,7 +50,7 @@ public class RestClient {
         var components = URLComponents()
         components.scheme = "http"
         components.host = "192.168.120.38"
-        components.port = 8000
+        components.port = 443
         components.path = "/operation"
         components.queryItems = [
             URLQueryItem(name: "token", value: self.token),
