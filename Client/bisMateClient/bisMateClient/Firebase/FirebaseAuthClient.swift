@@ -12,16 +12,23 @@ import Firebase
 // Basic user class
 class User {
     
+    private var UID            : String?
     private var email          : String?
     private var displayName    : String?
-    private var UID            : String?
-    private var token          : String?
+    private var phoneNumber    : String?
+    private var photoURL       : String?
+    private var emailVerified  :   Bool?
+    
+    private var token          : String? // used for server operations
     
     /** Constructor */
-    init(email: String, displayName: String, UID: String, token: String) {
+    init(UID: String, email: String, displayName: String, phoneNumber: String, photoURL: String, emailVerified: Bool, token: String) {
+        self.UID = UID
         self.email = email
         self.displayName = displayName
-        self.UID = UID
+        self.phoneNumber = phoneNumber
+        self.photoURL = photoURL
+        self.emailVerified = emailVerified
         self.token = token
     }
     
@@ -34,6 +41,15 @@ class User {
     }
     public func getUID() -> String {
         return self.UID!
+    }
+    public func getPhoneNumber() -> String {
+        return self.phoneNumber!
+    }
+    public func getPhotoURL() -> String {
+        return self.photoURL!
+    }
+    public func getEmailVerified() -> Bool {
+        return self.emailVerified!
     }
     public func getToken() -> String {
         return self.token!
@@ -49,6 +65,15 @@ class User {
     public func setUID(newUID: String) {
         self.UID = newUID
     }
+    public func setPhoneNumber(newNo: String) {
+        self.phoneNumber = newNo
+    }
+    public func setPhotoURL(newURL: String) {
+        self.photoURL = newURL
+    }
+    public func setEmailVerified() {
+        self.emailVerified = true
+    }
     public func setToken(newToken: String) {
         self.token = newToken
     }
@@ -62,7 +87,7 @@ class FirebaseAuthClient {
     private var currentUser: User?
     
     init() {
-        currentUser = User(email: "uninit", displayName: "uninit", UID: "uninit", token: "uninit")
+        currentUser = User(UID: "def", email: "def", displayName: "def", phoneNumber: "def", photoURL: "def", emailVerified: false, token: "def")
     }
     
     /** Getters / Setters */
@@ -73,20 +98,24 @@ class FirebaseAuthClient {
         self.currentUser!.setUID(newUID: withUser.getUID())
         self.currentUser!.setEmail(newEmail: withUser.getEmail())
         self.currentUser!.setDisplayName(newName: withUser.getDisplayName())
+        self.currentUser!.setPhoneNumber(newNo: withUser.getPhoneNumber())
+        self.currentUser!.setPhotoURL(newURL: withUser.getPhotoURL())
+        // self.currentUser!.setEmailVerified()
         self.currentUser!.setToken(newToken: withUser.getToken())
     }
     
     /** Signs in using Firebase */
-    public func signIn(email: String, pass: String, callback: @escaping (Bool) -> Void) {
+    public func signIn(email: String, pass: String, callback: @escaping (Bool, Any) -> Void) {
         Auth.auth().signIn(withEmail: email, password: pass) {
             [weak self] authResult, error in
             guard self != nil else { return }
             if error != nil {
                 print(error!)
-                callback(false)
+                callback(false, error!)
             }
-            callback(true)
+            else {
+                callback(true, authResult!.user)
+            }
         }
     }
-    
 }

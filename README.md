@@ -5,9 +5,9 @@ Connecting-type app for people to match profesionally and discuss/implement busi
 - [x] Go Listening Server
 - [x] iOS Client Prototype
 - [x] Web Socket Connection
-- [ ] Basic User Account Operations
+- [x] Basic User Account Operations
 - [ ] 'Connect' functionality
-- [ ] Messaging
+- [x] Messaging
 - [ ] Location Handling
 
 ## Further Dev Cycles
@@ -70,5 +70,6 @@ The Client is built in Swift (UIKit).
 ## Cocoapods
 - SwiftyJSON
 - Firebase (+ Auth)
+- Starscream
 
 There is a possibility in the future there will be a lightweight version of the iOS Client developed for the watchOS.
