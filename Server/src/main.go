@@ -27,8 +27,8 @@ func main() {
 	// Listen for incoming messages
 	go wserver.HandleMessages()
 
-	// Start server on localhost:8000 and log errs
-	err := http.ListenAndServe(":8000", nil)
+	// Start server (HTTPS) on localhost:443 and log errs
+	err := http.ListenAndServeTLS(":443", "cert/server.crt", "cert/server.key", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe(): ", err)
 	}
