@@ -9,7 +9,7 @@ import (
 
 func main() {
 
-	log.Println("Server listening on :8000 ...")
+	log.Println("Server listening on :443 ...")
 
 	// Configure websocket server
 	wserver := wsockets.WSocketServ{}
