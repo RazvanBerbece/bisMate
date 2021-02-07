@@ -56,7 +56,6 @@ Response {
 - c = Change Password
 
 - x = 'Connect' (verify token -> add new entry to connections of token.UID)
-- s = Save Messages (periodic on client)
 
 ## Go Frameworks 
 - [Gorilla Websocket]("https://github.com/gorilla/websocket")

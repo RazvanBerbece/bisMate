@@ -65,7 +65,6 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 		c = Change Password
 
 		x = 'Connect' (verify token -> add new entry to connections of token.UID)
-		s = Save Messages (periodic on client)
 	*/
 	operation := r.URL.Query().Get("operation")
 

@@ -6,29 +6,30 @@ import (
 	"net/http"
 
 	"github.com/gorilla/websocket"
-)
 
-// Message -- message object
-type Message struct {
-	Message string `json:"text"`
-	FromID  string `json:"fromID"`
-	ToID    string `json:"toID"`
-}
+	fbadmin "bismateServer/firebase"
+
+	message "bismateServer/structs"
+)
 
 // WSocketServ -- WebSocket struct for real-time components of the bisMate system
 type WSocketServ struct {
 	clients    map[*websocket.Conn]bool
 	clientsIDs map[*websocket.Conn]string
-	broadcast  chan Message
+	broadcast  chan message.Message
 	upgrader   websocket.Upgrader
+
+	App fbadmin.FirebaseApp
 }
 
 // InitSocketServer -- initialises a WSocket structure
 func (wserver *WSocketServ) InitSocketServer() {
 	wserver.clients = make(map[*websocket.Conn]bool)
 	wserver.clientsIDs = make(map[*websocket.Conn]string)
-	wserver.broadcast = make(chan Message)
+	wserver.broadcast = make(chan message.Message)
 	wserver.upgrader = websocket.Upgrader{}
+
+	wserver.App.InitFirebase()
 }
 
 // HandleConnections -- handler for server connections
@@ -53,7 +54,7 @@ func (wserver *WSocketServ) HandleConnections(w http.ResponseWriter, r *http.Req
 	// infinite loop for message reading
 	for {
 
-		var msg Message
+		var msg message.Message
 		err := ws.ReadJSON(&msg)
 		if err != nil {
 			log.Printf("conn err: %v", err)
@@ -61,8 +62,8 @@ func (wserver *WSocketServ) HandleConnections(w http.ResponseWriter, r *http.Req
 			break
 		}
 
-		// fmt.Println(msg.FromID)
-		// fmt.Println(msg.ToID)
+		// Sent messages are saved to the db references of sender and receiver
+		wserver.App.SaveMsgToRTDatabase(msg)
 
 		// send received message to broadcast chan
 		wserver.broadcast <- msg
