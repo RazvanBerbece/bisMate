@@ -70,14 +70,14 @@ public class RestClient {
                 let json = self.parseResponseData(data: data!)
                 if (json != "") {
                     if (json["Result"] == 1) {
-                        callback(json, 0)
+                        callback(json, 1)
                     }
                     else {
-                        callback(json, 1)
+                        callback(json, 0)
                     }
                 }
                 else {
-                    callback("", 1)
+                    callback("", 0)
                 }
             case .failure(let error):
                 print(error)

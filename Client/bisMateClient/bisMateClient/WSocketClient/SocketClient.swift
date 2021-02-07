@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import SwiftyJSON
-import Starscream
 import Alamofire
 
 /** Represents JSON encodable data that can be sent to the server */

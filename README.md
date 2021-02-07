@@ -2,12 +2,11 @@
 Connecting-type app for people to match profesionally and discuss/implement business ideas. 
 
 # Progress
-- [x] Go Listening Server
-- [x] iOS Client Prototype
-- [x] Web Socket Connection
+- [x] Go Server & iOS Client (prototype)
+- [ ] Go Server Secured -- HTTP for now (TLS implemented but there are some config issues)
 - [x] Basic User Account Operations
 - [ ] 'Connect' functionality
-- [x] Messaging
+- [x] Messaging -- Functional on simulator (doesn't currently work on physical devices)
 - [ ] Location Handling
 
 ## Further Dev Cycles
@@ -15,6 +14,7 @@ Connecting-type app for people to match profesionally and discuss/implement busi
 
 # Server (REST & Web Sockets)
 Server is built using Golang (or Go, for short).
+
 
 ## API Responses
 Response {
@@ -54,7 +54,8 @@ Response {
 - c = Change Password
 
 - x = 'Connect' (verify token -> add new entry to connections of token.UID)
-- s = Save Messages (periodic on client)
+- y = Get chat history of user (list of chats with users)
+- z = Get detailed chat history between two users on Firebase database for future retrieval
 
 ## Go Frameworks 
 - [Gorilla Websocket]("https://github.com/gorilla/websocket")
@@ -71,5 +72,6 @@ The Client is built in Swift (UIKit).
 - SwiftyJSON
 - Firebase (+ Auth)
 - Starscream
+- Alamofire
 
-There is a possibility in the future there will be a lightweight version of the iOS Client developed for the watchOS.
+There is a possibility in the future that there will be a lightweight version of the iOS Client developed for the watchOS.

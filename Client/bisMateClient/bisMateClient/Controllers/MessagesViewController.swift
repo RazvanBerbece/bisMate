@@ -95,6 +95,7 @@ class MessagesViewController: UITableViewController {
             let MessageDetailView = segue.destination as! MessageDetailViewController
             if let indexPath = sender as? IndexPath {
                 MessageDetailView.MessageWithUserID = model[indexPath.row]
+                MessageDetailView.TitleName = model[indexPath.row].from
             }
         }
     }

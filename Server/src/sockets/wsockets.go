@@ -6,37 +6,36 @@ import (
 	"net/http"
 
 	"github.com/gorilla/websocket"
-)
 
-// Message -- message object
-type Message struct {
-	Message string `json:"text"`
-	FromID  string `json:"fromID"`
-	ToID    string `json:"ToID"`
-}
+	fbadmin "bismateServer/firebase"
+
+	message "bismateServer/structs"
+)
 
 // WSocketServ -- WebSocket struct for real-time components of the bisMate system
 type WSocketServ struct {
 	clients    map[*websocket.Conn]bool
 	clientsIDs map[*websocket.Conn]string
-	broadcast  chan Message
+	broadcast  chan message.Message
 	upgrader   websocket.Upgrader
+
+	App fbadmin.FirebaseApp
 }
 
 // InitSocketServer -- initialises a WSocket structure
 func (wserver *WSocketServ) InitSocketServer() {
 	wserver.clients = make(map[*websocket.Conn]bool)
 	wserver.clientsIDs = make(map[*websocket.Conn]string)
-	wserver.broadcast = make(chan Message)
+	wserver.broadcast = make(chan message.Message)
 	wserver.upgrader = websocket.Upgrader{}
+
+	wserver.App.InitFirebase()
 }
 
 // HandleConnections -- handler for server connections
 func (wserver *WSocketServ) HandleConnections(w http.ResponseWriter, r *http.Request) {
 
-	log.Printf("Incoming connection with ID %s ...\n", r.URL.Query().Get("clientID"))
 	currentID := r.URL.Query().Get("clientID")
-	log.Printf("Current ID : %s", currentID)
 
 	// upgrade GET request to WS
 	ws, err := wserver.upgrader.Upgrade(w, r, nil)
@@ -53,7 +52,7 @@ func (wserver *WSocketServ) HandleConnections(w http.ResponseWriter, r *http.Req
 	// infinite loop for message reading
 	for {
 
-		var msg Message
+		var msg message.Message
 		err := ws.ReadJSON(&msg)
 		if err != nil {
 			log.Printf("conn err: %v", err)
@@ -61,8 +60,11 @@ func (wserver *WSocketServ) HandleConnections(w http.ResponseWriter, r *http.Req
 			break
 		}
 
-		// fmt.Println(msg.FromID)
-		// fmt.Println(msg.ToID)
+		// Sent messages are saved to the db references of sender and receiver
+		saveResult := wserver.App.SaveMsgToRTDatabase(msg)
+		if !saveResult {
+			log.Println("err occured while saving messages ...")
+		}
 
 		// send received message to broadcast chan
 		wserver.broadcast <- msg
@@ -70,7 +72,7 @@ func (wserver *WSocketServ) HandleConnections(w http.ResponseWriter, r *http.Req
 
 }
 
-// HandleMessages -- reads from broadcast and relays to all client over their specific ws connections
+// HandleMessages -- reads from broadcast and relays to specific client over their specific ws connections
 func (wserver *WSocketServ) HandleMessages() {
 	for {
 

@@ -25,6 +25,7 @@ class UserDashboardViewController: UIViewController {
             if (token != "") {
                 self.loadProfile()
                 Singleton.sharedInstance.CurrentLocalUser!.setToken(newToken: token)
+                Singleton.sharedInstance.HTTPClient = RestClient(token: token)
             }
             else {
                 // err handling token fail

@@ -455,6 +455,7 @@
                     <navigationItem key="navigationItem" id="21D-MH-3b2"/>
                     <connections>
                         <outlet property="fieldMessageInput" destination="ZyV-sc-eV2" id="jqv-iS-bZt"/>
+                        <outlet property="navbarItem" destination="21D-MH-3b2" id="M65-Sv-fls"/>
                         <outlet property="tableViewMessages" destination="MC6-ci-teb" id="iiW-tf-DTJ"/>
                     </connections>
                 </viewController>
@@ -542,7 +543,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" cyan="0.0" magenta="0.45000000000000001" yellow="0.16" black="0.19" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" cyan="0.0" magenta="0.45000000000000001" yellow="0.16" black="0.19" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                            <color key="textColor" systemColor="labelColor"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -558,6 +559,7 @@
             <point key="canvasLocation" x="2637.68115942029" y="379.6875"/>
         </scene>
     </scenes>
+    <color key="tintColor" cyan="0.0" magenta="0.45000000000000001" yellow="0.16" black="0.19" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
     <resources>
         <image name="arrow.up.circle.fill" catalog="system" width="128" height="121"/>
         <image name="envelope.fill" catalog="system" width="128" height="93"/>
