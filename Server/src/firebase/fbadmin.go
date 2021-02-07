@@ -14,6 +14,8 @@ import (
 	"log"
 
 	"os"
+
+	message "bismateServer/structs"
 )
 
 // User -- logic representation of a FB user
@@ -52,7 +54,11 @@ func (fbapp *FirebaseApp) InitFirebase() {
 		log.Println(err)
 	}
 	opt := option.WithCredentialsFile(fmt.Sprintf("%s/firebase/conf.json", path))
-	app, err := firebase.NewApp(context.Background(), nil, opt)
+	// get database config from firebase url
+	conf := &firebase.Config{
+		DatabaseURL: "https://bismate-1683a-default-rtdb.firebaseio.com/",
+	}
+	app, err := firebase.NewApp(context.Background(), conf, opt)
 	if err != nil {
 		log.Printf("err: %v", err)
 		return
@@ -88,6 +94,33 @@ func (fbapp *FirebaseApp) SignUp(email string, pass string) {
 }
 
 // SignIn -- on Client, then will use tokens
+
+// SaveMsgToRTDatabase -- saves a message given as a parameter in the Firebase RT database
+func (fbapp *FirebaseApp) SaveMsgToRTDatabase(msg message.Message) bool {
+
+	// get app for database
+	client, err := fbapp.App.Database(context.Background())
+	if err != nil {
+		log.Printf("error establishing connection to database: %v", err)
+		return false
+	}
+
+	// get references and push
+	refSender := client.NewRef(fmt.Sprintf("messaging/saved-msg/%s/%s", msg.FromID, msg.ToID))
+	if _, errSender := refSender.Push(context.Background(), msg.Message); errSender != nil {
+		log.Printf("error saving to database: %v", errSender)
+		return false
+	}
+
+	refReceiver := client.NewRef(fmt.Sprintf("messaging/saved-msg/%s/%s", msg.ToID, msg.FromID))
+	if _, errReceiver := refReceiver.Push(context.Background(), msg.Message); errReceiver != nil {
+		log.Printf("error saving to database: %v", errReceiver)
+		return false
+	}
+
+	return true
+
+}
 
 // Operations
 
