@@ -9,15 +9,15 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
-    // Backend API
-    var HTTPClient : RestClient?
-    
     // UI Components
     // Inputs
     @IBOutlet weak var inputNewDisplayName: UITextField!
     
     // Labels
     @IBOutlet weak var labelChangeResult: UILabel!
+    
+    // Client REST API
+    let HTTPClient = Singleton.sharedInstance.HTTPClient
     
     override func viewDidLoad() {
         
@@ -33,11 +33,9 @@ class SettingsViewController: UIViewController {
         
         super.viewDidAppear(animated)
         
-        self.HTTPClient = RestClient(token: Singleton.sharedInstance.CurrentLocalUser!.getToken())
-        
     }
     
-    /** Methods */
+    // MARK: Methods
     private func initComponents() {
         self.labelChangeResult.alpha = 0
     }
@@ -49,7 +47,7 @@ class SettingsViewController: UIViewController {
         if (newDisplayName != "") {
             self.HTTPClient!.sendOperationWithToken(operation: "2", input: newDisplayName!) {
                 (result, errCheck) in
-                if errCheck == 0 {
+                if errCheck == 1 {
                     print(result)
                     Singleton.sharedInstance.CurrentLocalUser!.setDisplayName(newName: String(describing: result["Data"]))
                     DispatchQueue.main.async {

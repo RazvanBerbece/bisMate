@@ -13,11 +13,15 @@ import (
 	fbadmin "bismateServer/firebase"
 
 	"firebase.google.com/go/auth"
+
+	"container/list"
+
+	message "bismateServer/structs"
 )
 
 // HTTPResponse -- generic response for incoming HTTP requests
 type HTTPResponse struct {
-	TransactionID int
+	TransactionID string
 	Result        int
 	Data          interface{}
 	Message       string
@@ -39,7 +43,7 @@ func (httpserver *HTTPServ) HTTPInit() {
 func (httpserver *HTTPServ) HandleConn(w http.ResponseWriter, r *http.Request) {
 
 	data := HTTPResponse{}
-	data.TransactionID = 0
+	data.TransactionID = "0"
 	data.Result = 1
 	data.Data = "0"
 	data.Message = "Hello World"
@@ -65,6 +69,8 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 		c = Change Password
 
 		x = 'Connect' (verify token -> add new entry to connections of token.UID)
+		y = Get all messages of user with UID
+		z = Get detailed chat between users
 	*/
 	operation := r.URL.Query().Get("operation")
 
@@ -81,7 +87,7 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 		log.Printf("TokenVerify err : %v\n", err)
 		// Response logic
 		data := HTTPResponse{}
-		data.TransactionID = 1
+		data.TransactionID = "1"
 		data.Result = 0
 		data.Data = "0"
 		data.Message = "Error while verifying token."
@@ -100,7 +106,7 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 
 			if status == 1 { // successfully got user
 				data := HTTPResponse{}
-				data.TransactionID = 0
+				data.TransactionID = "0"
 				data.Result = 1
 				data.Data = user
 				data.Message = "User retrieved successfully."
@@ -110,7 +116,7 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 				json.NewEncoder(w).Encode(data)
 			} else { // failed to get user
 				data := HTTPResponse{}
-				data.TransactionID = 0
+				data.TransactionID = "0"
 				data.Result = 0
 				data.Data = 0
 				data.Message = "Get user failed."
@@ -127,7 +133,7 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 
 			if status == 1 {
 				data := HTTPResponse{}
-				data.TransactionID = 2
+				data.TransactionID = "2"
 				data.Result = 1
 				data.Data = input
 				data.Message = fmt.Sprint("Successfully changed display name to ", input, " !")
@@ -137,10 +143,41 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 				json.NewEncoder(w).Encode(data)
 			} else {
 				data := HTTPResponse{}
-				data.TransactionID = 2
+				data.TransactionID = "2"
 				data.Result = 0
 				data.Data = "0"
 				data.Message = "Failed changing the display name. Try again later."
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			}
+		case "z":
+			// get detailed chat between two users (the input is the UID of the target)
+			status := -1
+			list := list.List{}
+			httpserver.App.GetChatWithUID(&status, httpserver.CurrentToken.UID, input, &list)
+			if status == 1 {
+				data := HTTPResponse{}
+				data.TransactionID = "2"
+				data.Result = 1
+				data.Message = "Downloaded messages."
+				// Iterate the list
+				messageList := []message.Message{}
+				for e := list.Front(); e != nil; e = e.Next() {
+					message := message.Message(e.Value.(message.Message))
+					messageList = append(messageList, message)
+				}
+				data.Data = messageList
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			} else {
+				data := HTTPResponse{}
+				data.TransactionID = "2"
+				data.Result = 0
+				data.Data = "0"
+				data.Message = "Failed downloading messages."
 
 				w.Header().Set("Content-Type", "application/json")
 				w.WriteHeader(http.StatusCreated)
@@ -150,7 +187,7 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 		default:
 			// operation not recognised
 			data := HTTPResponse{}
-			data.TransactionID = 1
+			data.TransactionID = "-1"
 			data.Result = 0
 			data.Data = "0"
 			data.Message = "Operation not recognised."

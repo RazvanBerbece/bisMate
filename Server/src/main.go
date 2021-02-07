@@ -9,7 +9,7 @@ import (
 
 func main() {
 
-	log.Println("Server listening on :443 ...")
+	log.Println("Server listening on specified port ...")
 
 	// Configure websocket server
 	wserver := wsockets.WSocketServ{}
@@ -27,15 +27,16 @@ func main() {
 	// Listen for incoming messages
 	go wserver.HandleMessages()
 
-	// Start server (HTTPS) on localhost:443 and log errs
+	// Start server (HTTPS) on localhost:443 / localhost:8000 and log errs
+	port := ":8000"
 	/* WITH TLS <- used in production
-	err := http.ListenAndServeTLS(":443", "cert/server.crt", "cert/server.key", nil)
+	err := http.ListenAndServeTLS(port, "cert/server.crt", "cert/server.key", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe(): ", err)
 	}
 	*/
 	// WITHOUT TLS
-	err := http.ListenAndServe(":8000", nil)
+	err := http.ListenAndServe(port, nil)
 	if err != nil {
 		log.Fatal("ListenAndServe(): ", err)
 	}

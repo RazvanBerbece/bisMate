@@ -16,6 +16,8 @@ import (
 	"os"
 
 	message "bismateServer/structs"
+
+	"container/list"
 )
 
 // User -- logic representation of a FB user
@@ -46,8 +48,6 @@ type FirebaseApp struct {
 
 // InitFirebase -- Initialises the FB instance with the config file
 func (fbapp *FirebaseApp) InitFirebase() {
-
-	log.Println("Initialising ...")
 
 	path, err := os.Getwd()
 	if err != nil {
@@ -107,18 +107,48 @@ func (fbapp *FirebaseApp) SaveMsgToRTDatabase(msg message.Message) bool {
 
 	// get references and push
 	refSender := client.NewRef(fmt.Sprintf("messaging/saved-msg/%s/%s", msg.FromID, msg.ToID))
-	if _, errSender := refSender.Push(context.Background(), msg.Message); errSender != nil {
+	if _, errSender := refSender.Push(context.Background(), msg); errSender != nil {
 		log.Printf("error saving to database: %v", errSender)
 		return false
 	}
 
 	refReceiver := client.NewRef(fmt.Sprintf("messaging/saved-msg/%s/%s", msg.ToID, msg.FromID))
-	if _, errReceiver := refReceiver.Push(context.Background(), msg.Message); errReceiver != nil {
+	if _, errReceiver := refReceiver.Push(context.Background(), msg); errReceiver != nil {
 		log.Printf("error saving to database: %v", errReceiver)
 		return false
 	}
 
 	return true
+
+}
+
+// GetChatWithUID -- gets the detailed chat between two users specified by their uids
+func (fbapp *FirebaseApp) GetChatWithUID(status *int, sourceUID string, destUID string, messages *list.List) {
+
+	// get app for database
+	client, err := fbapp.App.Database(context.Background())
+	if err != nil {
+		log.Printf("error establishing connection to database: %v", err)
+		*status = 0
+		*messages = list.List{}
+	}
+
+	// get references and the messages from the reference
+	ref := client.NewRef(fmt.Sprintf("messaging/saved-msg/%s/%s", sourceUID, destUID))
+	var data map[string]message.Message
+	if err := ref.Get(context.Background(), &data); err != nil {
+		log.Printf("error getting messages from databse: %v", err)
+		*status = 0
+		*messages = list.List{}
+	}
+	// data will be returned as a list of Message type objects
+	list := list.New()
+	for _, element := range data {
+		list.PushBack(element)
+	}
+
+	*status = 1
+	*messages = *list
 
 }
 

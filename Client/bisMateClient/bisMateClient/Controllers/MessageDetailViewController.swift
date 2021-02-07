@@ -34,6 +34,9 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
     var MessageWithUserID : Message?
     var TitleName         : String?
     
+    // Client REST API
+    let HTTPClient = Singleton.sharedInstance.HTTPClient
+    
     // Model for table view
     var model = [DetailViewMessage]() // init with list of messages from Firebase Storage
     
@@ -49,6 +52,11 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
         self.tableInit()
         self.hideKeyboardWhenTappedAround()
         self.initView()
+        
+        // Keyboard moves below view on field writing to avoid keyboard displaying on top of the textfield
+        // https://stackoverflow.com/questions/26070242/move-view-with-keyboard-using-swift
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         super.viewDidLoad()
         
@@ -76,6 +84,7 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
                 DispatchQueue.main.async {
                     self.tableViewMessages.reloadData()
                 }
+                self.fieldMessageInput.text = ""
             }
             catch {
                 // err handling
@@ -100,6 +109,23 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
         self.tableViewMessages.allowsSelection = true
         self.tableViewMessages.isEditing = false;
         self.tableViewMessages.separatorStyle = .none
+        
+        // Get messages between users
+        self.HTTPClient!.sendOperationWithToken(operation: "z", input: self.MessageWithUserID!.getUID()) {
+            (result, status) in
+            if (status == 1) {
+                let messages = result["Data"]
+                for messageDict in messages {
+                    self.model.append(DetailViewMessage(msg: messageDict.1["text"].stringValue, id: messageDict.1["fromID"].stringValue))
+                    DispatchQueue.main.async {
+                        self.tableViewMessages.reloadData()
+                    }
+                }
+            }
+            else {
+                print("Error occured while downloading messages for this conversation.")
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -167,6 +193,21 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
         case .error(let error):
             // isConnected = false
             print(error)
+        }
+    }
+    
+    // MARK: Utils
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
         }
     }
     

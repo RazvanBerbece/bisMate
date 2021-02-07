@@ -35,9 +35,7 @@ func (wserver *WSocketServ) InitSocketServer() {
 // HandleConnections -- handler for server connections
 func (wserver *WSocketServ) HandleConnections(w http.ResponseWriter, r *http.Request) {
 
-	log.Printf("Incoming connection with ID %s ...\n", r.URL.Query().Get("clientID"))
 	currentID := r.URL.Query().Get("clientID")
-	log.Printf("Current ID : %s", currentID)
 
 	// upgrade GET request to WS
 	ws, err := wserver.upgrader.Upgrade(w, r, nil)
@@ -63,7 +61,10 @@ func (wserver *WSocketServ) HandleConnections(w http.ResponseWriter, r *http.Req
 		}
 
 		// Sent messages are saved to the db references of sender and receiver
-		wserver.App.SaveMsgToRTDatabase(msg)
+		saveResult := wserver.App.SaveMsgToRTDatabase(msg)
+		if !saveResult {
+			log.Println("err occured while saving messages ...")
+		}
 
 		// send received message to broadcast chan
 		wserver.broadcast <- msg

@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import Firebase
-import SwiftyJSON // for JSON type
 
 class ViewController: UIViewController {
     
@@ -34,7 +32,7 @@ class ViewController: UIViewController {
         
     }
     
-    /** Methods */
+    // MARK: Methods
     /** Initialises components in this view that are animated */
     private func initAnimatedComponents() {
         self.labelTitleFirst.alpha = 0
