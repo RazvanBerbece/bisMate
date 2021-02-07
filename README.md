@@ -3,11 +3,12 @@ Connecting-type app for people to match profesionally and discuss/implement busi
 
 # Progress
 - [x] Go Listening Server
+- [ ] Go Server Secured -- HTTP for now (TLS implemented but there are some config issues)
 - [x] iOS Client Prototype
 - [x] Web Socket Connection
 - [x] Basic User Account Operations
 - [ ] 'Connect' functionality
-- [x] Messaging
+- [x] Messaging -- Functional on simulator (doesn't currently work on physical devices)
 - [ ] Location Handling
 
 ## Further Dev Cycles
@@ -15,6 +16,7 @@ Connecting-type app for people to match profesionally and discuss/implement busi
 
 # Server (REST & Web Sockets)
 Server is built using Golang (or Go, for short).
+
 
 ## API Responses
 Response {
@@ -71,5 +73,6 @@ The Client is built in Swift (UIKit).
 - SwiftyJSON
 - Firebase (+ Auth)
 - Starscream
+- Alamofire
 
 There is a possibility in the future there will be a lightweight version of the iOS Client developed for the watchOS.

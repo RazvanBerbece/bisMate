@@ -12,7 +12,7 @@ import (
 type Message struct {
 	Message string `json:"text"`
 	FromID  string `json:"fromID"`
-	ToID    string `json:"ToID"`
+	ToID    string `json:"toID"`
 }
 
 // WSocketServ -- WebSocket struct for real-time components of the bisMate system
@@ -70,7 +70,7 @@ func (wserver *WSocketServ) HandleConnections(w http.ResponseWriter, r *http.Req
 
 }
 
-// HandleMessages -- reads from broadcast and relays to all client over their specific ws connections
+// HandleMessages -- reads from broadcast and relays to specific client over their specific ws connections
 func (wserver *WSocketServ) HandleMessages() {
 	for {
 

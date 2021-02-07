@@ -10,8 +10,8 @@ import Starscream
 
 class DetailViewMessage {
     
-    public var message : String?
-    private let id     : String?
+    public var message      : String?
+    private let id          : String?
     
     init(msg: String, id: String) {
         self.message = msg
@@ -28,9 +28,11 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
     // UI Components
     @IBOutlet weak var tableViewMessages: UITableView!
     @IBOutlet weak var fieldMessageInput: UITextField!
+    @IBOutlet weak var navbarItem: UINavigationItem!
     
     // Message Logic from previous view
     var MessageWithUserID : Message?
+    var TitleName         : String?
     
     // Model for table view
     var model = [DetailViewMessage]() // init with list of messages from Firebase Storage
@@ -46,6 +48,7 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
         self.initSockets()
         self.tableInit()
         self.hideKeyboardWhenTappedAround()
+        self.initView()
         
         super.viewDidLoad()
         
@@ -84,7 +87,12 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    /** Table Logic */
+    // MARK: UI Logic
+    private func initView() {
+        self.navbarItem.title = self.TitleName
+    }
+    
+    // MARK: Table Logic
     private func tableInit() {
         self.tableViewMessages.delegate = self
         self.tableViewMessages.dataSource = self
