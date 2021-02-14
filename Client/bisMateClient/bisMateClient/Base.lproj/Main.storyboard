@@ -253,14 +253,17 @@
         <!--Connect-->
         <scene sceneID="lOs-uy-dhD">
             <objects>
-                <viewController id="7JX-G4-Ery" sceneMemberID="viewController">
+                <viewController id="7JX-G4-Ery" customClass="ConnectViewController" customModule="bisMateClient" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="M0V-Rf-GPc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rtj-fS-ObL">
-                                <rect key="frame" x="20" y="54" width="374" height="36"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe on profiles that match your professional profile" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aze-1w-hNj">
+                                <rect key="frame" x="20" y="60" width="374" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="59" id="9OD-wW-Mp4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -268,16 +271,16 @@
                         <viewLayoutGuide key="safeArea" id="2fd-iL-3w5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Rtj-fS-ObL" firstAttribute="leading" secondItem="2fd-iL-3w5" secondAttribute="leading" constant="20" id="5t6-Dg-QD3"/>
-                            <constraint firstItem="Rtj-fS-ObL" firstAttribute="top" secondItem="2fd-iL-3w5" secondAttribute="top" constant="10" id="YZJ-hB-Sk8"/>
-                            <constraint firstItem="2fd-iL-3w5" firstAttribute="trailing" secondItem="Rtj-fS-ObL" secondAttribute="trailing" constant="20" id="oq3-8g-nC1"/>
+                            <constraint firstItem="2fd-iL-3w5" firstAttribute="trailing" secondItem="aze-1w-hNj" secondAttribute="trailing" constant="20" id="1cK-ha-R3L"/>
+                            <constraint firstItem="aze-1w-hNj" firstAttribute="top" secondItem="2fd-iL-3w5" secondAttribute="top" constant="16" id="Meb-JE-Z7b"/>
+                            <constraint firstItem="aze-1w-hNj" firstAttribute="leading" secondItem="2fd-iL-3w5" secondAttribute="leading" constant="20" id="cGT-n6-E8h"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Connect" image="person.3.fill" catalog="system" selectedImage="person.3.fill" id="VbH-Fy-lho"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F4Y-6M-n2H" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3652" y="-382"/>
+            <point key="canvasLocation" x="3650.7246376811595" y="-382.36607142857139"/>
         </scene>
         <!--Profile-->
         <scene sceneID="ZFe-Zf-VZG">
