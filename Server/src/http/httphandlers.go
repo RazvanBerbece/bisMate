@@ -60,15 +60,17 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 	receivedToken := r.URL.Query().Get("token") // all ops use the token
 	/*
 		operations :
-		0 = Get User Profile
-		1 = Change Bio
-		2 = Change Display Name
-		3 = Add Profile Picture
+		0 = Get User Profile 		(params -> UID : String)
+		1 = Change Bio 				(params -> Bio : String)
+		2 = Change Display Name     (params -> DisplayName : String)
+		3 = Add Profile Picture     (params -> URL : String)
 
 		d = Delete Account
-		c = Change Password
+		c = Change Password			(params -> Pass : String)
 
-		x = 'Connect' (verify token -> add new entry to connections of token.UID)
+		ws = Save UID to city 		(params -> UID : String, City : String)
+		wg = Get UID list from city (params -> UID : String, City : String)
+		x = 'Connect'
 		y = Get all messages of user with UID
 		z = Get detailed chat between users
 	*/
@@ -152,6 +154,57 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 				w.WriteHeader(http.StatusCreated)
 				json.NewEncoder(w).Encode(data)
 			}
+		case "ws":
+			// save the UID to Firebase in the specific city instance
+			status := -1
+			httpserver.App.SaveUIDToLocation(&status, httpserver.CurrentToken.UID, input)
+			if status == 1 {
+				data := HTTPResponse{}
+				data.TransactionID = "ws"
+				data.Result = 1
+				data.Data = input
+				data.Message = fmt.Sprint("Successfully added UID to ", input, " !")
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			} else {
+				data := HTTPResponse{}
+				data.TransactionID = "ws"
+				data.Result = 0
+				data.Data = "0"
+				data.Message = "Failed to save UID to city instance."
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			}
+		case "wg":
+			// save the UID to Firebase in the specific city instance
+			status := -1
+			list := list.List{}
+			httpserver.App.GetUIDFromLocation(&status, input, &list)
+			if status == 1 {
+				data := HTTPResponse{}
+				data.TransactionID = "wg"
+				data.Result = 1
+				data.Data = input
+				data.Message = fmt.Sprint("Successfully read UIDs from ", input, " !")
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			} else {
+				data := HTTPResponse{}
+				data.TransactionID = "wg"
+				data.Result = 0
+				data.Data = "0"
+				data.Message = "Failed to get UIDs from city instance."
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			}
 		case "z":
 			// get detailed chat between two users (the input is the UID of the target)
 			status := -1
@@ -159,7 +212,7 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 			httpserver.App.GetChatWithUID(&status, httpserver.CurrentToken.UID, input, &list)
 			if status == 1 {
 				data := HTTPResponse{}
-				data.TransactionID = "2"
+				data.TransactionID = "z"
 				data.Result = 1
 				data.Message = "Downloaded messages."
 				// Iterate the list
@@ -174,7 +227,7 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 				json.NewEncoder(w).Encode(data)
 			} else {
 				data := HTTPResponse{}
-				data.TransactionID = "2"
+				data.TransactionID = "z"
 				data.Result = 0
 				data.Data = "0"
 				data.Message = "Failed downloading messages."
