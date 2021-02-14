@@ -13,6 +13,7 @@ class Singleton {
     var CurrentFirebaseUser: FirebaseAuth.User?
     var CurrentLocalUser: bisMateClient.User?
     var HTTPClient: RestClient?
+    var currentCity: String?
 }
 
 class SignInViewController: UIViewController {

@@ -102,11 +102,12 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate {
             else {
                 // success -- save current UID to backend
                 let cityName = placemark!.locality!
+                Singleton.sharedInstance.currentCity = cityName
                 Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "ws", input: cityName) {
                     (result, errCheck) in
                     if result != "" {
-                        print(result)
-                        self.updatedLocation = true
+                        // successful upload
+                        // print(result)
                     }
                     else {
                         // err handling
@@ -126,6 +127,7 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate {
         if (!self.updatedLocation) {
             self.startGeocoder()
         }
+        self.updatedLocation = true
     }
     
 }

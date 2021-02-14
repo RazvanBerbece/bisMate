@@ -208,11 +208,22 @@ func (fbapp *FirebaseApp) SaveUIDToLocation(status *int, UID string, City string
 		*status = 0
 	}
 
-	// get reference or create it and push UID
-	ref := client.NewRef(fmt.Sprintf("locations/saved-locations/%s", City))
-	if _, errSender := ref.Push(context.Background(), UID); errSender != nil {
-		log.Printf("error saving to database: %v", errSender)
+	ref := client.NewRef(fmt.Sprintf("locations/saved-locations/%s/%s", City, UID))
+
+	// check if UID is already in current city instance, skip if it is
+	var data map[string]bool
+	if err := ref.Get(context.Background(), &data); err != nil {
+		log.Printf("error getting messages from databse: %v", err)
 		*status = 0
+	}
+	if len(data) == 0 {
+		// push UID
+		if _, errSender := ref.Push(context.Background(), true); errSender != nil {
+			log.Printf("error saving to database: %v", errSender)
+			*status = 0
+		}
+		// remove from other locations on update
+		// TODO
 	}
 
 	*status = 1
@@ -227,25 +238,24 @@ func (fbapp *FirebaseApp) GetUIDFromLocation(status *int, City string, UIDList *
 	if err != nil {
 		log.Printf("error establishing connection to database: %v", err)
 		*status = 0
+		*UIDList = list.List{}
 	}
 
 	// get references and the messages from the reference
 	ref := client.NewRef(fmt.Sprintf("locations/saved-locations/%s", City))
-	var data map[string]string
+	var data map[string]bool
 	if err := ref.Get(context.Background(), &data); err != nil {
-		log.Printf("error getting messages from databse: %v", err)
+		log.Printf("error getting messages from database: %v", err)
 		*status = 0
 		*UIDList = list.List{}
 	}
-	// data will be returned as a list of Message type objects
+	// data will be returned as a list of strings
 	list := list.New()
-	for _, element := range data {
-		list.PushBack(element)
+	for key := range data { // each key is an UID
+		list.PushBack(key)
 	}
 
-	*status = 1
 	*UIDList = *list
-
 	*status = 1
 
 }
