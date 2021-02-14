@@ -95,6 +95,8 @@ func (fbapp *FirebaseApp) SignUp(email string, pass string) {
 
 // SignIn -- on Client, then will use tokens
 
+// Messaging-Related Operations
+
 // SaveMsgToRTDatabase -- saves a message given as a parameter in the Firebase RT database
 func (fbapp *FirebaseApp) SaveMsgToRTDatabase(msg message.Message) bool {
 
@@ -152,7 +154,7 @@ func (fbapp *FirebaseApp) GetChatWithUID(status *int, sourceUID string, destUID 
 
 }
 
-// Operations
+// User Profile Operations
 
 // GetUserProfile -- gets the user profile using the UID param
 func (fbapp *FirebaseApp) GetUserProfile(status *int, UID string) User {
@@ -185,4 +187,58 @@ func (fbapp *FirebaseApp) ChangeDisplayName(newName string, status *int, UID str
 	}
 	log.Printf("Successfully updated user: %v\n", u.UID)
 	*status = 1
+}
+
+// Location-Related Operations
+
+// SaveUIDToLocation -- saves a UID in Firebase in a city-specific entry
+func (fbapp *FirebaseApp) SaveUIDToLocation(status *int, UID string, City string) {
+
+	// get app for database
+	client, err := fbapp.App.Database(context.Background())
+	if err != nil {
+		log.Printf("error establishing connection to database: %v", err)
+		*status = 0
+	}
+
+	// get reference or create it and push UID
+	ref := client.NewRef(fmt.Sprintf("locations/saved-locations/%s", City))
+	if _, errSender := ref.Push(context.Background(), UID); errSender != nil {
+		log.Printf("error saving to database: %v", errSender)
+		*status = 0
+	}
+
+	*status = 1
+
+}
+
+// GetUIDFromLocation -- gets a list of UIDs from the specific city entry in the DB
+func (fbapp *FirebaseApp) GetUIDFromLocation(status *int, City string, UIDList *list.List) {
+
+	// get app for database
+	client, err := fbapp.App.Database(context.Background())
+	if err != nil {
+		log.Printf("error establishing connection to database: %v", err)
+		*status = 0
+	}
+
+	// get references and the messages from the reference
+	ref := client.NewRef(fmt.Sprintf("locations/saved-locations/%s", City))
+	var data map[string]string
+	if err := ref.Get(context.Background(), &data); err != nil {
+		log.Printf("error getting messages from databse: %v", err)
+		*status = 0
+		*UIDList = list.List{}
+	}
+	// data will be returned as a list of Message type objects
+	list := list.New()
+	for _, element := range data {
+		list.PushBack(element)
+	}
+
+	*status = 1
+	*UIDList = *list
+
+	*status = 1
+
 }
