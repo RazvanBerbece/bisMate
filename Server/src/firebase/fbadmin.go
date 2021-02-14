@@ -137,16 +137,23 @@ func (fbapp *FirebaseApp) GetChatWithUID(status *int, sourceUID string, destUID 
 
 	// get references and the messages from the reference
 	ref := client.NewRef(fmt.Sprintf("messaging/saved-msg/%s/%s", sourceUID, destUID))
-	var data map[string]message.Message
-	if err := ref.Get(context.Background(), &data); err != nil {
+	// get ordered instances of messages
+	results, err := ref.OrderByChild("time").GetOrdered(context.Background())
+	if err != nil {
 		log.Printf("error getting messages from databse: %v", err)
 		*status = 0
 		*messages = list.List{}
 	}
 	// data will be returned as a list of Message type objects
 	list := list.New()
-	for _, element := range data {
-		list.PushBack(element)
+	for _, element := range results {
+		var msg message.Message
+		if err := element.Unmarshal(&msg); err != nil {
+			log.Printf("error unmarhsaling result: %v", err)
+			*status = 0
+			*messages = *list
+		}
+		list.PushBack(msg)
 	}
 
 	*status = 1

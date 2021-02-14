@@ -73,7 +73,7 @@ public class RestClient {
                         callback(json, 1)
                     }
                     else {
-                        callback(json, 0)
+                        callback("", 0)
                     }
                 }
                 else {

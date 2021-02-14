@@ -35,7 +35,7 @@ class SettingsViewController: UIViewController {
         
     }
     
-    // MARK: Methods
+    // MARK: -Methods
     private func initComponents() {
         self.labelChangeResult.alpha = 0
     }

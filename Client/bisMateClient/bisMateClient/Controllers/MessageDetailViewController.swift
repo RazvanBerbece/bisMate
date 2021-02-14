@@ -11,15 +11,21 @@ import Starscream
 class DetailViewMessage {
     
     public var message      : String?
+    private let time         : Int64?
     private let id          : String?
     
-    init(msg: String, id: String) {
+    init(msg: String, time: Int64, id: String) {
         self.message = msg
+        self.time = time
         self.id = id
     }
     
     public func getID() -> String {
         return self.id!
+    }
+    
+    public func getTime() -> Int64 {
+        return self.time!
     }
 }
 
@@ -29,6 +35,10 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var tableViewMessages: UITableView!
     @IBOutlet weak var fieldMessageInput: UITextField!
     @IBOutlet weak var navbarItem: UINavigationItem!
+    
+    // Cell ids
+    let cellReuseIdentifierLeft = "MessageCellLeft"
+    let cellReuseIdentifierRight = "MessageCellRight"
     
     // Message Logic from previous view
     var MessageWithUserID : Message?
@@ -62,7 +72,7 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
         
     }
     
-    /** Socket operations */
+    // MARK: - Socket operations
     private func initSockets() {
         socket = WebSocket(request: self.socketClient.request!.request!)
         socket?.delegate = self
@@ -74,13 +84,15 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
         if (input != "") {
             // print(input!)
             do {
+                // Get current time
+                let currentTime = Date().currentTimeMillis()
                 // Encode message using the EncodableMessage struct
                 let encoder = JSONEncoder()
-                let data = try encoder.encode(EncodableMessage(text: input, fromID: self.uid, toID: self.MessageWithUserID!.getUID()))
+                let data = try encoder.encode(EncodableMessage(text: input, fromID: self.uid, toID: self.MessageWithUserID!.getUID(), time: currentTime))
                 
                 self.socket?.write(data: data)
                 
-                self.model.append(DetailViewMessage(msg: input!, id: self.uid))
+                self.model.append(DetailViewMessage(msg: input!, time: currentTime, id: self.uid))
                 DispatchQueue.main.async {
                     self.tableViewMessages.reloadData()
                 }
@@ -96,16 +108,15 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    // MARK: UI Logic
+    // MARK: - UI Logic
     private func initView() {
         self.navbarItem.title = self.TitleName
     }
     
-    // MARK: Table Logic
+    // MARK: - Table Logic
     private func tableInit() {
         self.tableViewMessages.delegate = self
         self.tableViewMessages.dataSource = self
-        self.tableViewMessages.register(UITableViewCell.self, forCellReuseIdentifier: "CellMsg")
         self.tableViewMessages.allowsSelection = true
         self.tableViewMessages.isEditing = false;
         self.tableViewMessages.separatorStyle = .none
@@ -115,8 +126,9 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
             (result, status) in
             if (status == 1) {
                 let messages = result["Data"]
-                for messageDict in messages {
-                    self.model.append(DetailViewMessage(msg: messageDict.1["text"].stringValue, id: messageDict.1["fromID"].stringValue))
+                for (_, messageDict) in messages.enumerated() {
+                    let time = messageDict.1["time"].int64
+                    self.model.append(DetailViewMessage(msg: messageDict.1["text"].stringValue, time: time!, id: messageDict.1["fromID"].stringValue))
                     DispatchQueue.main.async {
                         self.tableViewMessages.reloadData()
                     }
@@ -133,27 +145,42 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableViewMessages.dequeueReusableCell(withIdentifier: "CellMsg", for: indexPath)
         
-        // Setting cell layout
-        cell.textLabel?.text = self.model[indexPath.row].message
+        // Set cell layout according to UID of msg
         if (self.model[indexPath.row].getID() != self.uid) { // peer texts
-            cell.textLabel?.textAlignment = .left; // optional
-            cell.imageView?.image = UIImage(systemName: "questionmark")
+            
+            // Get appropiate cell type
+            let cellLeft: MessageCellLeft = self.tableViewMessages.dequeueReusableCell(withIdentifier: self.cellReuseIdentifierLeft) as! MessageCellLeft
+            
+            // Populate cell with data
+            cellLeft.messageLabel?.text = self.model[indexPath.row].message
+            cellLeft.userPhotoView?.image = UIImage(systemName: "questionmark")
+            
+            // Cell attributes
+            cellLeft.layer.backgroundColor = UIColor.clear.cgColor
+            cellLeft.backgroundColor = .clear
+            
+            return cellLeft
         }
         else { // own texts
-            cell.textLabel?.textAlignment = .right; // optional
-            cell.accessoryView = UIImageView(image: UIImage(systemName: "questionmark"))
+            
+            // Get appropiate cell type
+            let cellRight: MessageCellRight = self.tableViewMessages.dequeueReusableCell(withIdentifier: self.cellReuseIdentifierRight) as! MessageCellRight
+            
+            // Populate cell with data
+            cellRight.messageLabel?.text = self.model[indexPath.row].message
+            cellRight.userPhotoView?.image = UIImage(systemName: "questionmark")
+            
+            // Cell attributes
+            cellRight.layer.backgroundColor = UIColor.clear.cgColor
+            cellRight.backgroundColor = .clear
+            
+            return cellRight
         }
         
-        // Make cells transparent
-        cell.layer.backgroundColor = UIColor.clear.cgColor
-        cell.backgroundColor = .clear
-        
-        return cell
     }
     
-    // MARK: WebSockets receiving
+    // MARK: - WebSockets receiving
     public func didReceive(event: WebSocketEvent, client: WebSocket) {
         switch event {
         case .connected(let headers):
@@ -169,7 +196,7 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
                     if let messageObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any] {
                         // Use this dictionary
                         print(messageObject)
-                        self.model.append(DetailViewMessage(msg: messageObject["text"] as! String, id: messageObject["fromID"] as! String))
+                        self.model.append(DetailViewMessage(msg: messageObject["text"] as! String, time: messageObject["time"] as! Int64, id: messageObject["fromID"] as! String))
                         DispatchQueue.main.async {
                             self.tableViewMessages.reloadData()
                         }
@@ -196,7 +223,7 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    // MARK: Utils
+    // MARK: - Utils
     @objc private func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {

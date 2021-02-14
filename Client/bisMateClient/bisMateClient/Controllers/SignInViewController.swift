@@ -37,7 +37,7 @@ class SignInViewController: UIViewController {
         self.hideKeyboardWhenTappedAround()
     }
     
-    // MARK: Methods
+    // MARK: - Methods
     private func initComponents() {
         self.labelSignInErr.alpha = 0
         self.labelSignInErr.text = ""

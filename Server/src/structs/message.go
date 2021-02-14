@@ -5,4 +5,5 @@ type Message struct {
 	Message string `json:"text"`
 	FromID  string `json:"fromID"`
 	ToID    string `json:"toID"`
+	Time    int64  `json:"time"`
 }

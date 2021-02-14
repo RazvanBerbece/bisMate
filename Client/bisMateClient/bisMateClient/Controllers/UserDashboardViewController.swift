@@ -23,6 +23,7 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate {
     var CurrentUser = User(UID: "def", email: "def", displayName: "def", phoneNumber: "def", photoURL: "def", emailVerified: false, token: "def")
     
     // Location
+    var updatedLocation = false // toggles to true after updating location through backend
     var locationManager = CLLocationManager()
     var locationHandler : LocationHandler? // reverse geocoding logic wrapper
     
@@ -53,7 +54,7 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    // MARK: Methods
+    // MARK: - Methods
     private func loadProfile() {
         // updates view with current user data
         self.labelGreet.text = "Hello, \(String(describing: Singleton.sharedInstance.CurrentLocalUser!.getDisplayName())) !"
@@ -100,18 +101,31 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate {
             }
             else {
                 // success -- save current UID to backend
-                print(placemark!.locality!)
+                let cityName = placemark!.locality!
+                Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "ws", input: cityName) {
+                    (result, errCheck) in
+                    if result != "" {
+                        print(result)
+                        self.updatedLocation = true
+                    }
+                    else {
+                        // err handling
+                        print("Error occured while sending location data to server.")
+                    }
+                }
             }
         }
     }
     
-    // MARK: Delegate Methods
+    // MARK: - Delegate Methods
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         // print("locations = \(locValue.latitude) \(locValue.longitude)")
         self.locationHandler = LocationHandler(longitude: locValue.longitude, latitude: locValue.latitude)
         // get user city name
-        self.startGeocoder()
+        if (!self.updatedLocation) {
+            self.startGeocoder()
+        }
     }
     
 }

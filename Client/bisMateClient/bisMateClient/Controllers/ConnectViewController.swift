@@ -58,7 +58,7 @@ class ConnectViewController: UIViewController {
         
     }
     
-    // MARK: Methods
+    // MARK: - Methods
     private func getSwipeGesture(for direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer {
         
         // Init
