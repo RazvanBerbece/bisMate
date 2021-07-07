@@ -13,6 +13,7 @@ class Singleton {
     var CurrentFirebaseUser: FirebaseAuth.User?
     var CurrentLocalUser: bisMateClient.User?
     var HTTPClient: RestClient?
+    var currentCity: String?
 }
 
 class SignInViewController: UIViewController {
@@ -37,7 +38,7 @@ class SignInViewController: UIViewController {
         self.hideKeyboardWhenTappedAround()
     }
     
-    // MARK: Methods
+    // MARK: - Methods
     private func initComponents() {
         self.labelSignInErr.alpha = 0
         self.labelSignInErr.text = ""

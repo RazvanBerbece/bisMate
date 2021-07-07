@@ -16,9 +16,6 @@ class SettingsViewController: UIViewController {
     // Labels
     @IBOutlet weak var labelChangeResult: UILabel!
     
-    // Client REST API
-    let HTTPClient = Singleton.sharedInstance.HTTPClient
-    
     override func viewDidLoad() {
         
         // Init
@@ -35,7 +32,7 @@ class SettingsViewController: UIViewController {
         
     }
     
-    // MARK: Methods
+    // MARK: -Methods
     private func initComponents() {
         self.labelChangeResult.alpha = 0
     }
@@ -45,7 +42,7 @@ class SettingsViewController: UIViewController {
         let newDisplayName = self.inputNewDisplayName.text
         
         if (newDisplayName != "") {
-            self.HTTPClient!.sendOperationWithToken(operation: "2", input: newDisplayName!) {
+            Singleton.sharedInstance.HTTPClient!.sendOperationWithToken(operation: "2", input: newDisplayName!) {
                 (result, errCheck) in
                 if errCheck == 1 {
                     print(result)

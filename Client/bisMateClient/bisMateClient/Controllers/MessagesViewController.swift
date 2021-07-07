@@ -7,15 +7,21 @@
 
 import UIKit
 
+extension Date {
+    func currentTimeMillis() -> Int64 {
+        return Int64(self.timeIntervalSince1970 * 1000)
+    }
+}
+
 /** Simple structure of a message in the message list */
 class Message {
     public var from     : String?
     public var text     : String?
-    public var time     : String?
+    public var time     : Int64?
     private var uid     : String?
     
     /** Constructor */
-    init(from: String, text: String, time: String, uid: String) {
+    init(from: String, text: String, time: Int64, uid: String) {
         self.from = from
         self.text = text
         self.time = time
@@ -41,7 +47,7 @@ class MessagesViewController: UITableViewController {
         // Do any additional setup after loading the view.
     }
     
-    // MARK: Table view data source
+    // MARK: -Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -72,7 +78,7 @@ class MessagesViewController: UITableViewController {
         self.performSegue(withIdentifier: "MessageDetailSegue", sender: indexPath)
     }
     
-    // MARK: Utils
+    // MARK: -Utils
     private func messageInit() {
         
         // tableView init
@@ -84,11 +90,11 @@ class MessagesViewController: UITableViewController {
         
         // model init -- in a for loop (uses default uid2 for now)
         let defaultUID = (Singleton.sharedInstance.CurrentLocalUser!.getUID() == "ezQDaTAMkfM9IL1lQ1dvEKULrHv2" ? "jaq3RAOFuBar41BySERkP0WPugZ2" : "ezQDaTAMkfM9IL1lQ1dvEKULrHv2")
-        self.model.append(Message(from: "Jon Doe", text: "Hello World !", time: "23:33", uid: defaultUID))
+        self.model.append(Message(from: "Jon Doe", text: "Hello World !", time: Date().currentTimeMillis(), uid: defaultUID))
         
     }
     
-    // MARK: Segue preparing for detailed message views
+    // MARK: -Segue preparing for detailed message views
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MessageDetailSegue" {
             print("Segueing")

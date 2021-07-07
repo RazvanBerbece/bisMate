@@ -3,11 +3,12 @@ Connecting-type app for people to match profesionally and discuss/implement busi
 
 # Progress
 - [x] Go Server & iOS Client (prototype)
-- [ ] Go Server Secured -- HTTP for now (TLS implemented but there are some config issues)
 - [x] Basic User Account Operations
-- [ ] 'Connect' functionality
 - [x] Messaging -- Functional on simulator (doesn't currently work on physical devices)
-- [ ] Location Handling
+- [x] Location Handling
+- [ ] 'Connect' functionality
+- [ ] Go Server Secured -- HTTP for now (TLS implemented but there are some config issues)
+- [ ] Encrypt Data sent to Firebase (ie. Messages)
 
 ## Further Dev Cycles
 - [ ] watchOS Client
@@ -15,28 +16,27 @@ Connecting-type app for people to match profesionally and discuss/implement busi
 # Server (REST & Web Sockets)
 Server is built using Golang (or Go, for short).
 
-
 ## API Responses
-Response {
-    "TransactionID" : int,
-    "Result" : int,
-    "Data" : Any (will be primitive data types or encodable structs),
-    "Message" : string,
+Response {\
+    "TransactionID" : int,\
+    "Result" : int,\
+    "Data" : Any (will be primitive data types or encodable structs),\
+    "Message" : string,\
 }
 
 ### Example of response for GetUser(UID):
-{
-  "Data" : {
-    "DisplayName" : "New Name",
-    "UID" : "jaq3RAOFuBar41BySERkP0WPugZ2",
-    "PhotoURL" : "",
-    "Email" : "test1@yahoo.com",
-    "EmailVerified" : false,
-    "PhoneNumber" : ""
-  },
-  "Result" : 1,
-  "Message" : "User retrieved successfully.",
-  "TransactionID" : 0
+{\
+  "Data" : {\
+    "DisplayName" : "New Name",\
+    "UID" : "jaq3RAOFuBar41BySERkP0WPugZ2",\
+    "PhotoURL" : "",\
+    "Email" : "test1@yahoo.com",\
+    "EmailVerified" : false,\
+    "PhoneNumber" : ""\
+  },\
+  "Result" : 1,\
+  "Message" : "User retrieved successfully.",\
+  "TransactionID" : 0\
 }
 
 ## API Endpoints
@@ -53,6 +53,8 @@ Response {
 - d = Delete Account
 - c = Change Password
 
+- ws = Save current user location (City) to DB
+- wg = Get all UIDs from current user location
 - x = 'Connect' (verify token -> add new entry to connections of token.UID)
 - y = Get chat history of user (list of chats with users)
 - z = Get detailed chat history between two users on Firebase database for future retrieval
@@ -63,7 +65,6 @@ Response {
 - [Firebase Auth]("https://firebase.google.com/go/auth")
 - [Option Package]("https://google.golang.org/api/option")
 - The rest are Go standard packages
-
 
 # Client (iOS)
 The Client is built in Swift (UIKit).

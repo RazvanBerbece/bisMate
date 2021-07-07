@@ -10,9 +10,10 @@ import Alamofire
 
 /** Represents JSON encodable data that can be sent to the server */
 struct EncodableMessage: Codable {
-    let text: String?
+    let text:   String?
     let fromID: String?
-    let toID: String?
+    let toID:   String?
+    let time:   Int64?
 }
 
 /** Handles websocket connection to server, sending & receiving messages */

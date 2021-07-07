@@ -104,7 +104,7 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 		case "0":
 			// get user profile data
 			status := -1 // uninit
-			user := httpserver.App.GetUserProfile(&status, httpserver.CurrentToken.UID)
+			user := httpserver.App.GetUserProfile(&status, input)
 
 			if status == 1 { // successfully got user
 				data := HTTPResponse{}
@@ -180,7 +180,7 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 				json.NewEncoder(w).Encode(data)
 			}
 		case "wg":
-			// save the UID to Firebase in the specific city instance
+			// get the UID from Firebase in the specific city instance
 			status := -1
 			list := list.List{}
 			httpserver.App.GetUIDFromLocation(&status, input, &list)
@@ -188,9 +188,14 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 				data := HTTPResponse{}
 				data.TransactionID = "wg"
 				data.Result = 1
-				data.Data = input
+				// Iterate the list
+				UIDList := []string{}
+				for e := list.Front(); e != nil; e = e.Next() {
+					uid := e.Value.(string)
+					UIDList = append(UIDList, uid)
+				}
+				data.Data = UIDList
 				data.Message = fmt.Sprint("Successfully read UIDs from ", input, " !")
-
 				w.Header().Set("Content-Type", "application/json")
 				w.WriteHeader(http.StatusCreated)
 				json.NewEncoder(w).Encode(data)
