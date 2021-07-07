@@ -180,7 +180,7 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 				json.NewEncoder(w).Encode(data)
 			}
 		case "wg":
-			// save the UID to Firebase in the specific city instance
+			// get the UID from Firebase in the specific city instance
 			status := -1
 			list := list.List{}
 			httpserver.App.GetUIDFromLocation(&status, input, &list)
