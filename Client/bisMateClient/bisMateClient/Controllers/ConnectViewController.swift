@@ -68,43 +68,7 @@ class ConnectViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // Get nearby users
-        self.nearbyUsersIndex = 0
-        self.getUIDsInCity() {
-            (list, err) in
-            if err == nil {
-                // Query user data from backend using the UIDs
-                for uid in list! {
-                    if (uid != Singleton.sharedInstance.CurrentLocalUser!.getUID()) { // not local user
-                        Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "0", input: uid) {
-                            (result, status) in
-                            if (result != "") {
-                                // create a user instance (with less data as it's only for swiping purposes) and add it to NearbyUsers.users
-                                let UID = result["Data"]["UID"]
-                                let DisplayName = result["Data"]["DisplayName"]
-                                let PhotoURL = result["Data"]["PhotoURL"]
-                                let EmailVerified = result["Data"]["EmailVerified"]
-                                let user = User(UID: UID.stringValue, email: "-", displayName: DisplayName.stringValue, phoneNumber: "-", photoURL: PhotoURL.stringValue, emailVerified: EmailVerified.boolValue, token: "-")
-                                self.nearbyUsers.pushUser(user: user)
-                                // initialise first swipeable view -- once
-                                if (!self.firstViewInit) {
-                                    self.swipeableView = self.getUIView(with: self.nearbyUsers.getUsers()[0])
-                                    self.nearbyUsersIndex += 1
-                                    self.view.addSubview(self.swipeableView!)
-                                    self.firstViewInit = true
-                                }
-                            }
-                            else {
-                                print("Error occured while collecting nearby users.")
-                            }
-                        }
-                    }
-                }
-            }
-            else {
-                print(err!)
-            }
-        }
+        populateSwiper()
     }
     
     // MARK: - Methods
@@ -169,6 +133,48 @@ class ConnectViewController: UIViewController {
         }
     }
     
+    private func populateSwiper() {
+        // Get nearby users
+        self.nearbyUsersIndex = 0
+        self.getUIDsInCity() {
+            (list, err) in
+            if err == nil {
+                // Query user data from backend using the UIDs
+                for uid in list! {
+                    if (uid != Singleton.sharedInstance.CurrentLocalUser!.getUID()) { // not local user
+                        Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "0", input: uid) {
+                            (result, status) in
+                            if (result != "") {
+                                
+                                // create a user instance (with less data as it's only for swiping purposes) and add it to NearbyUsers.users
+                                let UID = result["Data"]["UID"]
+                                // temporary
+                                // will change requirements that all users must have a display name
+                                let DisplayName = result["Data"]["DisplayName"] == "" ? "User with no display name" : result["Data"]["DisplayName"]
+                                let PhotoURL = result["Data"]["PhotoURL"]
+                                let EmailVerified = result["Data"]["EmailVerified"]
+                                let user = User(UID: UID.stringValue, email: "-", displayName: DisplayName.stringValue, phoneNumber: "-", photoURL: PhotoURL.stringValue, emailVerified: EmailVerified.boolValue, token: "-")
+                                self.nearbyUsers.pushUser(user: user)
+                                // initialise first swipeable view -- once
+                                if (!self.firstViewInit) {
+                                    self.swipeableView = self.getUIView(with: self.nearbyUsers.getUsers()[0])
+                                    self.view.addSubview(self.swipeableView!)
+                                    self.firstViewInit = true
+                                }
+                            }
+                            else {
+                                print("Error occured while collecting nearby users.")
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                print(err!)
+            }
+        }
+    }
+    
     // MARK: - Actions
     @objc private func didSwipe(_ sender: UISwipeGestureRecognizer) {
         
@@ -178,7 +184,6 @@ class ConnectViewController: UIViewController {
             
             // Current frame and positions
             var frame = self.swipeableView!.frame
-            let originalFrame = frame.origin
             
             // Check direction of swipe and process accordingly
             switch sender.direction {
@@ -194,13 +199,19 @@ class ConnectViewController: UIViewController {
                 self.swipeableView!.frame = frame
             }
             
-            self.swipeableView = self.getUIView(with: self.nearbyUsers.getUsers()[self.nearbyUsersIndex])
-            self.swipeableView!.frame.origin = originalFrame
             self.nearbyUsersIndex += 1
             
-        }
-        else {
-            // TODO -- display message: no more users to swipe on
+            // if no users left in area, display message
+            if (self.nearbyUsersIndex >= self.nearbyUsers.getCount()) { // if no users left, display message
+                self.swipeableView = getErrorView(error: "No users left in area.")
+                self.view.addSubview(self.swipeableView!)
+                self.firstViewInit = false // reset the first view initializer check
+            }
+            else { // there are users left in area
+                self.swipeableView = self.getUIView(with: self.nearbyUsers.getUsers()[self.nearbyUsersIndex])
+                self.view.addSubview(self.swipeableView!)
+            }
+            
         }
         
     }
