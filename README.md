@@ -7,6 +7,7 @@ Connecting-type app for people to match profesionally and discuss/implement busi
 - [x] Messaging -- Functional on simulator (doesn't currently work on physical devices)
 - [x] Location Handling
 - [ ] 'Connect' functionality
+- [ ] User Profile Info Enhancement (Pic, Bio, Work Place, Position etc.)
 - [ ] Go Server Secured -- HTTP for now (TLS implemented but there are some config issues)
 - [ ] Encrypt Data sent to Firebase (ie. Messages)
 
@@ -18,25 +19,25 @@ Server is built using Golang (or Go, for short).
 
 ## API Responses
 Response {\
-    "TransactionID" : int,\
-    "Result" : int,\
-    "Data" : Any (will be primitive data types or encodable structs),\
-    "Message" : string,\
+&nbsp;&nbsp;&nbsp;&nbsp;"TransactionID" : int,\
+&nbsp;&nbsp;&nbsp;&nbsp;"Result" : int,\
+&nbsp;&nbsp;&nbsp;&nbsp;"Data" : Any (will be primitive data types or encodable structs),\
+&nbsp;&nbsp;&nbsp;&nbsp;"Message" : string,\
 }
 
 ### Example of response for GetUser(UID):
 {\
-  "Data" : {\
-    "DisplayName" : "New Name",\
-    "UID" : "jaq3RAOFuBar41BySERkP0WPugZ2",\
-    "PhotoURL" : "",\
-    "Email" : "test1@yahoo.com",\
-    "EmailVerified" : false,\
-    "PhoneNumber" : ""\
+&nbsp;&nbsp;"Data" : {\
+&nbsp;&nbsp;&nbsp;&nbsp;"DisplayName" : "New Name",\
+&nbsp;&nbsp;&nbsp;&nbsp;"UID" : "jaq3RAOFuBar41BySERkP0WPugZ2",\
+&nbsp;&nbsp;&nbsp;&nbsp;"PhotoURL" : "",\
+&nbsp;&nbsp;&nbsp;&nbsp;"Email" : "test1@yahoo.com",\
+&nbsp;&nbsp;&nbsp;&nbsp;"EmailVerified" : false,\
+&nbsp;&nbsp;&nbsp;&nbsp;"PhoneNumber" : ""\
   },\
-  "Result" : 1,\
-  "Message" : "User retrieved successfully.",\
-  "TransactionID" : 0\
+&nbsp;&nbsp;"Result" : 1,\
+&nbsp;&nbsp;&nbsp;&nbsp;"Message" : "User retrieved successfully.",\
+&nbsp;&nbsp;&nbsp;&nbsp;"TransactionID" : 0\
 }
 
 ## API Endpoints
@@ -44,18 +45,20 @@ Response {\
 2. [/conn]("http://localhost:8000/conn") -- Tests Go server 
 3. [/operation?token=<String>&operation=<String>&input=<String>]("http://localhost:8000/operation?token=<String>&operation=<String>&input=<String>") -- Uses the token param to verify a transaction (gets User ID from token verification) and then processes the operation specified in the operation parameter using the data in the input field
 
-### Operations
-- 0 = Get User Profile
-- 1 = Change Bio
-- 2 = Change Display Name
-- 3 = Add Profile Picture
+### Operations (<Number> = Description (Params))
+- 0 = Get User Profile (UID : String)
+- 1 = Change Bio (Bio : String)
+- 2 = Change Display Name (DisplayName : String)
+- 3 = Add Profile Picture (URL : String)
 
 - d = Delete Account
-- c = Change Password
+- c = Change Password (Pass : String)
 
-- ws = Save current user location (City) to DB
-- wg = Get all UIDs from current user location
-- x = 'Connect' (verify token -> add new entry to connections of token.UID)
+- ws = UID Location (City) (PUSH) (UID : String, City : String)
+- wg = UID Location (City) (GET ALL) (UID : String, City : String)
+- xs = LikedBy (PUSH) (UID : String, LikedUID: String)
+- xg = LikedBy (GET) (UID : String, LikedUID: String)
+- xx = Likes (GET) (UID : String)
 - y = Get chat history of user (list of chats with users)
 - z = Get detailed chat history between two users on Firebase database for future retrieval
 
