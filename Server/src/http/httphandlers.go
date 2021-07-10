@@ -60,19 +60,21 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 	receivedToken := r.URL.Query().Get("token") // all ops use the token
 	/*
 		operations :
-		0 = Get User Profile 		(params -> UID : String)
-		1 = Change Bio 				(params -> Bio : String)
-		2 = Change Display Name     (params -> DisplayName : String)
-		3 = Add Profile Picture     (params -> URL : String)
+		0 = Get User Profile 						(params -> UID : String)
+		1 = Change Bio 								(params -> Bio : String)
+		2 = Change Display Name     				(params -> DisplayName : String)
+		3 = Add Profile Picture     				(params -> URL : String)
 
 		d = Delete Account
-		c = Change Password			(params -> Pass : String)
+		c = Change Password							(params -> Pass : String)
 
-		ws = Save UID to city 		(params -> UID : String, City : String)
-		wg = Get UID list from city (params -> UID : String, City : String)
-		x = 'Connect'
-		y = Get all messages of user with UID
-		z = Get detailed chat between users
+		ws 	= UID Location (PUSH) 					(params -> UID : String, City : String)
+		wg 	= UID Location (GET)					(params -> UID : String, City : String)
+		xs 	= LikedBy (PUSH)						(params -> UID : String, LikedUID: String)
+		xg 	= LikedBy (GET)							(params -> UID : String, LikedUID: String)
+		xx  = Likes (GET)							(params -> UID : String)
+		y 	= Get all messages of user with UID
+		z 	= Get detailed chat between users
 	*/
 	operation := r.URL.Query().Get("operation")
 
@@ -206,6 +208,96 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 				data.Data = "0"
 				data.Message = "Failed to get UIDs from city instance."
 
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			}
+		case "xs":
+			//
+			//	Users have two lists in Firebase :
+			//		- Liked = UIDs that liked the user
+			//		- Connected = successful connections
+			//
+			// 	User 1 likes User 2 => Add User 1 UID to User 2 Liked list
+			// 	User 2 likes User 1 =>
+			// 		- Add User 1 to User 2 Connected list
+			//		- Add User 2 to User 1 Connected list
+			//		- Delete each user from their opposite Liked lists
+			status := -1
+			httpserver.App.LikeUser(&status, httpserver.CurrentToken.UID, input)
+			if status == 1 {
+				data := HTTPResponse{}
+				data.TransactionID = "xs"
+				data.Result = 1
+				data.Message = fmt.Sprintf("Liked user with UID %s.", input)
+				data.Data = input
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			} else {
+				data := HTTPResponse{}
+				data.TransactionID = "xs"
+				data.Result = 0
+				data.Data = "nil"
+				data.Message = fmt.Sprintf("Failed to like user with UID %s.", input)
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			}
+		case "xg":
+			status := -1
+			list := list.List{}
+			httpserver.App.GetLikedByListForUser(&status, httpserver.CurrentToken.UID, &list)
+			if status == 1 {
+				data := HTTPResponse{}
+				data.TransactionID = "xg"
+				data.Result = 1
+				data.Message = fmt.Sprintf("Got likedBy for UID %s.", input)
+				// Iterate the list
+				uidList := []string{}
+				for e := list.Front(); e != nil; e = e.Next() {
+					uid := string(e.Value.(string))
+					uidList = append(uidList, uid)
+				}
+				data.Data = uidList
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			} else {
+				data := HTTPResponse{}
+				data.TransactionID = "xg"
+				data.Result = 0
+				data.Data = "nil"
+				data.Message = "Failed to get user likedBy."
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			}
+		case "xx":
+			status := -1
+			list := list.List{}
+			httpserver.App.GetLikesListForUser(&status, httpserver.CurrentToken.UID, &list)
+			if status == 1 {
+				data := HTTPResponse{}
+				data.TransactionID = "xx"
+				data.Result = 1
+				data.Message = fmt.Sprintf("Got likes for UID %s.", input)
+				// Iterate the list
+				uidList := []string{}
+				for e := list.Front(); e != nil; e = e.Next() {
+					uid := string(e.Value.(string))
+					uidList = append(uidList, uid)
+				}
+				data.Data = uidList
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			} else {
+				data := HTTPResponse{}
+				data.TransactionID = "xx"
+				data.Result = 0
+				data.Data = "nil"
+				data.Message = "Failed to get user likes."
 				w.Header().Set("Content-Type", "application/json")
 				w.WriteHeader(http.StatusCreated)
 				json.NewEncoder(w).Encode(data)

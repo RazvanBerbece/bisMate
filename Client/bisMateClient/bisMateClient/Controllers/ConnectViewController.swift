@@ -60,15 +60,34 @@ class ConnectViewController: UIViewController {
     private var nearbyUsersIndex = 0
     
     // Nearby Users Wrapper
-    var nearbyUsers = NearbyUsers(users: [], count: 0)
+    private var nearbyUsers = NearbyUsers(users: [], count: 0)
+    
+    // Likes array
+    private var likedBy : [String] = []     // UIDs swiped on current user
+    private var likes   : [String] = []     // current user swiped on these UIDs
+    
+    // View logic
+    private var errorOn : Bool = false
     
     override func viewDidLoad() {
+        
+        // update likes given by user and received likes - 1
+        self.getLikes()
+        self.getLikedBy()
+        
         super.viewDidLoad()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        // update likes given by user and received likes - 2
+        self.getLikedBy()
+        
         super.viewDidAppear(animated)
-        populateSwiper()
+        
+        self.populateSwiper()
+        
     }
     
     // MARK: - Methods
@@ -122,7 +141,6 @@ class ConnectViewController: UIViewController {
             (result, status) in
             if (result != "") {
                 // success
-                print(result)
                 let stringArr : [String] = result["Data"].arrayValue.map { $0.stringValue }
                 completion(stringArr, nil)
             }
@@ -134,14 +152,25 @@ class ConnectViewController: UIViewController {
     }
     
     private func populateSwiper() {
+        
         // Get nearby users
         self.nearbyUsersIndex = 0
+        var noUsersNearby = true
+        
         self.getUIDsInCity() {
             (list, err) in
             if err == nil {
                 // Query user data from backend using the UIDs
                 for uid in list! {
-                    if (uid != Singleton.sharedInstance.CurrentLocalUser!.getUID()) { // not local user
+                    if (self.alreadyLiked(UID: uid) == true || uid == Singleton.sharedInstance.CurrentLocalUser!.getUID()) {
+                        continue // if this user has been swiped on or is current user, don't display
+                    }
+                    else { // not local or swiped user
+                        
+                        self.errorOn = false
+                        self.swipeableView?.removeFromSuperview()
+                        noUsersNearby = false
+                        
                         Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "0", input: uid) {
                             (result, status) in
                             if (result != "") {
@@ -168,11 +197,55 @@ class ConnectViewController: UIViewController {
                         }
                     }
                 }
+                if (noUsersNearby == true) {
+                    self.errorOn = true
+                    self.swipeableView = getErrorView(error: "No users left in area.")
+                    self.view.addSubview(self.swipeableView!)
+                    self.firstViewInit = false // reset the first view initializer check
+                }
             }
             else {
                 print(err!)
             }
         }
+    }
+    
+    private func getLikedBy() {
+        Singleton.sharedInstance.HTTPClient!.sendOperationWithToken(operation: "xg", input: Singleton.sharedInstance.CurrentLocalUser!.getUID()) {
+            (result, status) in
+            if (status == 1) {
+                // print(result["Data"])
+                var uids : [String] = []
+                for (_, uidTuple) in result["Data"].enumerated() {
+                    uids.append(uidTuple.1.stringValue)
+                }
+                self.likedBy = uids
+            }
+            else {
+                print("An error occured while getting like list.")
+            }
+        }
+    }
+    
+    private func getLikes() {
+        Singleton.sharedInstance.HTTPClient!.sendOperationWithToken(operation: "xx", input: Singleton.sharedInstance.CurrentLocalUser!.getUID()) {
+            (result, status) in
+            if (status == 1) {
+                // print(result["Data"])
+                var uids : [String] = []
+                for (_, uidTuple) in result["Data"].enumerated() {
+                    uids.append(uidTuple.1.stringValue)
+                }
+                self.likes = uids
+            }
+            else {
+                print("An error occured while getting like list.")
+            }
+        }
+    }
+    
+    private func alreadyLiked(UID: String) -> Bool {
+        return self.likes.contains(UID)
     }
     
     // MARK: - Actions
@@ -189,8 +262,19 @@ class ConnectViewController: UIViewController {
             switch sender.direction {
             case .left: // skip; false
                 frame.origin.x -= screenSize.width + 150
+                self.likes.append(self.nearbyUsers.getUsers()[self.nearbyUsersIndex].getUID()) // add this to the array so false swipes aren't seen twice in the same instance
             case .right: // like; true
                 frame.origin.x += screenSize.width + 150
+                self.likes.append(self.nearbyUsers.getUsers()[self.nearbyUsersIndex].getUID())
+                Singleton.sharedInstance.HTTPClient!.sendOperationWithToken(operation: "xs", input: self.nearbyUsers.getUsers()[self.nearbyUsersIndex].getUID()) {
+                    (result, status) in
+                    if (status == 1) {
+                        // TODO
+                    }
+                    else {
+                        print("An error occured while liking this user.")
+                    }
+                }
             default:
                 break
             }
@@ -206,6 +290,7 @@ class ConnectViewController: UIViewController {
                 self.swipeableView = getErrorView(error: "No users left in area.")
                 self.view.addSubview(self.swipeableView!)
                 self.firstViewInit = false // reset the first view initializer check
+                self.errorOn = true
             }
             else { // there are users left in area
                 self.swipeableView = self.getUIView(with: self.nearbyUsers.getUsers()[self.nearbyUsersIndex])

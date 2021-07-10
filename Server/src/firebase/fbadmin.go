@@ -91,6 +91,23 @@ func (fbapp *FirebaseApp) SignUp(email string, pass string) {
 	}
 	log.Printf("Successfully created user: %v\n", u.UID)
 
+	// Create connecting logic storage units in Firebase for the user
+	// get app for database
+	client, err := fbapp.App.Database(context.Background())
+	if err != nil {
+		log.Printf("error establishing connection to database: %v", err)
+	}
+
+	// get liked and connected references and push empty lists
+	refLiked := client.NewRef(fmt.Sprintf("connections/%s/liked", u.UID))
+	if _, errSender := refLiked.Push(context.Background(), ""); errSender != nil {
+		log.Printf("error initialising databse: %v", errSender)
+	}
+	refConnected := client.NewRef(fmt.Sprintf("connections/%s/connected", u.UID))
+	if _, errSender := refConnected.Push(context.Background(), ""); errSender != nil {
+		log.Printf("error initialising databse: %v", errSender)
+	}
+
 }
 
 // SignIn -- on Client, then will use tokens
@@ -249,10 +266,125 @@ func (fbapp *FirebaseApp) GetUIDFromLocation(status *int, City string, UIDList *
 		*status = 0
 		*UIDList = list.List{}
 	}
+
 	// data will be returned as a list of strings
 	list := list.New()
 	for key := range data { // each key is an UID
 		list.PushBack(key)
+	}
+
+	*UIDList = *list
+	*status = 1
+
+}
+
+// Connection-related operations
+
+// LikeUser -- Adds sourceUID to destUID liked list
+func (fbapp *FirebaseApp) LikeUser(status *int, sourceUID string, destUID string) {
+
+	// Create connecting logic storage units in Firebase for the user
+	// get app for database
+	client, err := fbapp.App.Database(context.Background())
+	if err != nil {
+		*status = 0
+		log.Printf("error establishing connection to database: %v", err)
+	}
+
+	// the UIDs in the LikedBy HAVE to be unique (ie: a user can't be liked twice by the same user)
+	var data map[string]string
+	uidExists := false
+	refLikedCheck := client.NewRef(fmt.Sprintf("connections/%s/likedBy", destUID))
+	if errSender := refLikedCheck.Get(context.Background(), &data); errSender != nil {
+		*status = 0
+		log.Printf("error getting likedBy list: %v", errSender)
+	}
+	for key := range data {
+		if data[key] == sourceUID {
+			uidExists = true
+			break
+		}
+	}
+
+	if uidExists { // don't push
+		*status = 1
+	} else { // UID not in list, push
+		// get likedBy reference and push UID
+		refLiked := client.NewRef(fmt.Sprintf("connections/%s/likedBy", destUID))
+		if _, errSender := refLiked.Push(context.Background(), sourceUID); errSender != nil {
+			*status = 0
+			log.Printf("error adding user to likedBy list: %v", errSender)
+		}
+
+		// save like for sourceUID
+		refSaved := client.NewRef(fmt.Sprintf("connections/%s/likes", sourceUID))
+		if _, errSender := refSaved.Push(context.Background(), destUID); errSender != nil {
+			*status = 0
+			log.Printf("error getting liked list: %v", errSender)
+		}
+
+		*status = 1
+	}
+
+}
+
+// GetLikedListForUser -- Gets the LikedBy list for the user with UID
+func (fbapp *FirebaseApp) GetLikedByListForUser(status *int, UID string, UIDList *list.List) {
+
+	// Create connecting logic storage units in Firebase for the user
+	// get app for database
+	client, err := fbapp.App.Database(context.Background())
+	if err != nil {
+		*status = 0
+		*UIDList = list.List{}
+		log.Printf("error establishing connection to database: %v", err)
+	}
+
+	// get list from liked ref
+	var data map[string]string
+	refLiked := client.NewRef(fmt.Sprintf("connections/%s/likedBy", UID))
+	if err := refLiked.Get(context.Background(), &data); err != nil {
+		*status = 0
+		*UIDList = list.List{}
+		log.Printf("error adding user to liked list: %v", err)
+	}
+
+	// data will be returned as a list of strings
+	list := list.New()
+	for key := range data { // each key is an UID
+		list.PushBack(data[key])
+	}
+
+	*UIDList = *list
+	*status = 1
+
+}
+
+// GetLikesListForUser -- Gets the Likes list for the user with UID
+func (fbapp *FirebaseApp) GetLikesListForUser(status *int, UID string, UIDList *list.List) {
+
+	// Create connecting logic storage units in Firebase for the user
+	// get app for database
+	client, err := fbapp.App.Database(context.Background())
+	if err != nil {
+		*status = 0
+		*UIDList = list.List{}
+		log.Printf("error establishing connection to database: %v", err)
+	}
+
+	// get list from liked ref
+	var data map[string]string
+	refLiked := client.NewRef(fmt.Sprintf("connections/%s/likes", UID))
+	if err := refLiked.Get(context.Background(), &data); err != nil {
+		*status = 0
+		*UIDList = list.List{}
+		log.Printf("error adding user to liked list: %v", err)
+	}
+
+	// data will be returned as a list of strings
+	list := list.New()
+	for key := range data { // each key is an UID
+		list.PushBack(data[key])
 	}
 
 	*UIDList = *list
