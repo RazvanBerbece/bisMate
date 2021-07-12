@@ -27,6 +27,9 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate {
     var locationManager = CLLocationManager()
     var locationHandler : LocationHandler? // reverse geocoding logic wrapper
     
+    // Updating data
+    private var timer : Timer?
+    
     override func viewDidLoad() {
         
         // initialisers
@@ -37,11 +40,14 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate {
                 self.loadProfile()
                 Singleton.sharedInstance.CurrentLocalUser!.setToken(newToken: token)
                 Singleton.sharedInstance.HTTPClient = RestClient(token: token)
+                Singleton.sharedInstance.matches = []
             }
             else {
                 self.dismiss(animated: false, completion: nil)
             }
         }
+        
+        self.subscribeToConnections()
         
         super.viewDidLoad()
         
@@ -64,6 +70,7 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate {
         // revoke token -- TODO
         // signs user out (dismiss segue)
         dismiss(animated: true, completion: nil)
+        self.timer!.invalidate()
     }
     
     private func getToken(completion: @escaping (String) -> Void) {
@@ -128,6 +135,29 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate {
             self.startGeocoder()
         }
         self.updatedLocation = true
+    }
+    
+    // MARK: - Connection Updater Method (This SHOULD be reworked)
+    private func subscribeToConnections() {
+        // Executes downloadConnections every second
+        // Updates UI if the connections list has changed
+        self.timer = Timer.scheduledTimer(timeInterval: 1.00, target: self, selector: #selector(self.downloadConnections), userInfo: nil, repeats: true)
+    }
+    
+    @objc private func downloadConnections() {
+        Singleton.sharedInstance.HTTPClient!.sendOperationWithToken(operation: "xxy", input: Singleton.sharedInstance.CurrentLocalUser!.getUID()) {
+            (result, status) in
+            if (status == 0) {
+                print("An error occured while downloading matches list")
+            }
+            else {
+                var uids : [String] = []
+                for (_, uidtuple) in result["Data"].enumerated() {
+                    uids.append(uidtuple.1.stringValue)
+                }
+                Singleton.sharedInstance.matches! = uids
+            }
+        }
     }
     
 }

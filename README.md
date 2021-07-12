@@ -46,19 +46,20 @@ Response {\
 3. [/operation?token=<String>&operation=<String>&input=<String>]("http://localhost:8000/operation?token=<String>&operation=<String>&input=<String>") -- Uses the token param to verify a transaction (gets User ID from token verification) and then processes the operation specified in the operation parameter using the data in the input field
 
 ### Operations (<Number> = Description (Params))
-- 0 = Get User Profile (UID : String)
-- 1 = Change Bio (Bio : String)
-- 2 = Change Display Name (DisplayName : String)
-- 3 = Add Profile Picture (URL : String)
+- 0 = Get User Profile                    (UID : String)
+- 1 = Change Bio                          (Bio : String)
+- 2 = Change Display Name                 (DisplayName : String)
+- 3 = Add Profile Picture                 (URL : String)
 
 - d = Delete Account
-- c = Change Password (Pass : String)
+- c = Change Password                     (Pass : String)
 
-- ws = UID Location (City) (PUSH) (UID : String, City : String)
-- wg = UID Location (City) (GET ALL) (UID : String, City : String)
-- xs = LikedBy (PUSH) (UID : String, LikedUID: String)
-- xg = LikedBy (GET) (UID : String, LikedUID: String)
-- xx = Likes (GET) (UID : String)
+- ws = UID Location (City) (PUSH)         (UID : String, City : String)
+- wg = UID Location (City) (GET ALL)      (UID : String, City : String)
+- xs = LikedBy (PUSH)                     (UID : String, LikedUID: String)
+- xg = LikedBy (GET)                      (UID : String, LikedUID: String)
+- xx = Likes (GET)                        (UID : String)
+- xxy = Matches (GET)                     (UID : String)
 - y = Get chat history of user (list of chats with users)
 - z = Get detailed chat history between two users on Firebase database for future retrieval
 
