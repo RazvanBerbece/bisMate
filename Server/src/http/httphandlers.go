@@ -73,6 +73,7 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 		xs 	= LikedBy (PUSH)						(params -> UID : String, LikedUID: String)
 		xg 	= LikedBy (GET)							(params -> UID : String, LikedUID: String)
 		xx  = Likes (GET)							(params -> UID : String)
+		xxy = Matches (GET)							(params -> UID : String)
 		y 	= Get all messages of user with UID
 		z 	= Get detailed chat between users
 	*/
@@ -298,6 +299,36 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 				data.Result = 0
 				data.Data = "nil"
 				data.Message = "Failed to get user likes."
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			}
+		case "xxy":
+			// get matches list
+			status := -1
+			list := list.List{}
+			httpserver.App.GetMatches(&status, httpserver.CurrentToken.UID, &list)
+			if status == 1 {
+				data := HTTPResponse{}
+				data.TransactionID = "xxy"
+				data.Result = 1
+				data.Message = fmt.Sprintf("Got matches for UID %s.", input)
+				// Iterate the list
+				uidList := []string{}
+				for e := list.Front(); e != nil; e = e.Next() {
+					uid := string(e.Value.(string))
+					uidList = append(uidList, uid)
+				}
+				data.Data = uidList
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			} else {
+				data := HTTPResponse{}
+				data.TransactionID = "xxy"
+				data.Result = 0
+				data.Data = "nil"
+				data.Message = "Failed to get user matches."
 				w.Header().Set("Content-Type", "application/json")
 				w.WriteHeader(http.StatusCreated)
 				json.NewEncoder(w).Encode(data)

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -276,7 +276,7 @@
                             <constraint firstItem="aze-1w-hNj" firstAttribute="leading" secondItem="2fd-iL-3w5" secondAttribute="leading" constant="20" id="cGT-n6-E8h"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Connect" image="person.3.fill" catalog="system" selectedImage="person.3.fill" id="VbH-Fy-lho"/>
+                    <tabBarItem key="tabBarItem" title="Connect" image="link" catalog="system" landscapeImage="link" selectedImage="link" id="VbH-Fy-lho"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F4Y-6M-n2H" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -335,7 +335,7 @@
                             <constraint firstItem="7fD-AV-PNu" firstAttribute="leading" secondItem="6in-qK-JwR" secondAttribute="leading" constant="20" id="y0X-Xr-uZ8"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Profile" image="person.fill" catalog="system" selectedImage="person.fill" id="xVp-BU-fGh"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="person" catalog="system" landscapeImage="person" selectedImage="person" id="xVp-BU-fGh"/>
                     <connections>
                         <outlet property="labelGreet" destination="7fD-AV-PNu" id="dyP-gF-dzr"/>
                     </connections>
@@ -357,8 +357,8 @@
                     <connections>
                         <segue destination="q8l-OL-IvF" kind="relationship" relationship="viewControllers" id="hvE-q8-cwG"/>
                         <segue destination="7JX-G4-Ery" kind="relationship" relationship="viewControllers" id="dMx-pU-qU8"/>
-                        <segue destination="XgP-LQ-HjC" kind="relationship" relationship="viewControllers" id="ggR-cf-igw"/>
                         <segue destination="A58-Ky-4da" kind="relationship" relationship="viewControllers" id="TyB-02-EbP"/>
+                        <segue destination="XgP-LQ-HjC" kind="relationship" relationship="viewControllers" id="ggR-cf-igw"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mFH-jB-hDI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -374,10 +374,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="7WA-Aq-lLV">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="AxP-OC-l7X">
+                                <rect key="frame" x="0.0" y="24.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7WA-Aq-lLV" id="P01-XX-i5x">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AxP-OC-l7X" id="j0c-Fw-T4Z">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
@@ -429,7 +429,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MessageCellLeft" rowHeight="100" id="xsk-d6-M79" customClass="MessageCellLeft" customModule="bisMateClient" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="374" height="100"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="374" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xsk-d6-M79" id="MmR-JY-ZKm">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="100"/>
@@ -465,7 +465,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MessageCellRight" rowHeight="100" id="3YV-s6-7ze" customClass="MessageCellRight" customModule="bisMateClient" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="128" width="374" height="100"/>
+                                        <rect key="frame" x="0.0" y="124.5" width="374" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3YV-s6-7ze" id="gqf-Ra-hhX">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="100"/>
@@ -599,11 +599,11 @@
             </objects>
             <point key="canvasLocation" x="4555.072463768116" y="379.6875"/>
         </scene>
-        <!--Messages-->
+        <!--Connections-->
         <scene sceneID="AoR-Il-7bS">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="A58-Ky-4da" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Messages" image="envelope.fill" catalog="system" landscapeImage="envelope.fill" selectedImage="envelope.fill" id="vJp-rC-gGT"/>
+                    <tabBarItem key="tabBarItem" title="Connections" image="person.3" catalog="system" landscapeImage="person.3" selectedImage="person.3" id="vJp-rC-gGT"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ctj-H9-lpg">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -629,9 +629,11 @@
     <color key="tintColor" cyan="0.0" magenta="0.45000000000000001" yellow="0.16" black="0.19" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
     <resources>
         <image name="arrow.up.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="envelope.fill" catalog="system" width="128" height="93"/>
         <image name="gear" catalog="system" width="128" height="119"/>
-        <image name="person.3.fill" catalog="system" width="128" height="61"/>
+        <image name="link" catalog="system" width="128" height="122"/>
+        <image name="person" width="128" height="128"/>
+        <image name="person" catalog="system" width="128" height="117"/>
+        <image name="person.3" catalog="system" width="128" height="62"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

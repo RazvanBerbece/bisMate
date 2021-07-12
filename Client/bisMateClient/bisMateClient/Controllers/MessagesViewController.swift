@@ -47,7 +47,7 @@ class MessagesViewController: UITableViewController {
         // Do any additional setup after loading the view.
     }
     
-    // MARK: -Table view data source
+    // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -78,7 +78,7 @@ class MessagesViewController: UITableViewController {
         self.performSegue(withIdentifier: "MessageDetailSegue", sender: indexPath)
     }
     
-    // MARK: -Utils
+    // MARK: - Utils
     private func messageInit() {
         
         // tableView init
@@ -94,7 +94,7 @@ class MessagesViewController: UITableViewController {
         
     }
     
-    // MARK: -Segue preparing for detailed message views
+    // MARK: - Segue preparing for detailed message views
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "MessageDetailSegue" {
             print("Segueing")

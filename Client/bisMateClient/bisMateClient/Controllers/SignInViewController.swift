@@ -14,6 +14,7 @@ class Singleton {
     var CurrentLocalUser: bisMateClient.User?
     var HTTPClient: RestClient?
     var currentCity: String?
+    var matches: [String]?
 }
 
 class SignInViewController: UIViewController {

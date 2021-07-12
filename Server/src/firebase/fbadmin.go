@@ -294,8 +294,8 @@ func (fbapp *FirebaseApp) LikeUser(status *int, sourceUID string, destUID string
 	// the UIDs in the LikedBy HAVE to be unique (ie: a user can't be liked twice by the same user)
 	var data map[string]string
 	uidExists := false
-	refLikedCheck := client.NewRef(fmt.Sprintf("connections/%s/likedBy", destUID))
-	if errSender := refLikedCheck.Get(context.Background(), &data); errSender != nil {
+	refLikedBy := client.NewRef(fmt.Sprintf("connections/%s/likedBy", destUID))
+	if errSender := refLikedBy.Get(context.Background(), &data); errSender != nil {
 		*status = 0
 		log.Printf("error getting likedBy list: %v", errSender)
 	}
@@ -310,8 +310,7 @@ func (fbapp *FirebaseApp) LikeUser(status *int, sourceUID string, destUID string
 		*status = 1
 	} else { // UID not in list, push
 		// get likedBy reference and push UID
-		refLiked := client.NewRef(fmt.Sprintf("connections/%s/likedBy", destUID))
-		if _, errSender := refLiked.Push(context.Background(), sourceUID); errSender != nil {
+		if _, errSender := refLikedBy.Push(context.Background(), sourceUID); errSender != nil {
 			*status = 0
 			log.Printf("error adding user to likedBy list: %v", errSender)
 		}
@@ -321,6 +320,42 @@ func (fbapp *FirebaseApp) LikeUser(status *int, sourceUID string, destUID string
 		if _, errSender := refSaved.Push(context.Background(), destUID); errSender != nil {
 			*status = 0
 			log.Printf("error getting liked list: %v", errSender)
+		}
+
+		// check if liked by the other user and move UIDs to matches list if so
+		var data map[string]string
+		refMatchClient := client.NewRef(fmt.Sprintf("connections/%s/likedBy", sourceUID))
+		if errSender := refMatchClient.Get(context.Background(), &data); errSender != nil {
+			*status = 0
+			log.Printf("error adding user to likedBy list: %v", errSender)
+		}
+
+		// iterate likedBy list for current user
+		// if likedBy holds the UID which was just liked, we have a match
+		for key := range data {
+			if data[key] == destUID {
+
+				// push to matches list of both users
+				refMatchUserOne := client.NewRef(fmt.Sprintf("connections/%s/matches", sourceUID))
+				refMatchUserTwo := client.NewRef(fmt.Sprintf("connections/%s/matches", destUID))
+				if _, errSenderOne := refMatchUserOne.Push(context.Background(), destUID); errSenderOne != nil {
+					*status = 0
+					log.Printf("error adding user to matches list: %v", errSenderOne)
+					return
+				}
+				if _, errSenderTwo := refMatchUserTwo.Push(context.Background(), sourceUID); errSenderTwo != nil {
+					*status = 0
+					log.Printf("error adding user to matches list: %v", errSenderTwo)
+					return
+				}
+
+				// sanitise database
+				// delete likes from sourceUID and destUID
+				fbapp.DeleteLikesAfterMatch(status, sourceUID, destUID)
+				fbapp.DeleteLikesAfterMatch(status, destUID, sourceUID)
+
+				break
+			}
 		}
 
 		*status = 1
@@ -351,7 +386,7 @@ func (fbapp *FirebaseApp) GetLikedByListForUser(status *int, UID string, UIDList
 
 	// data will be returned as a list of strings
 	list := list.New()
-	for key := range data { // each key is an UID
+	for key := range data {
 		list.PushBack(data[key])
 	}
 
@@ -383,11 +418,102 @@ func (fbapp *FirebaseApp) GetLikesListForUser(status *int, UID string, UIDList *
 
 	// data will be returned as a list of strings
 	list := list.New()
-	for key := range data { // each key is an UID
+	for key := range data {
 		list.PushBack(data[key])
 	}
 
 	*UIDList = *list
+	*status = 1
+
+}
+
+// GetMatches -- Gets the list of matches under sourceUID
+func (fbapp *FirebaseApp) GetMatches(status *int, sourceUID string, UIDList *list.List) {
+
+	// Create connecting logic storage units in Firebase for the user
+	// get app for database
+	client, err := fbapp.App.Database(context.Background())
+	if err != nil {
+		*status = 0
+		*UIDList = list.List{}
+		log.Printf("error establishing connection to database: %v", err)
+		return
+	}
+
+	// Get the likes list data
+	var matchesDict map[string]string
+	refLikes := client.NewRef(fmt.Sprintf("connections/%s/matches", sourceUID))
+	if errLikes := refLikes.Get(context.Background(), &matchesDict); errLikes != nil {
+		*status = 0
+		*UIDList = list.List{}
+		log.Printf("error getting dict: %v", errLikes)
+		return
+	}
+
+	list := list.List{}
+	for key := range matchesDict {
+		list.PushBack(matchesDict[key])
+	}
+
+	*UIDList = list
+	*status = 1
+
+}
+
+// DeleteLikesAfterMatch -- Deletes a UID from the user's likedBy and likes lists in the Firebase Database
+func (fbapp *FirebaseApp) DeleteLikesAfterMatch(status *int, sourceUID string, matchUID string) {
+
+	// Create connecting logic storage units in Firebase for the user
+	// get app for database
+	client, err := fbapp.App.Database(context.Background())
+	if err != nil {
+		*status = 0
+		log.Printf("error establishing connection to database: %v", err)
+		return
+	}
+
+	// Get the likes list data
+	var likesDict map[string]string
+	refLikes := client.NewRef(fmt.Sprintf("connections/%s/likes", sourceUID))
+	if errLikes := refLikes.Get(context.Background(), &likesDict); errLikes != nil {
+		*status = 0
+		log.Printf("error getting dict: %v", errLikes)
+		return
+	}
+
+	// Delete the data of the match from the likes list
+	for extKey := range likesDict {
+		if likesDict[extKey] == matchUID {
+			refDeleteLikes := client.NewRef(fmt.Sprintf("connections/%s/likes/%s", sourceUID, extKey))
+			if errDeleteLikes := refDeleteLikes.Delete(context.Background()); errDeleteLikes != nil {
+				*status = 0
+				log.Printf("error deleting user from likes list: %v", errDeleteLikes)
+				return
+			}
+		}
+	}
+
+	// Get the likedBy list data
+	var likedByDict map[string]string
+	refLikedBy := client.NewRef(fmt.Sprintf("connections/%s/likedBy", sourceUID))
+	if errLikedBy := refLikedBy.Get(context.Background(), &likedByDict); errLikedBy != nil {
+		*status = 0
+		log.Printf("error getting dict: %v", errLikedBy)
+		return
+	}
+
+	// Delete the data of the match from the likes list
+	for extKey := range likedByDict {
+		if likedByDict[extKey] == matchUID {
+			refDeleteLikedBy := client.NewRef(fmt.Sprintf("connections/%s/likedBy/%s", sourceUID, extKey))
+			if errDeleteLikedBy := refDeleteLikedBy.Delete(context.Background()); errDeleteLikedBy != nil {
+				*status = 0
+				log.Printf("error deleting user from likedBy list: %v", errDeleteLikedBy)
+				return
+			}
+		}
+	}
+
 	*status = 1
 
 }

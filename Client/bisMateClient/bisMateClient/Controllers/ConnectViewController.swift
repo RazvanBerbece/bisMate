@@ -162,7 +162,7 @@ class ConnectViewController: UIViewController {
             if err == nil {
                 // Query user data from backend using the UIDs
                 for uid in list! {
-                    if (self.alreadyLiked(UID: uid) == true || uid == Singleton.sharedInstance.CurrentLocalUser!.getUID()) {
+                    if (self.alreadyLiked(UID: uid) == true || uid == Singleton.sharedInstance.CurrentLocalUser!.getUID() || Singleton.sharedInstance.matches!.contains(uid) == true) {
                         continue // if this user has been swiped on or is current user, don't display
                     }
                     else { // not local or swiped user
