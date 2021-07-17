@@ -5,9 +5,11 @@ Connecting-type app for people to match profesionally and discuss/implement busi
 - [x] Go Server & iOS Client (prototype)
 - [x] Basic User Account Operations
 - [x] Messaging -- Functional on simulator (doesn't currently work on physical devices)
-- [x] Location Handling
-- [ ] 'Connect' functionality
+- [x] Location Uploader
+- [x] 'Connect' functionality
 - [ ] User Profile Info Enhancement (Pic, Bio, Work Place, Position etc.)
+- [ ] Connection Popup Styling and Populating
+- [ ] Location Remover on Location Change
 - [ ] Go Server Secured -- HTTP for now (TLS implemented but there are some config issues)
 - [ ] Encrypt Data sent to Firebase (ie. Messages)
 

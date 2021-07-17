@@ -88,9 +88,22 @@ class MessagesViewController: UITableViewController {
         tableView.allowsSelection = true
         tableView.isEditing = false;
         
-        // model init -- in a for loop (uses default uid2 for now)
-        let defaultUID = (Singleton.sharedInstance.CurrentLocalUser!.getUID() == "ezQDaTAMkfM9IL1lQ1dvEKULrHv2" ? "jaq3RAOFuBar41BySERkP0WPugZ2" : "ezQDaTAMkfM9IL1lQ1dvEKULrHv2")
-        self.model.append(Message(from: "Jon Doe", text: "Hello World !", time: Date().currentTimeMillis(), uid: defaultUID))
+        // populate table view from connections array
+        for connection in Singleton.sharedInstance.matches! {
+            // get user data from uid
+            Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "0", input: connection) {
+                (result, status) in
+                if (result != "") {
+                    let user = User.getUserFromData(data: result)
+                    self.model.append(Message(from: user.getDisplayName(), text: "Start up a conversation !", time: Date().currentTimeMillis(), uid: connection))
+                    self.tableView.reloadData()
+                }
+                else {
+                    print("Error occured while collecting nearby users.")
+                }
+            }
+        }
+        
         
     }
     
