@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseAuth
 import Firebase
+import SwiftyJSON
 
 // Basic user class
 class User {
@@ -76,6 +77,21 @@ class User {
     }
     public func setToken(newToken: String) {
         self.token = newToken
+    }
+    
+    /** Utils */
+    static public func getUserFromData(data: JSON) -> User {
+        
+        let UID = data["Data"]["UID"]
+        // temporary
+        // will change requirements that all users must have a display name
+        let DisplayName = data["Data"]["DisplayName"] == "" ? "User with no display name" : data["Data"]["DisplayName"]
+        let PhotoURL = data["Data"]["PhotoURL"]
+        let EmailVerified = data["Data"]["EmailVerified"]
+        let user = User(UID: UID.stringValue, email: "-", displayName: DisplayName.stringValue, phoneNumber: "-", photoURL: PhotoURL.stringValue, emailVerified: EmailVerified.boolValue, token: "-")
+        
+        return user
+
     }
     
 }

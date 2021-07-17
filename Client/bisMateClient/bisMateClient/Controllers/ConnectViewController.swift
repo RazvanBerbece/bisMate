@@ -162,7 +162,7 @@ class ConnectViewController: UIViewController {
             if err == nil {
                 // Query user data from backend using the UIDs
                 for uid in list! {
-                    if (self.alreadyLiked(UID: uid) == true || uid == Singleton.sharedInstance.CurrentLocalUser!.getUID() || Singleton.sharedInstance.matches!.contains(uid) == true) {
+                    if (self.alreadyLiked(UID: uid) == true || uid == Singleton.sharedInstance.CurrentLocalUser!.getUID() || self.alreadyMatched(UID: uid) == true) {
                         continue // if this user has been swiped on or is current user, don't display
                     }
                     else { // not local or swiped user
@@ -174,16 +174,7 @@ class ConnectViewController: UIViewController {
                         Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "0", input: uid) {
                             (result, status) in
                             if (result != "") {
-                                
-                                // create a user instance (with less data as it's only for swiping purposes) and add it to NearbyUsers.users
-                                let UID = result["Data"]["UID"]
-                                // temporary
-                                // will change requirements that all users must have a display name
-                                let DisplayName = result["Data"]["DisplayName"] == "" ? "User with no display name" : result["Data"]["DisplayName"]
-                                let PhotoURL = result["Data"]["PhotoURL"]
-                                let EmailVerified = result["Data"]["EmailVerified"]
-                                let user = User(UID: UID.stringValue, email: "-", displayName: DisplayName.stringValue, phoneNumber: "-", photoURL: PhotoURL.stringValue, emailVerified: EmailVerified.boolValue, token: "-")
-                                self.nearbyUsers.pushUser(user: user)
+                                self.nearbyUsers.pushUser(user: User.getUserFromData(data: result))
                                 // initialise first swipeable view -- once
                                 if (!self.firstViewInit) {
                                     self.swipeableView = self.getUIView(with: self.nearbyUsers.getUsers()[0])
@@ -246,6 +237,10 @@ class ConnectViewController: UIViewController {
     
     private func alreadyLiked(UID: String) -> Bool {
         return self.likes.contains(UID)
+    }
+    
+    private func alreadyMatched(UID: String) -> Bool {
+        return Singleton.sharedInstance.matches!.contains(UID)
     }
     
     // MARK: - Actions

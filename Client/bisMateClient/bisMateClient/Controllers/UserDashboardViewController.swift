@@ -40,14 +40,18 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate {
                 self.loadProfile()
                 Singleton.sharedInstance.CurrentLocalUser!.setToken(newToken: token)
                 Singleton.sharedInstance.HTTPClient = RestClient(token: token)
+                
+                // get current connections
                 Singleton.sharedInstance.matches = []
+                self.initConnectionList() // might not be useful actually
+                
+                // subscribe
+                self.subscribeToConnections()
             }
             else {
                 self.dismiss(animated: false, completion: nil)
             }
         }
-        
-        self.subscribeToConnections()
         
         super.viewDidLoad()
         
@@ -115,6 +119,8 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate {
                     if result != "" {
                         // successful upload
                         // print(result)
+                        
+                        // delete previous location - TODO
                     }
                     else {
                         // err handling
@@ -155,6 +161,46 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate {
                 for (_, uidtuple) in result["Data"].enumerated() {
                     uids.append(uidtuple.1.stringValue)
                 }
+                
+                // check if there are new connections
+                for uid in uids {
+                    
+                    if (Singleton.sharedInstance.matches!.contains(uid) == false) {
+                        // new connection found, update match popup status and display in controllers
+                        Singleton.sharedInstance.HTTPClient!.sendOperationWithToken(operation: "0", input: uid) {
+                            (result, status) in
+                            if (status == 0) {
+                                print("An error occured while downloading connection data.")
+                            }
+                            else {
+                                // display connection popup using result["Data"]["DisplayName"], result["Data"]["PhotoURL"] etc
+                                ConnectionPopup.shared.showConnectionPopup(user: User.getUserFromData(data: result))
+                            }
+                        }
+                    }
+                    
+                }
+                
+                // update local connections array
+                Singleton.sharedInstance.matches! = uids
+                
+            }
+        }
+    }
+    
+    private func initConnectionList() {
+        Singleton.sharedInstance.HTTPClient!.sendOperationWithToken(operation: "xxy", input: Singleton.sharedInstance.CurrentLocalUser!.getUID()) {
+            (result, status) in
+            if (status == 0) {
+                print("An error occured while downloading matches list")
+            }
+            else {
+                var uids : [String] = []
+                for (_, uidtuple) in result["Data"].enumerated() {
+                    uids.append(uidtuple.1.stringValue)
+                }
+                
+                // update local connections array
                 Singleton.sharedInstance.matches! = uids
             }
         }

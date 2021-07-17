@@ -8,15 +8,6 @@
 import UIKit
 import FirebaseAuth
 
-class Singleton {
-    static let sharedInstance = Singleton()
-    var CurrentFirebaseUser: FirebaseAuth.User?
-    var CurrentLocalUser: bisMateClient.User?
-    var HTTPClient: RestClient?
-    var currentCity: String?
-    var matches: [String]?
-}
-
 class SignInViewController: UIViewController {
     
     // UI Components

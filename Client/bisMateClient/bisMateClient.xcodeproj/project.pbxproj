@@ -18,6 +18,12 @@
 		6F2782AE25C7039A00688053 /* MessageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2782AD25C7039A00688053 /* MessageDetailViewController.swift */; };
 		6F2782AF25C7039A00688053 /* MessageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2782AD25C7039A00688053 /* MessageDetailViewController.swift */; };
 		6F2782B025C7039A00688053 /* MessageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2782AD25C7039A00688053 /* MessageDetailViewController.swift */; };
+		6F2EAB3C26A3245200ECDAFC /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2EAB3B26A3245200ECDAFC /* Globals.swift */; };
+		6F2EAB3D26A3245200ECDAFC /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2EAB3B26A3245200ECDAFC /* Globals.swift */; };
+		6F2EAB3E26A3245200ECDAFC /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2EAB3B26A3245200ECDAFC /* Globals.swift */; };
+		6F2EAB4026A326A800ECDAFC /* ConnectionPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2EAB3F26A326A800ECDAFC /* ConnectionPopup.swift */; };
+		6F2EAB4126A326A800ECDAFC /* ConnectionPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2EAB3F26A326A800ECDAFC /* ConnectionPopup.swift */; };
+		6F2EAB4226A326A800ECDAFC /* ConnectionPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2EAB3F26A326A800ECDAFC /* ConnectionPopup.swift */; };
 		6F3B514125D9764F0075AF3B /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3B514025D9764F0075AF3B /* ConnectViewController.swift */; };
 		6F3B514225D9764F0075AF3B /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3B514025D9764F0075AF3B /* ConnectViewController.swift */; };
 		6F3B514B25D98B290075AF3B /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3B514A25D98B290075AF3B /* LocationHandler.swift */; };
@@ -83,6 +89,8 @@
 		6F0509D025B3A41C001F7521 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6F09E1CE25C6293900404F65 /* MessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		6F2782AD25C7039A00688053 /* MessageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailViewController.swift; sourceTree = "<group>"; };
+		6F2EAB3B26A3245200ECDAFC /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		6F2EAB3F26A326A800ECDAFC /* ConnectionPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionPopup.swift; sourceTree = "<group>"; };
 		6F3B514025D9764F0075AF3B /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
 		6F3B514A25D98B290075AF3B /* LocationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHandler.swift; sourceTree = "<group>"; };
 		6F78C27325B20D1F0006C01B /* bisMateClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bisMateClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -161,6 +169,14 @@
 			path = Firebase;
 			sourceTree = "<group>";
 		};
+		6F2EAB3926A3243400ECDAFC /* Vars */ = {
+			isa = PBXGroup;
+			children = (
+				6F2EAB3B26A3245200ECDAFC /* Globals.swift */,
+			);
+			path = Vars;
+			sourceTree = "<group>";
+		};
 		6F3B514625D988950075AF3B /* Location */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +210,7 @@
 		6F78C27525B20D1F0006C01B /* bisMateClient */ = {
 			isa = PBXGroup;
 			children = (
+				6F2EAB3926A3243400ECDAFC /* Vars */,
 				6F3B514625D988950075AF3B /* Location */,
 				6F8A1EC225BB9B9400D52D6E /* Controllers */,
 				6F8A1EB725BB8C7D00D52D6E /* UILogic */,
@@ -291,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				6FFBCC72269650E9008ACDE6 /* Error.swift */,
+				6F2EAB3F26A326A800ECDAFC /* ConnectionPopup.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -572,6 +590,7 @@
 				6F7DF7EF25D9A9FB00893255 /* MessageCellRemote.swift in Sources */,
 				6F78C27725B20D1F0006C01B /* AppDelegate.swift in Sources */,
 				6F0509B925B3A255001F7521 /* FirebaseAuthClient.swift in Sources */,
+				6F2EAB3C26A3245200ECDAFC /* Globals.swift in Sources */,
 				6F96EA7425BCEB05000476EA /* SettingsViewController.swift in Sources */,
 				6F96EA6525BC8647000476EA /* UserDashboardViewController.swift in Sources */,
 				6F2782AE25C7039A00688053 /* MessageDetailViewController.swift in Sources */,
@@ -581,6 +600,7 @@
 				6F8A1EC425BB9BB500D52D6E /* SignInViewController.swift in Sources */,
 				6F78C2AB25B20D450006C01B /* SocketClient.swift in Sources */,
 				6F8A1EB025BB7D2900D52D6E /* RestClient.swift in Sources */,
+				6F2EAB4026A326A800ECDAFC /* ConnectionPopup.swift in Sources */,
 				6F09E1CF25C6293900404F65 /* MessagesViewController.swift in Sources */,
 				6FFBCC73269650E9008ACDE6 /* Error.swift in Sources */,
 				6F78C27925B20D1F0006C01B /* SceneDelegate.swift in Sources */,
@@ -597,8 +617,10 @@
 				6F0509BA25B3A255001F7521 /* FirebaseAuthClient.swift in Sources */,
 				6F78C2AC25B20D450006C01B /* SocketClient.swift in Sources */,
 				6F78C28E25B20D210006C01B /* bisMateClientTests.swift in Sources */,
+				6F2EAB4126A326A800ECDAFC /* ConnectionPopup.swift in Sources */,
 				6F3B514C25D98B290075AF3B /* LocationHandler.swift in Sources */,
 				6F2782AF25C7039A00688053 /* MessageDetailViewController.swift in Sources */,
+				6F2EAB3D26A3245200ECDAFC /* Globals.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,6 +629,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F7DF7E425D9A5CF00893255 /* MessageCellLocal.swift in Sources */,
+				6F2EAB4226A326A800ECDAFC /* ConnectionPopup.swift in Sources */,
 				6F09E1D125C6293900404F65 /* MessagesViewController.swift in Sources */,
 				6F8A1EBB25BB8CA400D52D6E /* UIView.swift in Sources */,
 				6FFBCC75269650E9008ACDE6 /* Error.swift in Sources */,
@@ -618,6 +641,7 @@
 				6F3B514225D9764F0075AF3B /* ConnectViewController.swift in Sources */,
 				6FD3EC0A25CEE5B00089115B /* UIViewController.swift in Sources */,
 				6F8A1EC625BB9BB500D52D6E /* SignInViewController.swift in Sources */,
+				6F2EAB3E26A3245200ECDAFC /* Globals.swift in Sources */,
 				6F7DF7F025D9A9FB00893255 /* MessageCellRemote.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
