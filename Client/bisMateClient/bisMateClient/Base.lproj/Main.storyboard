@@ -72,20 +72,68 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="kgH-z5-VPU" firstAttribute="top" secondItem="zj8-iG-OPT" secondAttribute="bottom" constant="115" id="0h7-RY-820"/>
-                            <constraint firstItem="OVc-L6-nAp" firstAttribute="top" secondItem="kgH-z5-VPU" secondAttribute="bottom" constant="57" id="EjW-kK-OKg"/>
-                            <constraint firstItem="ZmP-1c-X3o" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="181" id="G9T-B5-tYf"/>
+                            <constraint firstItem="kgH-z5-VPU" firstAttribute="top" secondItem="zj8-iG-OPT" secondAttribute="bottom" constant="115" id="0h7-RY-820">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="OVc-L6-nAp" firstAttribute="top" secondItem="kgH-z5-VPU" secondAttribute="bottom" constant="57" id="EjW-kK-OKg">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="ZmP-1c-X3o" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="181" id="G9T-B5-tYf">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="zj8-iG-OPT" secondAttribute="trailing" constant="20" id="Gin-HY-HbI"/>
-                            <constraint firstItem="kgH-z5-VPU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="KxL-qG-tof"/>
-                            <constraint firstItem="OVc-L6-nAp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="R6V-Ei-RjY"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OVc-L6-nAp" secondAttribute="trailing" constant="20" id="SjZ-Kv-lPe"/>
-                            <constraint firstItem="zj8-iG-OPT" firstAttribute="top" secondItem="ZmP-1c-X3o" secondAttribute="bottom" constant="17.5" id="UMZ-fU-Cxk"/>
-                            <constraint firstItem="ZmP-1c-X3o" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="XZX-3R-FMP"/>
+                            <constraint firstItem="kgH-z5-VPU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="KxL-qG-tof">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="OVc-L6-nAp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="R6V-Ei-RjY">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OVc-L6-nAp" secondAttribute="trailing" constant="20" id="SjZ-Kv-lPe">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="zj8-iG-OPT" firstAttribute="top" secondItem="ZmP-1c-X3o" secondAttribute="bottom" constant="17.5" id="UMZ-fU-Cxk">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="ZmP-1c-X3o" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="XZX-3R-FMP">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="kgH-z5-VPU" secondAttribute="trailing" constant="20" id="XcK-AH-IgI"/>
-                            <constraint firstItem="z2Y-rb-yFD" firstAttribute="top" secondItem="kgH-z5-VPU" secondAttribute="bottom" constant="22" id="gnG-ID-iOd"/>
-                            <constraint firstItem="zj8-iG-OPT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="l02-PG-xTt"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="z2Y-rb-yFD" secondAttribute="trailing" constant="20" id="q63-Om-07Z"/>
-                            <constraint firstItem="z2Y-rb-yFD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="zNb-m1-2dk"/>
+                            <constraint firstItem="z2Y-rb-yFD" firstAttribute="top" secondItem="kgH-z5-VPU" secondAttribute="bottom" constant="22" id="gnG-ID-iOd">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="zj8-iG-OPT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="l02-PG-xTt">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="z2Y-rb-yFD" secondAttribute="trailing" constant="20" id="q63-Om-07Z">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="z2Y-rb-yFD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="zNb-m1-2dk">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
                         </constraints>
                     </view>
                     <connections>
@@ -113,7 +161,11 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MOX-7D-lXW">
                                 <rect key="frame" x="20" y="526" width="125" height="36"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="125" id="iXT-I7-HJu"/>
+                                    <constraint firstAttribute="width" constant="125" id="iXT-I7-HJu">
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </constraint>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Back">
@@ -188,24 +240,96 @@
                         <viewLayoutGuide key="safeArea" id="wws-b5-yUj"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="wws-b5-yUj" firstAttribute="trailing" secondItem="3ks-LG-qsY" secondAttribute="trailing" constant="20" id="53s-zD-Exq"/>
-                            <constraint firstItem="Tv4-QS-x7S" firstAttribute="leading" secondItem="wws-b5-yUj" secondAttribute="leading" constant="20" id="BdT-ic-gle"/>
-                            <constraint firstItem="wws-b5-yUj" firstAttribute="trailing" secondItem="r5G-7G-kfB" secondAttribute="trailing" constant="20" id="Bpk-gk-vCD"/>
-                            <constraint firstItem="OFb-me-a2F" firstAttribute="leading" secondItem="wws-b5-yUj" secondAttribute="leading" constant="20" id="N7a-xL-exg"/>
-                            <constraint firstItem="3ks-LG-qsY" firstAttribute="leading" secondItem="wws-b5-yUj" secondAttribute="leading" constant="20" id="UKg-3M-jvs"/>
-                            <constraint firstItem="3ks-LG-qsY" firstAttribute="top" secondItem="OFb-me-a2F" secondAttribute="bottom" constant="80.5" id="Unv-DU-I6R"/>
-                            <constraint firstItem="6u9-Cg-Wec" firstAttribute="leading" secondItem="wws-b5-yUj" secondAttribute="leading" constant="20" id="X0b-Vh-nfF"/>
-                            <constraint firstItem="6u9-Cg-Wec" firstAttribute="top" secondItem="r5G-7G-kfB" secondAttribute="bottom" constant="20" id="ZKt-GN-sJe"/>
-                            <constraint firstItem="wws-b5-yUj" firstAttribute="trailing" secondItem="6u9-Cg-Wec" secondAttribute="trailing" constant="20" id="aWj-u7-YRN"/>
-                            <constraint firstItem="wws-b5-yUj" firstAttribute="trailing" secondItem="Tv4-QS-x7S" secondAttribute="trailing" constant="20" id="b89-u1-hu5"/>
-                            <constraint firstItem="wws-b5-yUj" firstAttribute="trailing" secondItem="qKe-p6-KGe" secondAttribute="trailing" constant="20" id="be0-Da-PGy"/>
-                            <constraint firstItem="r5G-7G-kfB" firstAttribute="top" secondItem="3ks-LG-qsY" secondAttribute="bottom" constant="20" id="iaW-qC-TOf"/>
-                            <constraint firstItem="OFb-me-a2F" firstAttribute="top" secondItem="wws-b5-yUj" secondAttribute="top" constant="125" id="j4c-gc-QbO"/>
-                            <constraint firstItem="r5G-7G-kfB" firstAttribute="leading" secondItem="wws-b5-yUj" secondAttribute="leading" constant="20" id="lb3-SA-1Tr"/>
-                            <constraint firstItem="MOX-7D-lXW" firstAttribute="top" secondItem="6u9-Cg-Wec" secondAttribute="bottom" constant="40" id="m9E-hp-p7o"/>
-                            <constraint firstItem="MOX-7D-lXW" firstAttribute="leading" secondItem="wws-b5-yUj" secondAttribute="leading" constant="20" id="mOm-RI-Td6"/>
-                            <constraint firstItem="Tv4-QS-x7S" firstAttribute="top" secondItem="MOX-7D-lXW" secondAttribute="bottom" constant="26" id="rJI-l1-EGF"/>
-                            <constraint firstItem="qKe-p6-KGe" firstAttribute="top" secondItem="6u9-Cg-Wec" secondAttribute="bottom" constant="40" id="tRd-7k-TcP"/>
+                            <constraint firstItem="wws-b5-yUj" firstAttribute="trailing" secondItem="3ks-LG-qsY" secondAttribute="trailing" constant="20" id="53s-zD-Exq">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="Tv4-QS-x7S" firstAttribute="leading" secondItem="wws-b5-yUj" secondAttribute="leading" constant="20" id="BdT-ic-gle">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="wws-b5-yUj" firstAttribute="trailing" secondItem="r5G-7G-kfB" secondAttribute="trailing" constant="20" id="Bpk-gk-vCD">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="OFb-me-a2F" firstAttribute="leading" secondItem="wws-b5-yUj" secondAttribute="leading" constant="20" id="N7a-xL-exg">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="3ks-LG-qsY" firstAttribute="leading" secondItem="wws-b5-yUj" secondAttribute="leading" constant="20" id="UKg-3M-jvs">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="3ks-LG-qsY" firstAttribute="top" secondItem="OFb-me-a2F" secondAttribute="bottom" constant="80.5" id="Unv-DU-I6R">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="6u9-Cg-Wec" firstAttribute="leading" secondItem="wws-b5-yUj" secondAttribute="leading" constant="20" id="X0b-Vh-nfF">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="6u9-Cg-Wec" firstAttribute="top" secondItem="r5G-7G-kfB" secondAttribute="bottom" constant="20" id="ZKt-GN-sJe">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="wws-b5-yUj" firstAttribute="trailing" secondItem="6u9-Cg-Wec" secondAttribute="trailing" constant="20" id="aWj-u7-YRN">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="wws-b5-yUj" firstAttribute="trailing" secondItem="Tv4-QS-x7S" secondAttribute="trailing" constant="20" id="b89-u1-hu5">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="wws-b5-yUj" firstAttribute="trailing" secondItem="qKe-p6-KGe" secondAttribute="trailing" constant="20" id="be0-Da-PGy">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="r5G-7G-kfB" firstAttribute="top" secondItem="3ks-LG-qsY" secondAttribute="bottom" constant="20" id="iaW-qC-TOf">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="OFb-me-a2F" firstAttribute="top" secondItem="wws-b5-yUj" secondAttribute="top" constant="125" id="j4c-gc-QbO">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="r5G-7G-kfB" firstAttribute="leading" secondItem="wws-b5-yUj" secondAttribute="leading" constant="20" id="lb3-SA-1Tr">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="MOX-7D-lXW" firstAttribute="top" secondItem="6u9-Cg-Wec" secondAttribute="bottom" constant="40" id="m9E-hp-p7o">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="MOX-7D-lXW" firstAttribute="leading" secondItem="wws-b5-yUj" secondAttribute="leading" constant="20" id="mOm-RI-Td6">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="Tv4-QS-x7S" firstAttribute="top" secondItem="MOX-7D-lXW" secondAttribute="bottom" constant="26" id="rJI-l1-EGF">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="qKe-p6-KGe" firstAttribute="top" secondItem="6u9-Cg-Wec" secondAttribute="bottom" constant="40" id="tRd-7k-TcP">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ueP-2b-kX0"/>
@@ -290,59 +414,158 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vKO-Hr-AzN">
-                                <rect key="frame" x="20" y="44" width="374" height="36"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="36" id="tjH-29-WIl"/>
-                                    <constraint firstAttribute="width" constant="374" id="yaf-Of-ETG"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Sign Out">
-                                    <color key="titleColor" cyan="0.0" magenta="0.45000000000000001" yellow="0.16" black="0.19" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="close" destination="ZWj-tx-aEO" eventType="touchUpInside" id="72X-mg-dOa"/>
-                                    <action selector="signOut" destination="q8l-OL-IvF" eventType="touchUpInside" id="p1l-jn-rrc"/>
-                                    <action selector="signOut" destination="Roc-Bd-F2s" eventType="touchUpInside" id="p9S-S0-b6z"/>
-                                </connections>
-                            </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="zTe-bH-TKc">
-                                <rect key="frame" x="142" y="133.5" width="130" height="97"/>
+                                <rect key="frame" x="314" y="46" width="80" height="52"/>
                                 <color key="tintColor" cyan="0.0" magenta="0.45000000000000001" yellow="0.16" black="0.19" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="130" id="8Tq-to-4cL"/>
-                                    <constraint firstAttribute="height" constant="100" id="MIb-Ed-oHU"/>
-                                </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(labelGreet)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fD-AV-PNu">
-                                <rect key="frame" x="20" y="253.5" width="374" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;user name&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fD-AV-PNu">
+                                <rect key="frame" x="20" y="119" width="374" height="31.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Bio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JMd-3K-5Wd">
+                                <rect key="frame" x="20" y="186" width="374" height="26.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZU8-vP-FYH">
+                                <rect key="frame" x="20" y="220.5" width="374" height="205"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="205" id="8z7-xg-saD"/>
+                                    <constraint firstAttribute="width" constant="374" id="fQS-ko-KT9"/>
+                                </constraints>
+                                <string key="text">Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est Lorem ipsum dolores est</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Professional Profile" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bnc-oI-OUz">
+                                <rect key="frame" x="20" y="470" width="374" height="26"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LNR-Cf-0cr">
+                                <rect key="frame" x="20" y="504" width="374" height="265"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6in-qK-JwR"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="vKO-Hr-AzN" firstAttribute="leading" secondItem="6in-qK-JwR" secondAttribute="leading" constant="20" id="1xC-OB-qg4"/>
-                            <constraint firstItem="7fD-AV-PNu" firstAttribute="top" secondItem="zTe-bH-TKc" secondAttribute="bottom" constant="21.5" id="54g-dt-6KN"/>
-                            <constraint firstItem="6in-qK-JwR" firstAttribute="trailing" secondItem="7fD-AV-PNu" secondAttribute="trailing" constant="20" id="HIy-WH-2AP"/>
-                            <constraint firstItem="6in-qK-JwR" firstAttribute="trailing" secondItem="zTe-bH-TKc" secondAttribute="trailing" constant="142" id="PZI-bN-DaU"/>
-                            <constraint firstItem="zTe-bH-TKc" firstAttribute="leading" secondItem="6in-qK-JwR" secondAttribute="leading" constant="142" id="WqX-3g-bC4"/>
-                            <constraint firstItem="vKO-Hr-AzN" firstAttribute="top" secondItem="6in-qK-JwR" secondAttribute="top" id="exk-vE-vGJ"/>
-                            <constraint firstItem="6in-qK-JwR" firstAttribute="trailing" secondItem="vKO-Hr-AzN" secondAttribute="trailing" constant="20" id="qeN-Mg-eiz"/>
-                            <constraint firstItem="zTe-bH-TKc" firstAttribute="top" secondItem="6in-qK-JwR" secondAttribute="top" constant="88" id="xnN-lk-Hfl"/>
-                            <constraint firstItem="7fD-AV-PNu" firstAttribute="leading" secondItem="6in-qK-JwR" secondAttribute="leading" constant="20" id="y0X-Xr-uZ8"/>
+                            <constraint firstItem="7fD-AV-PNu" firstAttribute="leading" secondItem="6in-qK-JwR" secondAttribute="leading" constant="20" id="2FL-If-QDX"/>
+                            <constraint firstItem="6in-qK-JwR" firstAttribute="trailing" secondItem="ZU8-vP-FYH" secondAttribute="trailing" constant="20" id="5PX-MH-zBN"/>
+                            <constraint firstItem="ZU8-vP-FYH" firstAttribute="top" secondItem="JMd-3K-5Wd" secondAttribute="bottom" constant="8" id="BTN-vv-b8n"/>
+                            <constraint firstItem="7fD-AV-PNu" firstAttribute="top" secondItem="zTe-bH-TKc" secondAttribute="bottom" constant="19.5" id="DEm-Y4-dMa"/>
+                            <constraint firstItem="LNR-Cf-0cr" firstAttribute="leading" secondItem="6in-qK-JwR" secondAttribute="leading" constant="20" id="Dqa-K6-2c3"/>
+                            <constraint firstItem="JMd-3K-5Wd" firstAttribute="top" secondItem="7fD-AV-PNu" secondAttribute="bottom" constant="35.5" id="GB3-F2-XuE"/>
+                            <constraint firstItem="zTe-bH-TKc" firstAttribute="trailing" secondItem="7fD-AV-PNu" secondAttribute="trailing" id="GiC-fP-1Nf"/>
+                            <constraint firstItem="JMd-3K-5Wd" firstAttribute="leading" secondItem="6in-qK-JwR" secondAttribute="leading" constant="20" id="JNi-Hh-CDH"/>
+                            <constraint firstItem="LNR-Cf-0cr" firstAttribute="top" secondItem="Bnc-oI-OUz" secondAttribute="bottom" constant="8" id="N28-MI-ZzH"/>
+                            <constraint firstItem="ZU8-vP-FYH" firstAttribute="leading" secondItem="6in-qK-JwR" secondAttribute="leading" constant="20" id="URZ-Vu-haV"/>
+                            <constraint firstItem="zTe-bH-TKc" firstAttribute="leading" secondItem="6in-qK-JwR" secondAttribute="leading" constant="314" id="VX9-4D-yat"/>
+                            <constraint firstItem="6in-qK-JwR" firstAttribute="trailing" secondItem="Bnc-oI-OUz" secondAttribute="trailing" constant="20" id="e4T-xN-m3O"/>
+                            <constraint firstItem="Bnc-oI-OUz" firstAttribute="top" secondItem="ZU8-vP-FYH" secondAttribute="bottom" constant="44.5" id="hS6-1B-RA5"/>
+                            <constraint firstItem="zTe-bH-TKc" firstAttribute="top" secondItem="6in-qK-JwR" secondAttribute="top" constant="0.5" id="jeJ-iY-HN6"/>
+                            <constraint firstItem="6in-qK-JwR" firstAttribute="trailing" secondItem="7fD-AV-PNu" secondAttribute="trailing" constant="20" id="nE3-Mg-WTb"/>
+                            <constraint firstItem="6in-qK-JwR" firstAttribute="trailing" secondItem="JMd-3K-5Wd" secondAttribute="trailing" constant="20" id="uyF-Uw-Ph1"/>
+                            <constraint firstItem="6in-qK-JwR" firstAttribute="trailing" secondItem="LNR-Cf-0cr" secondAttribute="trailing" constant="20" id="vrX-vW-svd"/>
+                            <constraint firstItem="6in-qK-JwR" firstAttribute="bottom" secondItem="LNR-Cf-0cr" secondAttribute="bottom" constant="44" id="wbE-Vc-RHu"/>
+                            <constraint firstItem="7fD-AV-PNu" firstAttribute="top" secondItem="iFL-qX-0kS" secondAttribute="topMargin" constant="75" id="xEC-vr-AU1"/>
+                            <constraint firstItem="Bnc-oI-OUz" firstAttribute="leading" secondItem="6in-qK-JwR" secondAttribute="leading" constant="20" id="zcb-0J-XwR"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Profile" image="person" catalog="system" landscapeImage="person" selectedImage="person" id="xVp-BU-fGh"/>
                     <connections>
                         <outlet property="labelGreet" destination="7fD-AV-PNu" id="dyP-gF-dzr"/>
+                        <outlet property="textViewBio" destination="ZU8-vP-FYH" id="pBN-U8-SCI"/>
+                        <segue destination="9ke-za-2qn" kind="show" identifier="bioEditSegue" id="eoE-wr-IZT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pmF-5J-4Bs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3650.7246376811595" y="-1061.3839285714284"/>
+        </scene>
+        <!--Bio Edit Controller-->
+        <scene sceneID="0kz-n6-MSg">
+            <objects>
+                <viewController id="9ke-za-2qn" customClass="BioEditController" customModule="bisMateClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2ge-CA-Tjr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="heE-8z-B8e">
+                                <rect key="frame" x="20" y="442" width="374" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Update Bio">
+                                    <color key="titleColor" cyan="0.0" magenta="0.45000000000000001" yellow="0.16" black="0.19" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="close" destination="ZWj-tx-aEO" eventType="touchUpInside" id="8I7-OI-5HN"/>
+                                    <action selector="signOut" destination="q8l-OL-IvF" eventType="touchUpInside" id="OUz-bI-jdu"/>
+                                    <action selector="signOut" destination="XgP-LQ-HjC" eventType="touchUpInside" id="fay-hW-HC8"/>
+                                    <action selector="signOut" destination="Roc-Bd-F2s" eventType="touchUpInside" id="yQE-8F-aRh"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2pb-7H-14k">
+                                <rect key="frame" x="20" y="204" width="374" height="200"/>
+                                <color key="backgroundColor" systemColor="tertiarySystemFillColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="Y8x-RF-WA1"/>
+                                </constraints>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Your Bio" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tLY-9Q-jak">
+                                <rect key="frame" x="20" y="165" width="374" height="27.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="96d-O4-Jj5">
+                                <rect key="frame" x="20" y="486" width="374" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" cyan="0.0" magenta="0.45000000000000001" yellow="0.16" black="0.19" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="close" destination="ZWj-tx-aEO" eventType="touchUpInside" id="cpR-Dh-Zv4"/>
+                                    <action selector="goBack" destination="9ke-za-2qn" eventType="touchUpInside" id="g0R-S0-dgP"/>
+                                    <action selector="signOut" destination="Roc-Bd-F2s" eventType="touchUpInside" id="7cw-Ng-u3f"/>
+                                    <action selector="signOut" destination="XgP-LQ-HjC" eventType="touchUpInside" id="idg-wK-unO"/>
+                                    <action selector="signOut" destination="q8l-OL-IvF" eventType="touchUpInside" id="v3R-26-Rc9"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="iyl-pU-cPh"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="iyl-pU-cPh" firstAttribute="trailing" secondItem="tLY-9Q-jak" secondAttribute="trailing" constant="20" id="09I-FQ-Oew"/>
+                            <constraint firstItem="iyl-pU-cPh" firstAttribute="trailing" secondItem="96d-O4-Jj5" secondAttribute="trailing" constant="20" id="8tH-Yn-c85"/>
+                            <constraint firstItem="heE-8z-B8e" firstAttribute="leading" secondItem="iyl-pU-cPh" secondAttribute="leading" constant="20" id="BPx-EJ-nkT"/>
+                            <constraint firstItem="iyl-pU-cPh" firstAttribute="trailing" secondItem="heE-8z-B8e" secondAttribute="trailing" constant="20" id="Nz7-sR-o6R"/>
+                            <constraint firstItem="2pb-7H-14k" firstAttribute="leading" secondItem="iyl-pU-cPh" secondAttribute="leading" constant="20" id="Vw8-dD-EBr"/>
+                            <constraint firstItem="96d-O4-Jj5" firstAttribute="leading" secondItem="iyl-pU-cPh" secondAttribute="leading" constant="20" id="buw-GM-tXW"/>
+                            <constraint firstItem="96d-O4-Jj5" firstAttribute="top" secondItem="heE-8z-B8e" secondAttribute="bottom" constant="8" id="byv-jq-HI5"/>
+                            <constraint firstItem="tLY-9Q-jak" firstAttribute="leading" secondItem="iyl-pU-cPh" secondAttribute="leading" constant="20" id="eD9-Xz-AxW"/>
+                            <constraint firstItem="heE-8z-B8e" firstAttribute="top" secondItem="2pb-7H-14k" secondAttribute="bottom" constant="38" id="jg8-UW-oFT"/>
+                            <constraint firstItem="2pb-7H-14k" firstAttribute="top" secondItem="tLY-9Q-jak" secondAttribute="bottom" constant="11.5" id="oBI-Cf-irr"/>
+                            <constraint firstItem="iyl-pU-cPh" firstAttribute="trailing" secondItem="2pb-7H-14k" secondAttribute="trailing" constant="20" id="xyz-xv-Jlx"/>
+                            <constraint firstItem="tLY-9Q-jak" firstAttribute="top" secondItem="iyl-pU-cPh" secondAttribute="top" constant="165" id="z1j-WX-V3j"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="M71-ID-gb1"/>
+                    <connections>
+                        <outlet property="bioTextArea" destination="2pb-7H-14k" id="0rJ-al-rWG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="duG-NL-1QF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4498.5507246376819" y="-1061.3839285714284"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="3MH-4z-y4j">
@@ -571,22 +794,110 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JSN-No-lPa">
+                                <rect key="frame" x="20" y="763" width="374" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="374" id="4Vk-DU-ZHR">
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </constraint>
+                                    <constraint firstAttribute="height" constant="35" id="L7P-Kt-Ka3">
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </constraint>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Sign Out">
+                                    <color key="titleColor" cyan="0.0" magenta="0.45000000000000001" yellow="0.16" black="0.19" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="close" destination="ZWj-tx-aEO" eventType="touchUpInside" id="YqZ-2a-W8U"/>
+                                    <action selector="signOut" destination="q8l-OL-IvF" eventType="touchUpInside" id="TXu-5s-2NM"/>
+                                    <action selector="signOut" destination="Roc-Bd-F2s" eventType="touchUpInside" id="jvO-Ky-C2t"/>
+                                    <action selector="signOut" destination="XgP-LQ-HjC" eventType="touchUpInside" id="y4f-6f-7Hm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="N4y-ph-iJA"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Ogc-h8-kV0" firstAttribute="leading" secondItem="N4y-ph-iJA" secondAttribute="leading" constant="20" id="077-Ks-xq1"/>
-                            <constraint firstItem="80i-Vo-7eb" firstAttribute="top" secondItem="N4y-ph-iJA" secondAttribute="top" constant="15" id="3Hh-DK-a96"/>
-                            <constraint firstItem="pz8-c4-6YO" firstAttribute="top" secondItem="1Jk-Zb-NbF" secondAttribute="bottom" constant="10" id="63A-gJ-bDz"/>
-                            <constraint firstItem="pz8-c4-6YO" firstAttribute="leading" secondItem="N4y-ph-iJA" secondAttribute="leading" constant="20" id="I9q-Qf-eCJ"/>
-                            <constraint firstItem="1Jk-Zb-NbF" firstAttribute="leading" secondItem="N4y-ph-iJA" secondAttribute="leading" constant="20" id="SIq-iu-LaZ"/>
-                            <constraint firstItem="N4y-ph-iJA" firstAttribute="trailing" secondItem="80i-Vo-7eb" secondAttribute="trailing" constant="20" id="XTT-di-NbX"/>
-                            <constraint firstItem="N4y-ph-iJA" firstAttribute="trailing" secondItem="Ogc-h8-kV0" secondAttribute="trailing" constant="20" id="XiO-qA-woC"/>
-                            <constraint firstItem="N4y-ph-iJA" firstAttribute="trailing" secondItem="1Jk-Zb-NbF" secondAttribute="trailing" constant="20" id="eha-Y8-Kyt"/>
-                            <constraint firstItem="N4y-ph-iJA" firstAttribute="trailing" secondItem="pz8-c4-6YO" secondAttribute="trailing" constant="20" id="fRU-cC-9yU"/>
-                            <constraint firstItem="1Jk-Zb-NbF" firstAttribute="top" secondItem="Ogc-h8-kV0" secondAttribute="bottom" constant="10" id="jzN-lu-XJY"/>
-                            <constraint firstItem="80i-Vo-7eb" firstAttribute="leading" secondItem="N4y-ph-iJA" secondAttribute="leading" constant="20" id="tCr-Zz-0Ka"/>
-                            <constraint firstItem="Ogc-h8-kV0" firstAttribute="top" secondItem="80i-Vo-7eb" secondAttribute="bottom" constant="37" id="wjT-Hz-Hbg"/>
+                            <constraint firstItem="Ogc-h8-kV0" firstAttribute="leading" secondItem="N4y-ph-iJA" secondAttribute="leading" constant="20" id="077-Ks-xq1">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="80i-Vo-7eb" firstAttribute="top" secondItem="N4y-ph-iJA" secondAttribute="top" constant="15" id="3Hh-DK-a96">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="pz8-c4-6YO" firstAttribute="top" secondItem="1Jk-Zb-NbF" secondAttribute="bottom" constant="10" id="63A-gJ-bDz">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="JSN-No-lPa" firstAttribute="leading" secondItem="N4y-ph-iJA" secondAttribute="leading" constant="20" id="Bcw-JU-LNI">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="pz8-c4-6YO" firstAttribute="leading" secondItem="N4y-ph-iJA" secondAttribute="leading" constant="20" id="I9q-Qf-eCJ">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="N4y-ph-iJA" firstAttribute="bottom" secondItem="JSN-No-lPa" secondAttribute="bottom" constant="15" id="Nus-AI-iW3">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="1Jk-Zb-NbF" firstAttribute="leading" secondItem="N4y-ph-iJA" secondAttribute="leading" constant="20" id="SIq-iu-LaZ">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="N4y-ph-iJA" firstAttribute="trailing" secondItem="80i-Vo-7eb" secondAttribute="trailing" constant="20" id="XTT-di-NbX">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="N4y-ph-iJA" firstAttribute="trailing" secondItem="Ogc-h8-kV0" secondAttribute="trailing" constant="20" id="XiO-qA-woC">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="N4y-ph-iJA" firstAttribute="trailing" secondItem="JSN-No-lPa" secondAttribute="trailing" constant="20" id="dCW-th-3Kn">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="N4y-ph-iJA" firstAttribute="trailing" secondItem="1Jk-Zb-NbF" secondAttribute="trailing" constant="20" id="eha-Y8-Kyt">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="N4y-ph-iJA" firstAttribute="trailing" secondItem="pz8-c4-6YO" secondAttribute="trailing" constant="20" id="fRU-cC-9yU">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="1Jk-Zb-NbF" firstAttribute="top" secondItem="Ogc-h8-kV0" secondAttribute="bottom" constant="10" id="jzN-lu-XJY">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="80i-Vo-7eb" firstAttribute="leading" secondItem="N4y-ph-iJA" secondAttribute="leading" constant="20" id="tCr-Zz-0Ka">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
+                            <constraint firstItem="Ogc-h8-kV0" firstAttribute="top" secondItem="80i-Vo-7eb" secondAttribute="bottom" constant="37" id="wjT-Hz-Hbg">
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </constraint>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" selectedImage="gear" id="wFJ-fW-UtM"/>
@@ -631,7 +942,6 @@
         <image name="arrow.up.circle.fill" catalog="system" width="128" height="121"/>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="link" catalog="system" width="128" height="122"/>
-        <image name="person" width="128" height="128"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.3" catalog="system" width="128" height="62"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
@@ -640,6 +950,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tertiarySystemFillColor">
+            <color red="0.46274509803921571" green="0.46274509803921571" blue="0.50196078431372548" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

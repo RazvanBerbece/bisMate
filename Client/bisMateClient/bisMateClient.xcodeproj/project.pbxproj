@@ -29,6 +29,15 @@
 		6F3B514B25D98B290075AF3B /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3B514A25D98B290075AF3B /* LocationHandler.swift */; };
 		6F3B514C25D98B290075AF3B /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3B514A25D98B290075AF3B /* LocationHandler.swift */; };
 		6F3B514D25D98B290075AF3B /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3B514A25D98B290075AF3B /* LocationHandler.swift */; };
+		6F44F5E026A5FD220081C316 /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F44F5DF26A5FD220081C316 /* CGFloat.swift */; };
+		6F44F5E126A5FD220081C316 /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F44F5DF26A5FD220081C316 /* CGFloat.swift */; };
+		6F44F5E226A5FD220081C316 /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F44F5DF26A5FD220081C316 /* CGFloat.swift */; };
+		6F44F5EA26A5FF450081C316 /* TextFontSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F44F5E926A5FF450081C316 /* TextFontSize.swift */; };
+		6F44F5EB26A5FF450081C316 /* TextFontSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F44F5E926A5FF450081C316 /* TextFontSize.swift */; };
+		6F44F5EC26A5FF450081C316 /* TextFontSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F44F5E926A5FF450081C316 /* TextFontSize.swift */; };
+		6F44F5EF26A610000081C316 /* BioEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F44F5EE26A610000081C316 /* BioEditController.swift */; };
+		6F44F5F026A610000081C316 /* BioEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F44F5EE26A610000081C316 /* BioEditController.swift */; };
+		6F44F5F126A610000081C316 /* BioEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F44F5EE26A610000081C316 /* BioEditController.swift */; };
 		6F78C27725B20D1F0006C01B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F78C27625B20D1F0006C01B /* AppDelegate.swift */; };
 		6F78C27925B20D1F0006C01B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F78C27825B20D1F0006C01B /* SceneDelegate.swift */; };
 		6F78C27B25B20D1F0006C01B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F78C27A25B20D1F0006C01B /* ViewController.swift */; };
@@ -55,6 +64,8 @@
 		6F96EA7525BCEB05000476EA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F96EA7325BCEB05000476EA /* SettingsViewController.swift */; };
 		6FD3EC0925CEE5B00089115B /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD3EC0825CEE5B00089115B /* UIViewController.swift */; };
 		6FD3EC0A25CEE5B00089115B /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD3EC0825CEE5B00089115B /* UIViewController.swift */; };
+		6FE4F98E26AA1BA90018F671 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F78C27C25B20D1F0006C01B /* Main.storyboard */; };
+		6FE4F98F26AA1BAA0018F671 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F78C27C25B20D1F0006C01B /* Main.storyboard */; };
 		6FFBCC73269650E9008ACDE6 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFBCC72269650E9008ACDE6 /* Error.swift */; };
 		6FFBCC74269650E9008ACDE6 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFBCC72269650E9008ACDE6 /* Error.swift */; };
 		6FFBCC75269650E9008ACDE6 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFBCC72269650E9008ACDE6 /* Error.swift */; };
@@ -93,6 +104,9 @@
 		6F2EAB3F26A326A800ECDAFC /* ConnectionPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionPopup.swift; sourceTree = "<group>"; };
 		6F3B514025D9764F0075AF3B /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
 		6F3B514A25D98B290075AF3B /* LocationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHandler.swift; sourceTree = "<group>"; };
+		6F44F5DF26A5FD220081C316 /* CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
+		6F44F5E926A5FF450081C316 /* TextFontSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFontSize.swift; sourceTree = "<group>"; };
+		6F44F5EE26A610000081C316 /* BioEditController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioEditController.swift; sourceTree = "<group>"; };
 		6F78C27325B20D1F0006C01B /* bisMateClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bisMateClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F78C27625B20D1F0006C01B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6F78C27825B20D1F0006C01B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -183,6 +197,14 @@
 				6F3B514A25D98B290075AF3B /* LocationHandler.swift */,
 			);
 			path = Location;
+			sourceTree = "<group>";
+		};
+		6F44F5ED26A60FED0081C316 /* EditorControllers */ = {
+			isa = PBXGroup;
+			children = (
+				6F44F5EE26A610000081C316 /* BioEditController.swift */,
+			);
+			path = EditorControllers;
 			sourceTree = "<group>";
 		};
 		6F78C26A25B20D1F0006C01B = {
@@ -287,6 +309,8 @@
 			children = (
 				6F8A1EB925BB8CA400D52D6E /* UIView.swift */,
 				6FD3EC0825CEE5B00089115B /* UIViewController.swift */,
+				6F44F5DF26A5FD220081C316 /* CGFloat.swift */,
+				6F44F5E926A5FF450081C316 /* TextFontSize.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -294,6 +318,7 @@
 		6F8A1EC225BB9B9400D52D6E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				6F44F5ED26A60FED0081C316 /* EditorControllers */,
 				6F8A1EC325BB9BB500D52D6E /* SignInViewController.swift */,
 				6F96EA6425BC8647000476EA /* UserDashboardViewController.swift */,
 				6F96EA7325BCEB05000476EA /* SettingsViewController.swift */,
@@ -447,6 +472,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F0509D225B3A41C001F7521 /* GoogleService-Info.plist in Resources */,
+				6FE4F98E26AA1BA90018F671 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,6 +480,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FE4F98F26AA1BAA0018F671 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,9 +617,12 @@
 				6F7DF7EF25D9A9FB00893255 /* MessageCellRemote.swift in Sources */,
 				6F78C27725B20D1F0006C01B /* AppDelegate.swift in Sources */,
 				6F0509B925B3A255001F7521 /* FirebaseAuthClient.swift in Sources */,
+				6F44F5EF26A610000081C316 /* BioEditController.swift in Sources */,
 				6F2EAB3C26A3245200ECDAFC /* Globals.swift in Sources */,
 				6F96EA7425BCEB05000476EA /* SettingsViewController.swift in Sources */,
 				6F96EA6525BC8647000476EA /* UserDashboardViewController.swift in Sources */,
+				6F44F5E026A5FD220081C316 /* CGFloat.swift in Sources */,
+				6F44F5EA26A5FF450081C316 /* TextFontSize.swift in Sources */,
 				6F2782AE25C7039A00688053 /* MessageDetailViewController.swift in Sources */,
 				6F8A1EBA25BB8CA400D52D6E /* UIView.swift in Sources */,
 				6F3B514125D9764F0075AF3B /* ConnectViewController.swift in Sources */,
@@ -613,8 +643,11 @@
 			files = (
 				6FFBCC74269650E9008ACDE6 /* Error.swift in Sources */,
 				6F09E1D025C6293900404F65 /* MessagesViewController.swift in Sources */,
+				6F44F5E126A5FD220081C316 /* CGFloat.swift in Sources */,
 				6F8A1EC525BB9BB500D52D6E /* SignInViewController.swift in Sources */,
+				6F44F5F026A610000081C316 /* BioEditController.swift in Sources */,
 				6F0509BA25B3A255001F7521 /* FirebaseAuthClient.swift in Sources */,
+				6F44F5EB26A5FF450081C316 /* TextFontSize.swift in Sources */,
 				6F78C2AC25B20D450006C01B /* SocketClient.swift in Sources */,
 				6F78C28E25B20D210006C01B /* bisMateClientTests.swift in Sources */,
 				6F2EAB4126A326A800ECDAFC /* ConnectionPopup.swift in Sources */,
@@ -634,10 +667,13 @@
 				6F8A1EBB25BB8CA400D52D6E /* UIView.swift in Sources */,
 				6FFBCC75269650E9008ACDE6 /* Error.swift in Sources */,
 				6F78C29925B20D210006C01B /* bisMateClientUITests.swift in Sources */,
+				6F44F5EC26A5FF450081C316 /* TextFontSize.swift in Sources */,
 				6F96EA6625BC8647000476EA /* UserDashboardViewController.swift in Sources */,
 				6F2782B025C7039A00688053 /* MessageDetailViewController.swift in Sources */,
+				6F44F5E226A5FD220081C316 /* CGFloat.swift in Sources */,
 				6F3B514D25D98B290075AF3B /* LocationHandler.swift in Sources */,
 				6F96EA7525BCEB05000476EA /* SettingsViewController.swift in Sources */,
+				6F44F5F126A610000081C316 /* BioEditController.swift in Sources */,
 				6F3B514225D9764F0075AF3B /* ConnectViewController.swift in Sources */,
 				6FD3EC0A25CEE5B00089115B /* UIViewController.swift in Sources */,
 				6F8A1EC625BB9BB500D52D6E /* SignInViewController.swift in Sources */,
