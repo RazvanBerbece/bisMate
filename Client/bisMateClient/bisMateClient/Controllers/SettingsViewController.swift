@@ -32,7 +32,7 @@ class SettingsViewController: UIViewController {
         
     }
     
-    // MARK: -Methods
+    // MARK: - Methods
     private func initComponents() {
         self.labelChangeResult.alpha = 0
     }
@@ -68,6 +68,13 @@ class SettingsViewController: UIViewController {
             // TODO
         }
         
+    }
+    
+    @IBAction private func signOut() {
+        // revoke token -- TODO
+        // signs user out (dismiss segue)
+        dismiss(animated: true, completion: nil)
+        Singleton.sharedInstance.timer!.invalidate()
     }
     
 }

@@ -23,4 +23,7 @@ class Singleton {
     var currentCity: String? // subscribed to through delegate method, updates constantly on didUpdateLocations
     var matches: [String]? // subscribed to, updates constantly with the user matches
     
+    // Timers
+    var timer: Timer? // used for updating connection array
+    
 }

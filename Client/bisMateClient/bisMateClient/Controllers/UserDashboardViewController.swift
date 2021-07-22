@@ -12,11 +12,15 @@ import CoreLocation
 /**
  User dashboard will also send location data on each viewDidLoad() which will be stored in the DB.
  */
-class UserDashboardViewController: UIViewController, CLLocationManagerDelegate {
+class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, UIGestureRecognizerDelegate {
     
     // UI Components
+    
     // Labels
     @IBOutlet weak var labelGreet: UILabel!
+    
+    // Text Views
+    @IBOutlet weak var textViewBio: UITextView!
     
     // User data
     var fbUser: FirebaseAuth.User? // received from Firebase, will be translated to local User design
@@ -27,8 +31,8 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate {
     var locationManager = CLLocationManager()
     var locationHandler : LocationHandler? // reverse geocoding logic wrapper
     
-    // Updating data
-    private var timer : Timer?
+    // Gestures
+    var tap: UITapGestureRecognizer!
     
     override func viewDidLoad() {
         
@@ -55,6 +59,10 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate {
         
         super.viewDidLoad()
         
+        // gesture init -- tap
+        let tapRec = UITapGestureRecognizer(target: self, action: #selector(self.performSegueBioEdit(_:)))
+        self.textViewBio.addGestureRecognizer(tapRec)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -67,14 +75,7 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate {
     // MARK: - Methods
     private func loadProfile() {
         // updates view with current user data
-        self.labelGreet.text = "Hello, \(String(describing: Singleton.sharedInstance.CurrentLocalUser!.getDisplayName())) !"
-    }
-    
-    @IBAction private func signOut() {
-        // revoke token -- TODO
-        // signs user out (dismiss segue)
-        dismiss(animated: true, completion: nil)
-        self.timer!.invalidate()
+        self.labelGreet.text = "\(String(describing: Singleton.sharedInstance.CurrentLocalUser!.getDisplayName()))"
     }
     
     private func getToken(completion: @escaping (String) -> Void) {
@@ -147,7 +148,7 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate {
     private func subscribeToConnections() {
         // Executes downloadConnections every second
         // Updates UI if the connections list has changed
-        self.timer = Timer.scheduledTimer(timeInterval: 1.00, target: self, selector: #selector(self.downloadConnections), userInfo: nil, repeats: true)
+        Singleton.sharedInstance.timer = Timer.scheduledTimer(timeInterval: 1.00, target: self, selector: #selector(self.downloadConnections), userInfo: nil, repeats: true)
     }
     
     @objc private func downloadConnections() {
@@ -204,6 +205,11 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate {
                 Singleton.sharedInstance.matches! = uids
             }
         }
+    }
+    
+    // MARK: - Tap Logic (Segues to profile modifiers)
+    @objc private func performSegueBioEdit(_ sender: UITapGestureRecognizer) {
+        self.performSegue(withIdentifier: "bioEditSegue", sender: self)
     }
     
 }
