@@ -41,9 +41,11 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
         self.getToken() {
             (token) in
             if (token != "") {
-                self.loadProfile()
+                
                 Singleton.sharedInstance.CurrentLocalUser!.setToken(newToken: token)
                 Singleton.sharedInstance.HTTPClient = RestClient(token: token)
+                
+                self.loadProfile() // initial profile load
                 
                 // get current connections
                 Singleton.sharedInstance.matches = []
@@ -74,8 +76,33 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
     
     // MARK: - Methods
     private func loadProfile() {
+        
         // updates view with current user data
+        
+        // greeting
         self.labelGreet.text = "\(String(describing: Singleton.sharedInstance.CurrentLocalUser!.getDisplayName()))"
+        
+        // get user bio
+        Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "ubg", input: Singleton.sharedInstance.CurrentLocalUser!.getUID()) {
+            (result, errCheck) in
+            if result != "" {
+                // print(result)
+                // set textView
+                DispatchQueue.main.async {
+                    self.textViewBio.text = result["Data"]["Bio"].stringValue
+                }
+            }
+            else {
+                // err handling
+                print("Error occured while sending location data to server.")
+                
+                // TODO - handle get bio error
+                self.textViewBio.text = "null" // temporary
+                
+            }
+        }
+        
+        
     }
     
     private func getToken(completion: @escaping (String) -> Void) {

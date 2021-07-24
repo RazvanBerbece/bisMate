@@ -53,9 +53,26 @@ class BioEditController: UIViewController, UITextViewDelegate {
         }
     }
     
-    // MARK: - Segue Logic
+    // MARK: - Actions
     @IBAction private func goBack() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction private func setUserBio() {
+        
+        Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "ubs", input: self.bioTextArea.text) {
+            (result, errCheck) in
+            if result != "" {
+                // print(result)
+                self.goBack() // dismiss screen on successful operation
+            }
+            else {
+                // err handling
+                print("Error occured while saving user bio to server.")
+                // TODO DISPLAY ERROR LABEL
+            }
+        }
+        
     }
     
     // MARK: - Delegate
