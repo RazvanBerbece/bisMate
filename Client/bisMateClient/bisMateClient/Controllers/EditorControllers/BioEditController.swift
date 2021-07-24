@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol BioEditControllerDelegate: AnyObject {
+    func popoverDidDismiss()
+}
+
 class BioEditController: UIViewController, UITextViewDelegate {
+    
+    weak var delegate: BioEditControllerDelegate?
     
     // UI Components
     
@@ -55,7 +61,7 @@ class BioEditController: UIViewController, UITextViewDelegate {
     
     // MARK: - Actions
     @IBAction private func goBack() {
-        dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction private func setUserBio() {
@@ -63,8 +69,11 @@ class BioEditController: UIViewController, UITextViewDelegate {
         Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "ubs", input: self.bioTextArea.text) {
             (result, errCheck) in
             if result != "" {
-                // print(result)
-                self.goBack() // dismiss screen on successful operation
+                
+                Singleton.sharedInstance.CurrentLocalUser?.setBio(newBio: self.bioTextArea.text)
+                
+                // update bio locally from text view input & dismiss screen on successful operation and return to user dashboard
+                self.dismiss(animated: true, completion: self.delegate?.popoverDidDismiss)
             }
             else {
                 // err handling
@@ -82,8 +91,8 @@ class BioEditController: UIViewController, UITextViewDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let textFieldText = textField.text,
-            let rangeOfTextToReplace = Range(range, in: textFieldText) else {
-                return false
+              let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+            return false
         }
         let substringToReplace = textFieldText[rangeOfTextToReplace]
         let count = textFieldText.count - substringToReplace.count + string.count

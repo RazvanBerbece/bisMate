@@ -70,8 +70,16 @@ class ConnectionPopup: UIView {
         userNameLabel.center = CGPoint(x: self.frame.width / 2, y: 100)
         userNameLabel.text = user.getDisplayName()
         
+        let userBioTextView = UITextView(frame: CGRect(x: 0, y: 0, width: 200, height: 25))
+        userBioTextView.alpha = 0.0
+        userBioTextView.textColor = .label
+        userBioTextView.textAlignment = .center
+        userBioTextView.center = CGPoint(x: self.frame.width / 2, y: 150)
+        userBioTextView.text = user.getBio()
+        
         // add user data subviews
         self.addSubview(userNameLabel)
+        self.addSubview(userBioTextView)
         
         // fade in connection popup
         UIView.animate(withDuration: 1.5, animations: {
@@ -89,6 +97,7 @@ class ConnectionPopup: UIView {
                 UIView.animate(withDuration: 1.5, animations: {
                     // change user data views alphas here
                     userNameLabel.alpha = 1.0
+                    userBioTextView.alpha = 1.0
                 }) {
                     _ in
                     // fade out connection popup -- might remove and add an exit button for the popup

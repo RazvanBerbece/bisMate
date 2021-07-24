@@ -61,20 +61,29 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 	receivedToken := r.URL.Query().Get("token") // all ops use the token
 	/*
 		operations :
+
+		USER PROFILE DATA
 		0 = Get User Profile 						(params -> UID : String)
-		1 = Change Bio 								(params -> Bio : String)
+		ubg = Get Bio 								(params -> UID : String)
+		ubs = Set Bio								(params -> Bio : String)
 		2 = Change Display Name     				(params -> DisplayName : String)
 		3 = Add Profile Picture     				(params -> URL : String)
 
+		ACCOUNT HIGH SECURITY OPS
 		d = Delete Account
 		c = Change Password							(params -> Pass : String)
 
+		LOCATION HANDLERS
 		ws 	= UID Location (PUSH) 					(params -> UID : String, City : String)
 		wg 	= UID Location (GET)					(params -> UID : String, City : String)
+
+		CONNECTION COMPONENT
 		xs 	= LikedBy (PUSH)						(params -> UID : String, LikedUID: String)
 		xg 	= LikedBy (GET)							(params -> UID : String, LikedUID: String)
 		xx  = Likes (GET)							(params -> UID : String)
 		xxy = Matches (GET)							(params -> UID : String)
+
+		MESSAGING COMPONENT
 		y 	= Get all messages of user with UID
 		z 	= Get detailed chat between users
 	*/
@@ -126,6 +135,60 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 				data.Result = 0
 				data.Data = 0
 				data.Message = "Get user failed."
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			}
+
+		case "ubg":
+
+			// get user bio
+			bio, err := httpserver.App.GetUserBio(input)
+
+			if err == "" {
+				data := HTTPResponse{}
+				data.TransactionID = "ubg"
+				data.Result = 1
+				data.Data = bio
+				data.Message = "Successfully retrieved user bio"
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			} else {
+				data := HTTPResponse{}
+				data.TransactionID = "ubg"
+				data.Result = 0
+				data.Data = ""
+				data.Message = "Error occured while retrieving user bio"
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			}
+		case "ubs":
+
+			// set user bio
+			status := -1
+			httpserver.App.SetUserBio(&status, httpserver.CurrentToken.UID, input)
+
+			if status == 1 {
+				data := HTTPResponse{}
+				data.TransactionID = "ubs"
+				data.Result = 1
+				data.Data = input
+				data.Message = "Successfully set user bio"
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			} else {
+				data := HTTPResponse{}
+				data.TransactionID = "ubs"
+				data.Result = 0
+				data.Data = ""
+				data.Message = "Error occured while setting user bio"
 
 				w.Header().Set("Content-Type", "application/json")
 				w.WriteHeader(http.StatusCreated)

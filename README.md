@@ -38,8 +38,8 @@ Response {\
 &nbsp;&nbsp;&nbsp;&nbsp;"PhoneNumber" : ""\
   },\
 &nbsp;&nbsp;"Result" : 1,\
-&nbsp;&nbsp;&nbsp;&nbsp;"Message" : "User retrieved successfully.",\
-&nbsp;&nbsp;&nbsp;&nbsp;"TransactionID" : 0\
+&nbsp;&nbsp;"Message" : "User retrieved successfully.",\
+&nbsp;&nbsp;"TransactionID" : 0\
 }
 
 ## API Endpoints
@@ -48,20 +48,28 @@ Response {\
 3. [/operation?token=<String>&operation=<String>&input=<String>]("http://localhost:8000/operation?token=<String>&operation=<String>&input=<String>") -- Uses the token param to verify a transaction (gets User ID from token verification) and then processes the operation specified in the operation parameter using the data in the input field
 
 ### Operations (<Number> = Description (Params))
+#### User Profile Data
 - 0 = Get User Profile                    (UID : String)
-- 1 = Change Bio                          (Bio : String)
+- ubg = Get Bio                          (UID : String)
+- ubs = Set Bio                          (Bio : String)
 - 2 = Change Display Name                 (DisplayName : String)
 - 3 = Add Profile Picture                 (URL : String)
 
+#### User Account High Security Operations
 - d = Delete Account
 - c = Change Password                     (Pass : String)
 
+#### Location Handling
 - ws = UID Location (City) (PUSH)         (UID : String, City : String)
 - wg = UID Location (City) (GET ALL)      (UID : String, City : String)
+
+#### Connections component
 - xs = LikedBy (PUSH)                     (UID : String, LikedUID: String)
 - xg = LikedBy (GET)                      (UID : String, LikedUID: String)
 - xx = Likes (GET)                        (UID : String)
 - xxy = Matches (GET)                     (UID : String)
+
+#### Messaging Component
 - y = Get chat history of user (list of chats with users)
 - z = Get detailed chat history between two users on Firebase database for future retrieval
 

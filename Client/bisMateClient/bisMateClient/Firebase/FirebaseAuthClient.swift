@@ -22,6 +22,8 @@ class User {
     
     private var token          : String? // used for server operations
     
+    private var bio            : String?
+    
     /** Constructor */
     init(UID: String, email: String, displayName: String, phoneNumber: String, photoURL: String, emailVerified: Bool, token: String) {
         self.UID = UID
@@ -55,6 +57,9 @@ class User {
     public func getToken() -> String {
         return self.token!
     }
+    public func getBio() -> String {
+        return self.bio!
+    }
     
     /** Setters */
     public func setDisplayName(newName: String) {
@@ -77,6 +82,9 @@ class User {
     }
     public func setToken(newToken: String) {
         self.token = newToken
+    }
+    public func setBio(newBio: String) {
+        self.bio = newBio
     }
     
     /** Utils */

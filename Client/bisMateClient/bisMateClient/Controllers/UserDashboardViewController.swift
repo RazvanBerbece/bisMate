@@ -18,9 +18,14 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
     
     // Labels
     @IBOutlet weak var labelGreet: UILabel!
+    @IBOutlet weak var labelLoading: UILabel!
     
     // Text Views
     @IBOutlet weak var textViewBio: UITextView!
+    
+    // Indicators
+    @IBOutlet weak var bioIndicator: UIActivityIndicatorView!
+    
     
     // User data
     var fbUser: FirebaseAuth.User? // received from Firebase, will be translated to local User design
@@ -35,6 +40,9 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
     var tap: UITapGestureRecognizer!
     
     override func viewDidLoad() {
+        
+        // UI components inits
+        self.bioIndicator.startAnimating()
         
         // initialisers
         self.initLocationManager()
@@ -89,12 +97,20 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
                 // print(result)
                 // set textView
                 DispatchQueue.main.async {
-                    self.textViewBio.text = result["Data"]["Bio"].stringValue
+                    
+                    self.bioIndicator.stopAnimating()
+                    self.bioIndicator.isHidden = true
+                    self.labelLoading.isHidden = true
+                    
+                    // update user model
+                    Singleton.sharedInstance.CurrentLocalUser?.setBio(newBio: result["Data"].stringValue != "" ? result["Data"].stringValue : "Click on this field to change your bio !")
+                    
+                    self.textViewBio.text = Singleton.sharedInstance.CurrentLocalUser?.getBio()
                 }
             }
             else {
                 // err handling
-                print("Error occured while sending location data to server.")
+                print("Error occured while getting user bio from server.")
                 
                 // TODO - handle get bio error
                 self.textViewBio.text = "null" // temporary
@@ -171,6 +187,12 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
         self.updatedLocation = true
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? BioEditController {
+            destinationVC.delegate = self
+        }
+    }
+    
     // MARK: - Connection Updater Method (This SHOULD be reworked)
     private func subscribeToConnections() {
         // Executes downloadConnections every second
@@ -202,7 +224,17 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
                             }
                             else {
                                 // display connection popup using result["Data"]["DisplayName"], result["Data"]["PhotoURL"] etc
-                                ConnectionPopup.shared.showConnectionPopup(user: User.getUserFromData(data: result))
+                                let user = User.getUserFromData(data: result)
+                                Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "ubg", input: user.getUID()) {
+                                    (result, errStatus) in
+                                    if (result != "") {
+                                        user.setBio(newBio: result["Data"].stringValue)
+                                        ConnectionPopup.shared.showConnectionPopup(user: user)
+                                    }
+                                    else {
+                                        print("Error occured while downloading user bio")
+                                    }
+                                }
                             }
                         }
                     }
@@ -239,4 +271,18 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
         self.performSegue(withIdentifier: "bioEditSegue", sender: self)
     }
     
+}
+
+// MARK: - Extensions
+extension UserDashboardViewController: BioEditControllerDelegate {
+    func popoverDidDismiss() {
+        
+        self.textViewBio.text = ""
+        self.bioIndicator.startAnimating()
+        self.bioIndicator.isHidden = false
+        self.labelLoading.isHidden = false
+        
+        self.loadProfile()
+        
+    }
 }
