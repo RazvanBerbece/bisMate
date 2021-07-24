@@ -517,3 +517,47 @@ func (fbapp *FirebaseApp) DeleteLikesAfterMatch(status *int, sourceUID string, m
 	*status = 1
 
 }
+
+// GetUserBio -- Gets a user bio from FB Realtime DB using UID
+func (fbapp *FirebaseApp) GetUserBio(status *int, UID string) string {
+
+	// get app for database
+	client, err := fbapp.App.Database(context.Background())
+	if err != nil {
+		log.Printf("error establishing connection to database: %v", err)
+		*status = 0
+	}
+
+	var bio string
+
+	// get references and the messages from the reference
+	ref := client.NewRef(fmt.Sprintf("users/%s", UID))
+	// get ordered instances of messages
+	if err := ref.Child("bio").Set(context.Background(), &bio); err != nil {
+		log.Printf("error getting user bio from database: %v", err)
+		*status = 0
+	}
+
+	*status = 1
+	return bio
+
+}
+
+// SetUserBio -- Saves a user bio to FB Realtime DB under UID/bio
+func (fbapp *FirebaseApp) SetUserBio(status *int, UID string, bio string) {
+
+	// get app for database
+	client, err := fbapp.App.Database(context.Background())
+	if err != nil {
+		log.Printf("error establishing connection to database: %v", err)
+		*status = 0
+	}
+
+	// get references and push
+	refSender := client.NewRef(fmt.Sprintf("users/%s", UID))
+	if errSender := refSender.Child("bio").Set(context.Background(), bio); errSender != nil {
+		log.Printf("error saving to database: %v", errSender)
+		*status = 0
+	}
+
+}
