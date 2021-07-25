@@ -68,6 +68,10 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>bisMate wants to use your camera to allow you to upload pictures to the platform.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>bisMate wants to use your camera to allow you to upload pictures to the platform.</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsLocalNetworking</key>

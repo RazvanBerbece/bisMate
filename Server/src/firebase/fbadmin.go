@@ -562,3 +562,48 @@ func (fbapp *FirebaseApp) SetUserBio(status *int, UID string, bio string) {
 	*status = 1
 
 }
+
+// SetProfilePicture -- Saves a profile picture as base64 string to FB Realtime DB under UID/profilePic
+func (fbapp *FirebaseApp) SetProfilePicture(status *int, UID string, imageData string) {
+
+	// get app for database
+	client, err := fbapp.App.Database(context.Background())
+	if err != nil {
+		log.Printf("error establishing connection to database: %v", err)
+		*status = 0
+	}
+
+	// get references and push
+	refSender := client.NewRef(fmt.Sprintf("users/%s", UID))
+	if errSender := refSender.Child("profilePic").Set(context.Background(), imageData); errSender != nil {
+		log.Printf("error saving to database: %v", errSender)
+		*status = 0
+	}
+
+	*status = 1
+
+}
+
+// GetProfilePicture -- Gets a profile picture as base64 string from FB Realtime DB under UID/profilePic
+func (fbapp *FirebaseApp) GetProfilePicture(UID string) (string, string) {
+
+	// get app for database
+	client, err := fbapp.App.Database(context.Background())
+	if err != nil {
+		log.Printf("error establishing connection to database: %v", err)
+		return "", "Connection to DB failed"
+	}
+
+	var imageData string
+
+	// get references and the messages from the reference
+	ref := client.NewRef(fmt.Sprintf("users/%s", UID))
+	// get ordered instances of messages
+	if err := ref.Child("profilePic").Get(context.Background(), &imageData); err != nil {
+		log.Printf("error getting user bio from database: %v", err)
+		return "", "Get User Bio failed"
+	}
+
+	return imageData, ""
+
+}

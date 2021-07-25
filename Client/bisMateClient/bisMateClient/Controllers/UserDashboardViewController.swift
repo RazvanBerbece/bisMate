@@ -23,9 +23,14 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
     // Text Views
     @IBOutlet weak var textViewBio: UITextView!
     
+    // Image Views
+    @IBOutlet weak var imageViewProfilePic: UIImageView!
+    
     // Indicators
     @IBOutlet weak var bioIndicator: UIActivityIndicatorView!
     
+    // Delegates
+    var imagePicker: ImagePicker?
     
     // User data
     var fbUser: FirebaseAuth.User? // received from Firebase, will be translated to local User design
@@ -35,9 +40,6 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
     var updatedLocation = false // toggles to true after updating location through backend
     var locationManager = CLLocationManager()
     var locationHandler : LocationHandler? // reverse geocoding logic wrapper
-    
-    // Gestures
-    var tap: UITapGestureRecognizer!
     
     override func viewDidLoad() {
         
@@ -69,9 +71,16 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
         
         super.viewDidLoad()
         
-        // gesture init -- tap
-        let tapRec = UITapGestureRecognizer(target: self, action: #selector(self.performSegueBioEdit(_:)))
-        self.textViewBio.addGestureRecognizer(tapRec)
+        // gesture init -- tap bio
+        let tapRecBio = UITapGestureRecognizer(target: self, action: #selector(self.performSegueBioEdit(_:)))
+        self.textViewBio.addGestureRecognizer(tapRecBio)
+        
+        let tapRecPic = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        self.imageViewProfilePic.isUserInteractionEnabled = true
+        self.imageViewProfilePic.addGestureRecognizer(tapRecPic)
+        
+        // image picker init
+        self.imagePicker = ImagePicker(presentationController: self, delegate: self)
         
     }
     
@@ -115,6 +124,31 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
                 // TODO - handle get bio error
                 self.textViewBio.text = "null" // temporary
                 
+            }
+        }
+        
+        // get profile pic
+        Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "ppg", input: Singleton.sharedInstance.CurrentLocalUser!.getUID()) {
+            (result, errStatus) in
+            if (result != "") {
+                if (result["Data"] != "") { // decode base64 and display image
+                    DispatchQueue.main.async {
+                        let fixedBase64 = result["Data"].stringValue.fixedBase64Format
+                        print(fixedBase64.count)
+                        let dataDecoded: NSData = NSData(base64Encoded: fixedBase64, options: .ignoreUnknownCharacters)!
+                        let decodedImage: UIImage = UIImage(data: dataDecoded as Data)!
+                        self.imageViewProfilePic.maskCircleWithShadow(anyImage: decodedImage)
+                    }
+                }
+                else { // display default user pic
+                    let defaultProfileImage: UIImage = UIImage(systemName: "person.fill")!
+                    self.imageViewProfilePic.maskCircleWithShadow(anyImage: defaultProfileImage)
+                }
+            }
+            else {
+                print("Error occured while downloading profile picture.")
+                let defaultProfileImage: UIImage = UIImage(systemName: "person.fill")!
+                self.imageViewProfilePic.maskCircleWithShadow(anyImage: defaultProfileImage)
             }
         }
         
@@ -266,9 +300,19 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
         }
     }
     
-    // MARK: - Tap Logic (Segues to profile modifiers)
+    // MARK: - Tap Logic
+    
+    // Segues to profile modifiers
     @objc private func performSegueBioEdit(_ sender: UITapGestureRecognizer) {
         self.performSegue(withIdentifier: "bioEditSegue", sender: self)
+    }
+    
+    // MARK: - Actions
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        // let tappedImage = tapGestureRecognizer.view as! UIImageView
+        // present picker view
+        self.imagePicker!.present(from: self.view)
     }
     
 }
@@ -284,5 +328,32 @@ extension UserDashboardViewController: BioEditControllerDelegate {
         
         self.loadProfile()
         
+    }
+}
+
+extension UserDashboardViewController: ImagePickerDelegate {
+    func didSelect(image: UIImage?) {
+        if let pickedImg = image {
+            
+            self.imageViewProfilePic.image = pickedImg
+            
+            // upload picture to database here
+            let imageData: Data = pickedImg.pngData()!
+            let imageBase64Str = imageData.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
+            let fixedImageStr: String = imageBase64Str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+            Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "pps", input: fixedImageStr) {
+                (result, errStatus) in
+                if (result != "") {
+                    print("Profile picture uploaded successfully")
+                }
+                else {
+                    print("An error occured while uploading your profile picture")
+                }
+            }
+            
+        }
+        else {
+            // DON'T DO ANYTHING
+        }
     }
 }

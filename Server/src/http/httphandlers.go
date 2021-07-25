@@ -67,7 +67,8 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 		ubg = Get Bio 								(params -> UID : String)
 		ubs = Set Bio								(params -> Bio : String)
 		2 = Change Display Name     				(params -> DisplayName : String)
-		3 = Add Profile Picture     				(params -> URL : String)
+		pps = Set Profile Picture     				(params -> ImageData : String)
+		ppg = Get Profile Picture 					(params -> UID: String)
 
 		ACCOUNT HIGH SECURITY OPS
 		d = Delete Account
@@ -189,6 +190,59 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 				data.Result = 0
 				data.Data = ""
 				data.Message = "Error occured while setting user bio"
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			}
+		case "pps":
+
+			// set user profile pic
+			status := -1
+			httpserver.App.SetProfilePicture(&status, httpserver.CurrentToken.UID, input)
+
+			if status == 1 {
+				data := HTTPResponse{}
+				data.TransactionID = "pps"
+				data.Result = 1
+				data.Data = input
+				data.Message = "Successfully set user profile picture"
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			} else {
+				data := HTTPResponse{}
+				data.TransactionID = "pps"
+				data.Result = 0
+				data.Data = ""
+				data.Message = "Error occured while setting user profile picture"
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			}
+		case "ppg":
+
+			// get user profile picture
+			imageData, err := httpserver.App.GetProfilePicture(input)
+
+			if err == "" {
+				data := HTTPResponse{}
+				data.TransactionID = "ppg"
+				data.Result = 1
+				data.Data = imageData
+				data.Message = "Successfully retrieved user profile picture."
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			} else {
+				data := HTTPResponse{}
+				data.TransactionID = "ppg"
+				data.Result = 0
+				data.Data = ""
+				data.Message = "Error occured while retrieving user profile picture."
 
 				w.Header().Set("Content-Type", "application/json")
 				w.WriteHeader(http.StatusCreated)
