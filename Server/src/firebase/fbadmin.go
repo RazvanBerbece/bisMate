@@ -563,20 +563,20 @@ func (fbapp *FirebaseApp) SetUserBio(status *int, UID string, bio string) {
 
 }
 
-// SetProfilePicture -- Saves a profile picture as base64 string to FB Realtime DB under UID/profilePic
+// SetProfilePicture -- Saves a profile picture as base64 string to Firestore DB under UID/profilePic
 func (fbapp *FirebaseApp) SetProfilePicture(status *int, UID string, imageData string) {
 
-	// get app for database
-	client, err := fbapp.App.Database(context.Background())
+	// get Firestore client
+	client, err := fbapp.App.Firestore(context.Background())
 	if err != nil {
 		log.Printf("error establishing connection to database: %v", err)
 		*status = 0
 	}
 
-	// get references and push
-	refSender := client.NewRef(fmt.Sprintf("users/%s", UID))
-	if errSender := refSender.Child("profilePic").Set(context.Background(), imageData); errSender != nil {
-		log.Printf("error saving to database: %v", errSender)
+	// push data to doc in Firestore
+	_, errStore := client.Collection("ProfilePictures").Doc(fmt.Sprintf("%s.png", UID)).Set(context.Background(), imageData)
+	if errStore != nil {
+		log.Printf("error saving profile picture to database: %v", err)
 		*status = 0
 	}
 
@@ -584,25 +584,26 @@ func (fbapp *FirebaseApp) SetProfilePicture(status *int, UID string, imageData s
 
 }
 
-// GetProfilePicture -- Gets a profile picture as base64 string from FB Realtime DB under UID/profilePic
+// GetProfilePicture -- Gets a profile picture as base64 string from Firestore DB under UID/profilePic
 func (fbapp *FirebaseApp) GetProfilePicture(UID string) (string, string) {
 
 	// get app for database
-	client, err := fbapp.App.Database(context.Background())
+	client, err := fbapp.App.Firestore(context.Background())
 	if err != nil {
 		log.Printf("error establishing connection to database: %v", err)
 		return "", "Connection to DB failed"
 	}
 
-	var imageData string
-
 	// get references and the messages from the reference
-	ref := client.NewRef(fmt.Sprintf("users/%s", UID))
+	imageSnap, errGet := client.Collection("ProfilePictures").Doc(fmt.Sprintf("%s.png", UID)).Get(context.Background())
 	// get ordered instances of messages
-	if err := ref.Child("profilePic").Get(context.Background(), &imageData); err != nil {
+	if errGet != nil {
 		log.Printf("error getting user bio from database: %v", err)
 		return "", "Get User Bio failed"
 	}
+
+	var imageData string
+	imageSnap.DataTo(&imageData)
 
 	return imageData, ""
 
