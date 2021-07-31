@@ -9,7 +9,7 @@ target 'bisMateClient' do
   pod 'Firebase/Auth'
   pod 'SwiftyJSON', '~> 4.0'
   pod 'Starscream', '~> 4.0.0'
-  pod 'Alamofire', '~> 5.2'
+  pod 'Alamofire', '~> 5.4'
 
   target 'bisMateClientTests' do
     inherit! :search_paths

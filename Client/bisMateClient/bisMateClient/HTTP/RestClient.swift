@@ -50,40 +50,88 @@ public class RestClient {
     /** Initiates an operation on the server using the current user's token */
     public func sendOperationWithToken(operation: String, input: String, callback: @escaping (JSON, Int) -> Void) { // closure Int represents presence of error if != 0
         
-        var components = URLComponents()
-        components.scheme = "http"
-        components.host = "macbook.local"
-        components.port = 8000
-        components.path = "/operation"
-        components.queryItems = [
-            URLQueryItem(name: "token", value: self.token),
-            URLQueryItem(name: "operation", value: operation),
-            URLQueryItem(name: "input", value: input)
-        ]
-        
-        let url = components.url?.absoluteString
-        AF.request(url!).response {
-            (response) in
-            switch response.result {
-            case .success(let data):
-                // server response parsing
-                let json = self.parseResponseData(data: data!)
-                if (json != "") {
-                    if (json["Result"] == 1) {
-                        callback(json, 1)
+        // Fix for image uploading
+        // Previous approach led to data loss when sending bas64 string to server in URL query param
+        // Additionally, Alamofire recommends use of .upload in the case of large file uploading to servers
+        if (operation == "pps") {
+            
+            var components = URLComponents()
+            components.scheme = "http"
+            components.host = "macbook.local"
+            components.port = 8000
+            components.path = "/operation"
+            components.queryItems = [
+                URLQueryItem(name: "token", value: self.token),
+                URLQueryItem(name: "operation", value: operation),
+                URLQueryItem(name: "input", value: "nil")
+            ]
+            
+            let url = components.url?.absoluteString
+            
+            AF.upload(multipartFormData: {
+                multipartFormData in
+                multipartFormData.append(Data(input.utf8), withName: "imageData")
+            }, to: url!)
+            .response {
+                (response) in
+                switch response.result {
+                case .success(let data):
+                    // server response parsing
+                    let json = self.parseResponseData(data: data!)
+                    if (json != "") {
+                        if (json["Result"] == 1) {
+                            callback(json, 1)
+                        }
+                        else {
+                            callback("", 0)
+                        }
                     }
                     else {
                         callback("", 0)
                     }
-                }
-                else {
+                case .failure(let error):
+                    print(error)
                     callback("", 0)
                 }
-            case .failure(let error):
-                print(error)
-                callback("", 0)
             }
         }
+        else {
+            var components = URLComponents()
+            components.scheme = "http"
+            components.host = "macbook.local"
+            components.port = 8000
+            components.path = "/operation"
+            components.queryItems = [
+                URLQueryItem(name: "token", value: self.token),
+                URLQueryItem(name: "operation", value: operation),
+                URLQueryItem(name: "input", value: input)
+            ]
+            
+            let url = components.url?.absoluteString
+            AF.request(url!).response {
+                (response) in
+                switch response.result {
+                case .success(let data):
+                    // server response parsing
+                    let json = self.parseResponseData(data: data!)
+                    if (json != "") {
+                        if (json["Result"] == 1) {
+                            callback(json, 1)
+                        }
+                        else {
+                            callback("", 0)
+                        }
+                    }
+                    else {
+                        callback("", 0)
+                    }
+                case .failure(let error):
+                    print(error)
+                    callback("", 0)
+                }
+            }
+        }
+        
         
     }
     

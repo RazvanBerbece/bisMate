@@ -43,13 +43,13 @@ class BioEditController: UIViewController, UITextViewDelegate {
         bioTextArea.delegate = self
         
         // check whether user has bio or not
-        if (1 == 0) { // user has bio, placeholder
-            
+        if (Singleton.sharedInstance.CurrentLocalUser?.getBio().count != 0) { // user has bio, placeholder
+            bioTextArea.text = Singleton.sharedInstance.CurrentLocalUser?.getBio()
         }
         else { // user doesn't have bio
             placeholderLabel = UILabel()
-            placeholderLabel.numberOfLines = 0;
-            placeholderLabel.text = "Write a short description of yourself.\nMake it interesting :)\n(max. 300 characters)"
+            placeholderLabel.numberOfLines = 0
+            placeholderLabel.text = " Write a short description here.\n Make it interesting!\n (Max. 300 characters)"
             placeholderLabel.font = UIFont.italicSystemFont(ofSize: (bioTextArea.font?.pointSize)!)
             placeholderLabel.sizeToFit()
             bioTextArea.addSubview(placeholderLabel)

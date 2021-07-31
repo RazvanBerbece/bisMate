@@ -574,7 +574,9 @@ func (fbapp *FirebaseApp) SetProfilePicture(status *int, UID string, imageData s
 	}
 
 	// push data to doc in Firestore
-	_, errStore := client.Collection("ProfilePictures").Doc(fmt.Sprintf("%s.png", UID)).Set(context.Background(), imageData)
+	_, errStore := client.Collection("ProfilePictures").Doc(UID).Set(context.Background(), map[string]interface{}{
+		"imageData": imageData,
+	})
 	if errStore != nil {
 		log.Printf("error saving profile picture to database: %v", err)
 		*status = 0
@@ -595,16 +597,18 @@ func (fbapp *FirebaseApp) GetProfilePicture(UID string) (string, string) {
 	}
 
 	// get references and the messages from the reference
-	imageSnap, errGet := client.Collection("ProfilePictures").Doc(fmt.Sprintf("%s.png", UID)).Get(context.Background())
-	// get ordered instances of messages
+	imageSnap, errGet := client.Collection("ProfilePictures").Doc(UID).Get(context.Background())
 	if errGet != nil {
 		log.Printf("error getting user bio from database: %v", err)
 		return "", "Get User Bio failed"
 	}
 
-	var imageData string
-	imageSnap.DataTo(&imageData)
+	type Image struct {
+		ImageData string `firestore:"imageData,omitempty"`
+	}
+	var image Image
+	imageSnap.DataTo(&image)
 
-	return imageData, ""
+	return image.ImageData, ""
 
 }

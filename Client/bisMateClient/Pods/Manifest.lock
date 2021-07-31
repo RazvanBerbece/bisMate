@@ -47,7 +47,7 @@ PODS:
   - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 5.2)
+  - Alamofire (~> 5.4)
   - Firebase/Auth
   - Starscream (~> 4.0.0)
   - SwiftyJSON (~> 4.0)
@@ -81,6 +81,6 @@ SPEC CHECKSUMS:
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 26d383a46337f8e4bdfb2302f9e1555d6cb6dbbf
+PODFILE CHECKSUM: 217af33f9ca75304aa198b40966db63011301645
 
 COCOAPODS: 1.9.3

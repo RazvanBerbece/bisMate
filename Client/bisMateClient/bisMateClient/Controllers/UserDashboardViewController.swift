@@ -133,11 +133,12 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
             if (result != "") {
                 if (result["Data"] != "") { // decode base64 and display image
                     DispatchQueue.main.async {
+                        
                         let fixedBase64 = result["Data"].stringValue.fixedBase64Format
-                        print(fixedBase64.count)
-                        let dataDecoded: NSData = NSData(base64Encoded: fixedBase64, options: .ignoreUnknownCharacters)!
-                        let decodedImage: UIImage = UIImage(data: dataDecoded as Data)!
-                        self.imageViewProfilePic.maskCircleWithShadow(anyImage: decodedImage)
+                        let dataDecoded = Data.init(base64Encoded: fixedBase64, options: .ignoreUnknownCharacters)
+                        let decodedImage = UIImage(data: dataDecoded!)
+                        self.imageViewProfilePic.maskCircleWithShadow(anyImage: decodedImage!)
+                        
                     }
                 }
                 else { // display default user pic
@@ -338,10 +339,12 @@ extension UserDashboardViewController: ImagePickerDelegate {
             self.imageViewProfilePic.image = pickedImg
             
             // upload picture to database here
-            let imageData: Data = pickedImg.pngData()!
-            let imageBase64Str = imageData.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
-            let fixedImageStr: String = imageBase64Str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-            Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "pps", input: fixedImageStr) {
+            let imageData: Data = pickedImg.jpegData(compressionQuality: 1)!
+            let imageBase64Str = imageData.base64EncodedString(options: .lineLength64Characters)
+            
+            print(imageBase64Str)
+            
+            Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "pps", input: imageBase64Str) {
                 (result, errStatus) in
                 if (result != "") {
                     print("Profile picture uploaded successfully")

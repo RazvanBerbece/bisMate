@@ -197,9 +197,25 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 			}
 		case "pps":
 
+			// get data from request form
+			err := r.ParseMultipartForm(1000 * 1500)
+			if err != nil {
+				data := HTTPResponse{}
+				data.TransactionID = "pps"
+				data.Result = 0
+				data.Data = ""
+				data.Message = "Error occured while setting user profile picture"
+
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			}
+
+			data := r.FormValue("imageData")
+
 			// set user profile pic
 			status := -1
-			httpserver.App.SetProfilePicture(&status, httpserver.CurrentToken.UID, input)
+			httpserver.App.SetProfilePicture(&status, httpserver.CurrentToken.UID, data)
 
 			if status == 1 {
 				data := HTTPResponse{}
@@ -226,6 +242,8 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 
 			// get user profile picture
 			imageData, err := httpserver.App.GetProfilePicture(input)
+
+			println(imageData)
 
 			if err == "" {
 				data := HTTPResponse{}
