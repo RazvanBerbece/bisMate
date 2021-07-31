@@ -14,3 +14,9 @@ extension String {
         return padding(toLength: count + 4 - offset, withPad: "=", startingAt: 0)
     }
 }
+
+extension Date {
+    func currentTimeMillis() -> Int64 {
+        return Int64(self.timeIntervalSince1970 * 1000)
+    }
+}

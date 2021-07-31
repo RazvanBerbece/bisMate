@@ -11,7 +11,7 @@ import Starscream
 class DetailViewMessage {
     
     public var message      : String?
-    private let time         : Int64?
+    private let time        : Int64?
     private let id          : String?
     
     init(msg: String, time: Int64, id: String) {
@@ -43,6 +43,7 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
     // Message Logic from previous view
     var MessageWithUserID : Message?
     var TitleName         : String?
+    var RemoteProfilePic  : UIImage?
     
     // Client REST API
     let HTTPClient = Singleton.sharedInstance.HTTPClient
@@ -154,7 +155,18 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
             
             // Populate cell with data
             cellLeft.messageLabel?.text = self.model[indexPath.row].message
-            cellLeft.userPhotoView?.image = UIImage(systemName: "questionmark")
+            cellLeft.userPhotoView?.maskCircleWithShadow(anyImage: self.RemoteProfilePic!)
+            
+            // user profile pic image view graphics
+            DispatchQueue.main.async {
+                let itemSize = CGSize.init(width: 45, height: 45)
+                UIGraphicsBeginImageContextWithOptions(itemSize, false, UIScreen.main.scale);
+                let imageRect = CGRect.init(origin: CGPoint.zero, size: itemSize)
+                cellLeft.userPhotoView?.image!.draw(in: imageRect)
+                cellLeft.userPhotoView?.image! = UIGraphicsGetImageFromCurrentImageContext()!;
+                cellLeft.userPhotoView?.layer.cornerRadius = cellLeft.userPhotoView!.frame.height / 2
+                UIGraphicsEndImageContext();
+            }
             
             // Cell attributes
             cellLeft.layer.backgroundColor = UIColor.clear.cgColor
@@ -169,7 +181,18 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
             
             // Populate cell with data
             cellRight.messageLabel?.text = self.model[indexPath.row].message
-            cellRight.userPhotoView?.image = UIImage(systemName: "questionmark")
+            cellRight.userPhotoView?.maskCircleWithShadow(anyImage: (Singleton.sharedInstance.CurrentLocalUser?.getProfilePic())!)
+            
+            // user profile pic image view graphics
+            DispatchQueue.main.async {
+                let itemSize = CGSize.init(width: 45, height: 45)
+                UIGraphicsBeginImageContextWithOptions(itemSize, false, UIScreen.main.scale);
+                let imageRect = CGRect.init(origin: CGPoint.zero, size: itemSize)
+                cellRight.userPhotoView?.image!.draw(in: imageRect)
+                cellRight.userPhotoView?.image! = UIGraphicsGetImageFromCurrentImageContext()!;
+                cellRight.userPhotoView?.layer.cornerRadius = cellRight.userPhotoView!.frame.height / 2
+                UIGraphicsEndImageContext();
+            }
             
             // Cell attributes
             cellRight.layer.backgroundColor = UIColor.clear.cgColor

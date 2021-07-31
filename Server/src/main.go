@@ -9,11 +9,12 @@ import (
 
 func main() {
 
-	log.Println("Server listening on specified port ...")
-
 	// Configure websocket server
+	port := ":8000"
 	wserver := wsockets.WSocketServ{}
 	wserver.InitSocketServer()
+
+	log.Printf("Server listening on localhost%s ...", port)
 
 	// Configure http handlers
 	httpHandlers := httphandlers.HTTPServ{}
@@ -28,7 +29,6 @@ func main() {
 	go wserver.HandleMessages()
 
 	// Start server (HTTPS) on localhost:443 / localhost:8000 and log errs
-	port := ":8000"
 	/* WITH TLS <- used in production
 	err := http.ListenAndServeTLS(port, "cert/server.crt", "cert/server.key", nil)
 	if err != nil {

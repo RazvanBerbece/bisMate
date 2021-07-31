@@ -7,12 +7,6 @@
 
 import UIKit
 
-extension Date {
-    func currentTimeMillis() -> Int64 {
-        return Int64(self.timeIntervalSince1970 * 1000)
-    }
-}
-
 /** Simple structure of a message in the message list */
 class Message {
     public var from     : String?
@@ -34,9 +28,16 @@ class Message {
     }
 }
 
+struct SeguedData {
+    var indexPath    : IndexPath?
+    var profilePic   : UIImage?
+}
+
 class MessagesViewController: UITableViewController {
     
     var model = [Message]()
+    
+    var remoteProfilePic: UIImage?
     
     override func viewDidLoad() {
         
@@ -60,22 +61,36 @@ class MessagesViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let customCell : SummaryMessageCell = self.tableView.dequeueReusableCell(withIdentifier: "SummaryMessageCell") as! SummaryMessageCell
         
         // Setting cell layout
-        cell.textLabel?.text = "\(String(describing: model[indexPath.row].from!))"
-        cell.detailTextLabel?.text = "\(String(describing: model[indexPath.row].text!))"
-        cell.imageView?.image = UIImage(systemName: "questionmark")
+        customCell.userNameLabel?.text = "\(String(describing: model[indexPath.row].from!))"
+        customCell.messageLabel?.text = "\(String(describing: model[indexPath.row].text!))"
+        
+        self.getRemoteProfilePic(forUID: model[indexPath.row].getUID()) {
+            (image) in
+            DispatchQueue.main.async {
+                customCell.userPhotoView?.maskCircleWithShadow(anyImage: image)
+                self.styleImageView(forCell: customCell)
+                self.tableView.reloadData()
+            }
+        }
         
         // Make cells transparent
-        cell.layer.backgroundColor = UIColor.clear.cgColor
-        cell.backgroundColor = .clear
+        customCell.layer.backgroundColor = UIColor.clear.cgColor
+        customCell.backgroundColor = .clear
         
-        return cell
+        return customCell
         
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "MessageDetailSegue", sender: indexPath)
+        
+        self.getRemoteProfilePic(forUID: model[indexPath.row].getUID()) {
+            (image) in
+            let seguedData = SeguedData(indexPath: indexPath, profilePic: image)
+            self.performSegue(withIdentifier: "MessageDetailSegue", sender: seguedData)
+        }
+        
     }
     
     // MARK: - Utils
@@ -103,18 +118,54 @@ class MessagesViewController: UITableViewController {
                 }
             }
         }
-        
-        
+    }
+    
+    private func getRemoteProfilePic(forUID: String, callback: @escaping (UIImage) -> (Void)) {
+        // get user profile pic
+        Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "ppg", input: forUID) {
+            (result, errStatus) in
+            if (result != "") {
+                if (result["Data"] != "") { // decode base64 and display image
+                    DispatchQueue.main.async {
+                        let fixedBase64 = result["Data"].stringValue.fixedBase64Format
+                        let dataDecoded = Data.init(base64Encoded: fixedBase64, options: .ignoreUnknownCharacters)
+                        let decodedImage = UIImage(data: dataDecoded!)
+                        callback(decodedImage!)
+                    }
+                }
+                else { // display default user pic
+                    callback(UIImage(systemName: "person.fill")!)
+                }
+            }
+            else {
+                print("Error occured while downloading profile picture.")
+                callback(UIImage(systemName: "person.fill")!)
+            }
+        }
+    }
+    
+    private func styleImageView(forCell: SummaryMessageCell) {
+        // user profile pic image view graphics
+        let itemSize = CGSize.init(width: 45, height: 45)
+        UIGraphicsBeginImageContextWithOptions(itemSize, false, UIScreen.main.scale);
+        let imageRect = CGRect.init(origin: CGPoint.zero, size: itemSize)
+        forCell.userPhotoView?.image!.draw(in: imageRect)
+        forCell.userPhotoView?.image! = UIGraphicsGetImageFromCurrentImageContext()!;
+        forCell.userPhotoView?.layer.cornerRadius = forCell.userPhotoView!.frame.height / 2
+        UIGraphicsEndImageContext();
     }
     
     // MARK: - Segue preparing for detailed message views
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let segueData = sender as? SeguedData
+        else { return }
         if segue.identifier == "MessageDetailSegue" {
             print("Segueing")
             let MessageDetailView = segue.destination as! MessageDetailViewController
-            if let indexPath = sender as? IndexPath {
+            if let indexPath = segueData.indexPath {
                 MessageDetailView.MessageWithUserID = model[indexPath.row]
                 MessageDetailView.TitleName = model[indexPath.row].from
+                MessageDetailView.RemoteProfilePic = segueData.profilePic
             }
         }
     }

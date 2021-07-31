@@ -23,6 +23,7 @@ class User {
     private var token          : String? // used for server operations
     
     private var bio            : String?
+    private var profilePic     : UIImage?
     
     /** Constructor */
     init(UID: String, email: String, displayName: String, phoneNumber: String, photoURL: String, emailVerified: Bool, token: String) {
@@ -60,6 +61,9 @@ class User {
     public func getBio() -> String {
         return self.bio!
     }
+    public func getProfilePic() -> UIImage {
+        return self.profilePic!
+    }
     
     /** Setters */
     public func setDisplayName(newName: String) {
@@ -85,6 +89,9 @@ class User {
     }
     public func setBio(newBio: String) {
         self.bio = newBio
+    }
+    public func setProfilePic(newProfilePic: UIImage) {
+        self.profilePic = newProfilePic
     }
     
     /** Utils */

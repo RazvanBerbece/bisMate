@@ -243,8 +243,6 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 			// get user profile picture
 			imageData, err := httpserver.App.GetProfilePicture(input)
 
-			println(imageData)
-
 			if err == "" {
 				data := HTTPResponse{}
 				data.TransactionID = "ppg"

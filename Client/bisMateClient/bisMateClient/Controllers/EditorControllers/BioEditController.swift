@@ -40,14 +40,15 @@ class BioEditController: UIViewController, UITextViewDelegate {
     // Initialisers & Config
     /** Puts user bio in the text view. If the user has no bio, the placeholder is shown */
     private func initTextArea() {
+        
         bioTextArea.delegate = self
+        placeholderLabel = UILabel()
         
         // check whether user has bio or not
         if (Singleton.sharedInstance.CurrentLocalUser?.getBio().count != 0) { // user has bio, placeholder
             bioTextArea.text = Singleton.sharedInstance.CurrentLocalUser?.getBio()
         }
         else { // user doesn't have bio
-            placeholderLabel = UILabel()
             placeholderLabel.numberOfLines = 0
             placeholderLabel.text = " Write a short description here.\n Make it interesting!\n (Max. 300 characters)"
             placeholderLabel.font = UIFont.italicSystemFont(ofSize: (bioTextArea.font?.pointSize)!)
@@ -86,7 +87,12 @@ class BioEditController: UIViewController, UITextViewDelegate {
     
     // MARK: - Delegate
     func textViewDidChange(_ textView: UITextView) {
-        placeholderLabel.isHidden = !bioTextArea.text.isEmpty
+        switch bioTextArea.text.isEmpty {
+        case true:
+            placeholderLabel.isHidden = false
+        case false:
+            placeholderLabel.isHidden = true
+        }
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

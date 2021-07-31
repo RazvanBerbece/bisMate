@@ -52,6 +52,9 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
             (token) in
             if (token != "") {
                 
+                // location update
+                self.updateLocation()
+                
                 Singleton.sharedInstance.CurrentLocalUser!.setToken(newToken: token)
                 Singleton.sharedInstance.HTTPClient = RestClient(token: token)
                 
@@ -96,6 +99,9 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
         
         // updates view with current user data
         
+        // init default model
+        Singleton.sharedInstance.CurrentLocalUser?.setProfilePic(newProfilePic: UIImage(systemName: "person.fill")!)
+        
         // greeting
         self.labelGreet.text = "\(String(describing: Singleton.sharedInstance.CurrentLocalUser!.getDisplayName()))"
         
@@ -137,19 +143,26 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
                         let fixedBase64 = result["Data"].stringValue.fixedBase64Format
                         let dataDecoded = Data.init(base64Encoded: fixedBase64, options: .ignoreUnknownCharacters)
                         let decodedImage = UIImage(data: dataDecoded!)
-                        self.imageViewProfilePic.maskCircleWithShadow(anyImage: decodedImage!)
                         
+                        self.imageViewProfilePic.maskCircleWithShadow(anyImage: decodedImage!)
+                        self.imageContextSet()
+                        
+                        Singleton.sharedInstance.CurrentLocalUser?.setProfilePic(newProfilePic: decodedImage!)
                     }
                 }
                 else { // display default user pic
                     let defaultProfileImage: UIImage = UIImage(systemName: "person.fill")!
                     self.imageViewProfilePic.maskCircleWithShadow(anyImage: defaultProfileImage)
+                    self.imageContextSet()
+                    Singleton.sharedInstance.CurrentLocalUser?.setProfilePic(newProfilePic: defaultProfileImage)
                 }
             }
             else {
                 print("Error occured while downloading profile picture.")
                 let defaultProfileImage: UIImage = UIImage(systemName: "person.fill")!
                 self.imageViewProfilePic.maskCircleWithShadow(anyImage: defaultProfileImage)
+                self.imageContextSet()
+                Singleton.sharedInstance.CurrentLocalUser?.setProfilePic(newProfilePic: defaultProfileImage)
             }
         }
         
@@ -197,7 +210,7 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
                     (result, errCheck) in
                     if result != "" {
                         // successful upload
-                        // print(result)
+                        print(result)
                         
                         // delete previous location - TODO
                     }
@@ -232,7 +245,7 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
     private func subscribeToConnections() {
         // Executes downloadConnections every second
         // Updates UI if the connections list has changed
-        Singleton.sharedInstance.timer = Timer.scheduledTimer(timeInterval: 1.00, target: self, selector: #selector(self.downloadConnections), userInfo: nil, repeats: true)
+        Singleton.sharedInstance.timer = Timer.scheduledTimer(timeInterval: 2.50, target: self, selector: #selector(self.downloadConnections), userInfo: nil, repeats: true)
     }
     
     @objc private func downloadConnections() {
@@ -316,6 +329,27 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
         self.imagePicker!.present(from: self.view)
     }
     
+    // MARK: - Utils
+    private func imageContextSet() {
+        // Profile pic context
+        let itemSize = CGSize.init(width: 55, height: 55)
+        UIGraphicsBeginImageContextWithOptions(itemSize, false, UIScreen.main.scale);
+        let imageRect = CGRect.init(origin: CGPoint.zero, size: itemSize)
+        self.imageViewProfilePic?.image!.draw(in: imageRect)
+        self.imageViewProfilePic?.image! = UIGraphicsGetImageFromCurrentImageContext()!;
+        self.imageViewProfilePic?.layer.cornerRadius = self.imageViewProfilePic!.frame.height / 2
+        UIGraphicsEndImageContext();
+    }
+    
+    private func updateLocation() {
+        guard let locValue: CLLocationCoordinate2D = self.locationManager.location?.coordinate else { return }
+        self.locationHandler = LocationHandler(longitude: locValue.longitude, latitude: locValue.latitude)
+        if (!self.updatedLocation) {
+            self.startGeocoder()
+        }
+        self.updatedLocation = true
+    }
+    
 }
 
 // MARK: - Extensions
@@ -341,8 +375,6 @@ extension UserDashboardViewController: ImagePickerDelegate {
             // upload picture to database here
             let imageData: Data = pickedImg.jpegData(compressionQuality: 1)!
             let imageBase64Str = imageData.base64EncodedString(options: .lineLength64Characters)
-            
-            print(imageBase64Str)
             
             Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "pps", input: imageBase64Str) {
                 (result, errStatus) in

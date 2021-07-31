@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ConnectionPopup: UIView {
+class ConnectionPopup: UIView, UITextViewDelegate {
     
     static let shared = ConnectionPopup()
     
@@ -70,7 +70,9 @@ class ConnectionPopup: UIView {
         userNameLabel.center = CGPoint(x: self.frame.width / 2, y: 100)
         userNameLabel.text = user.getDisplayName()
         
-        let userBioTextView = UITextView(frame: CGRect(x: 0, y: 0, width: 200, height: 25))
+        let userBioTextView = UITextView(frame: CGRect(x: 0, y: 0, width: 200, height: 125))
+        userBioTextView.delegate = self
+        userBioTextView.isScrollEnabled = true
         userBioTextView.alpha = 0.0
         userBioTextView.textColor = .label
         userBioTextView.textAlignment = .center
