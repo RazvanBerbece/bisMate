@@ -1,4 +1,4 @@
 .DS_Store
 Client/bisMateClient/GoogleService-Info.plist
 Client/bisMateClient/bisMateClient.xcworkspace/xcuserdata/razvan-antonioberbece.xcuserdatad/UserInterfaceState.xcuserstate
-Client/bisMateClient/OutboundRequesting/Security/private.swift
+Client/bisMateClient/bisMateClient/OutboundRequesting/Security/private.swift
