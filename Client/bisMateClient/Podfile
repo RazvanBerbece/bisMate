@@ -10,6 +10,7 @@ target 'bisMateClient' do
   pod 'SwiftyJSON', '~> 4.0'
   pod 'Starscream', '~> 4.0.0'
   pod 'Alamofire', '~> 5.4'
+  pod 'SwiftyRSA'
 
   target 'bisMateClientTests' do
     inherit! :search_paths
