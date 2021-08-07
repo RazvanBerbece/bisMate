@@ -31,20 +31,27 @@ class Security {
         }
     }
     
-    public func decryptedUserInputString(user: User, input: EncryptedMessage) -> String? {
-        do {
-            let clearMsg = try input.decrypted(with: Private.getBase64PrivateKey(user: user)!, padding: .PKCS1)
+    public func decryptedUserInputString(input: EncryptedMessage) -> String? {
+        let PrivateStruct = Private()
+        if let privateKey = PrivateStruct.getBase64PrivateKey() {
             do {
-                let string = try clearMsg.string(encoding: .utf8)
-                return string
+                let clearMessage = try input.decrypted(with: privateKey, padding: .PKCS1)
+                do {
+                    let string = try clearMessage.string(encoding: .utf8)
+                    return string
+                }
+                catch {
+                    print("Error occured while getting string representation of decrypted message.")
+                    return nil
+                }
             }
             catch {
-                print("Error while getting string representation of decrypted message.")
+                print("Error occured decrypting message.")
                 return nil
             }
         }
-        catch {
-            print("Error creating clear message.")
+        else {
+            print("Error occured while getting private key.")
             return nil
         }
     }

@@ -146,9 +146,9 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
                         // local user
                         // decrypt message
                         do {
-                            let messageToDecrypt = try EncryptedMessage(base64Encoded: messageDict.1["text"].string!)
+                            let messageToDecrypt = try EncryptedMessage(base64Encoded: messageDict.1["text"].stringValue)
                             let security = Security()
-                            let decryptedStringMessage = security.decryptedUserInputString(user: Singleton.sharedInstance.CurrentLocalUser!, input: messageToDecrypt)
+                            let decryptedStringMessage = security.decryptedUserInputString(input: messageToDecrypt)
                             
                             if (decryptedStringMessage == nil) {
                                 continue
@@ -164,37 +164,25 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
                             print("Error while getting encrypted message")
                         }
                     }
-                    else {
-                        // remote user
-                        // decrypt message
-                        // get remote user obj for each message
-                        Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "0", input: messageDict.1["fromID"].stringValue) {
-                            (result, status) in
-                            if (result != "") {
-                                let user = User.getUserFromData(data: result)
-                                do {
-                                    let messageToDecrypt = try EncryptedMessage(base64Encoded: messageDict.1["text"].string!)
-                                    let security = Security()
-                                    let decryptedStringMessage = security.decryptedUserInputString(user: user, input: messageToDecrypt)
-                                    
-                                    if (decryptedStringMessage == nil) {
-                                        // DO NOTHING
-                                    }
-                                    else {
-                                        self.model.append(DetailViewMessage(msg: decryptedStringMessage!, time: time!, id: messageDict.1["fromID"].stringValue))
-                                        
-                                        DispatchQueue.main.async {
-                                            self.tableViewMessages.reloadData()
-                                        }
-                                    }
-                                }
-                                catch {
-                                    print("Error while getting encrypted message")
-                                }
+                    else { // this will be removed, no longer needs branching
+                        do {
+                            let messageToDecrypt = try EncryptedMessage(base64Encoded: messageDict.1["text"].string!)
+                            let security = Security()
+                            let decryptedStringMessage = security.decryptedUserInputString(input: messageToDecrypt)
+                            
+                            if (decryptedStringMessage == nil) {
+                                // DO NOTHING
                             }
                             else {
-                                print("Error occured while getting remote user.")
+                                self.model.append(DetailViewMessage(msg: decryptedStringMessage!, time: time!, id: messageDict.1["fromID"].stringValue))
+                                
+                                DispatchQueue.main.async {
+                                    self.tableViewMessages.reloadData()
+                                }
                             }
+                        }
+                        catch {
+                            print("Error while getting encrypted message")
                         }
                     }
                 }
@@ -282,33 +270,24 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
                 do {
                     if let messageObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any] {
                         // Use this dictionary
-                        Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "0", input: messageObject["fromID"] as! String) {
-                            (result, status) in
-                            if (result != "") {
-                                let user = User.getUserFromData(data: result)
-                                do {
-                                    let messageToDecrypt = try EncryptedMessage(base64Encoded: messageObject["text"] as! String)
-                                    let security = Security()
-                                    let decryptedStringMessage = security.decryptedUserInputString(user: user, input: messageToDecrypt)
-                                    
-                                    if (decryptedStringMessage == nil) {
-                                        // DO NOTHING
-                                    }
-                                    else {
-                                        self.model.append(DetailViewMessage(msg: decryptedStringMessage!, time: messageObject["time"] as! Int64, id: messageObject["fromID"] as! String))
-                                        
-                                        DispatchQueue.main.async {
-                                            self.tableViewMessages.reloadData()
-                                        }
-                                    }
-                                }
-                                catch {
-                                    print("Error while getting encrypted message")
-                                }
+                        do {
+                            let messageToDecrypt = try EncryptedMessage(base64Encoded: messageObject["text"] as! String)
+                            let security = Security()
+                            let decryptedStringMessage = security.decryptedUserInputString(input: messageToDecrypt)
+                            
+                            if (decryptedStringMessage == nil) {
+                                // DO NOTHING
                             }
                             else {
-                                print("Error occured while getting remote user.")
+                                self.model.append(DetailViewMessage(msg: decryptedStringMessage!, time: messageObject["time"] as! Int64, id: messageObject["fromID"] as! String))
+                                
+                                DispatchQueue.main.async {
+                                    self.tableViewMessages.reloadData()
+                                }
                             }
+                        }
+                        catch {
+                            print("Error while getting encrypted message")
                         }
                     }
                 } catch {
@@ -329,7 +308,7 @@ class MessageDetailViewController: UIViewController, UITableViewDelegate, UITabl
         // isConnected = false
         case .error(let error):
             // isConnected = false
-            print(error)
+            print(error as Any)
         }
     }
     

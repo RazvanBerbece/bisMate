@@ -10,13 +10,9 @@ import SwiftyRSA
 
 public class Public {
     
-    private let publicKey = """
-        -----BEGIN PUBLIC KEY-----
-        MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDoGjuHF8LBZfHqWA1BNL7HNPdV
-        nXkqNS+gdtC35QwAs77RWG6olbbBsHy4VlHl2WlYbqA/hy5Hw4/JGamJKjE5pWqs
-        ku32e2a4L65BC2ISEwKd3BSCOqo5DDngWItnmnI+19MTkusXogrDVDh65WLjhi9K
-        GscccQuvh1J3SVWZ/wIDAQAB
-        -----END PUBLIC KEY-----
+    fileprivate let publicKey = """
+        MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIrg0dbvTtOuLmkl6BPdYnrUwvMrOsS5
+        TyMi8J696WzqaqxojSqf2V6wRS/ZC18FeD8Mqs4HBuDJpINJ7Adb8gMCAwEAAQ==
         """
     
     public func getBase64PublicKey() -> PublicKey? {
