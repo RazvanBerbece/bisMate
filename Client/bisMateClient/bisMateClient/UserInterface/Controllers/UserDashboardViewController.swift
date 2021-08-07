@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import CoreLocation
+import SwiftyJSON
 
 /**
  User dashboard will also send location data on each viewDidLoad() which will be stored in the DB.
@@ -136,33 +137,11 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
         // get profile pic
         Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "ppg", input: Singleton.sharedInstance.CurrentLocalUser!.getUID()) {
             (result, errStatus) in
-            if (result != "") {
-                if (result["Data"] != "") { // decode base64 and display image
-                    DispatchQueue.main.async {
-                        
-                        let fixedBase64 = result["Data"].stringValue.fixedBase64Format
-                        let dataDecoded = Data.init(base64Encoded: fixedBase64, options: .ignoreUnknownCharacters)
-                        let decodedImage = UIImage(data: dataDecoded!)
-                        
-                        self.imageViewProfilePic.maskCircleWithShadow(anyImage: decodedImage!)
-                        self.imageContextSet()
-                        
-                        Singleton.sharedInstance.CurrentLocalUser?.setProfilePic(newProfilePic: decodedImage!)
-                    }
-                }
-                else { // display default user pic
-                    let defaultProfileImage: UIImage = UIImage(systemName: "person.fill")!
-                    self.imageViewProfilePic.maskCircleWithShadow(anyImage: defaultProfileImage)
-                    self.imageContextSet()
-                    Singleton.sharedInstance.CurrentLocalUser?.setProfilePic(newProfilePic: defaultProfileImage)
-                }
+            if (errStatus == 0) {
+                print("Error occured while downloading profile picture")
             }
             else {
-                print("Error occured while downloading profile picture.")
-                let defaultProfileImage: UIImage = UIImage(systemName: "person.fill")!
-                self.imageViewProfilePic.maskCircleWithShadow(anyImage: defaultProfileImage)
-                self.imageContextSet()
-                Singleton.sharedInstance.CurrentLocalUser?.setProfilePic(newProfilePic: defaultProfileImage)
+                self.processDownloadedLocalProfileImage(result: result)
             }
         }
         
@@ -271,13 +250,20 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
                                 print("An error occured while downloading connection data.")
                             }
                             else {
-                                // display connection popup using result["Data"]["DisplayName"], result["Data"]["PhotoURL"] etc
+                                // display connection popup using result["Data"]["DisplayName"], etc
                                 let user = User.getUserFromData(data: result)
                                 Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "ubg", input: user.getUID()) {
-                                    (result, errStatus) in
+                                    (resultBio, errStatusBio) in
                                     if (result != "") {
-                                        user.setBio(newBio: result["Data"].stringValue)
-                                        ConnectionPopup.shared.showConnectionPopup(user: user)
+                                        
+                                        user.setBio(newBio: resultBio["Data"].stringValue)
+                                        
+                                        Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "ppg", input: user.getUID()) {
+                                            (resultProfilePic, errStatusProfilePic) in
+                                            self.processDownloadedPopupProfileImage(result: resultProfilePic, user: user)
+                                            ConnectionPopup.shared.showConnectionPopup(user: user)
+                                        }
+                                        
                                     }
                                     else {
                                         print("Error occured while downloading user bio")
@@ -348,6 +334,61 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
             self.startGeocoder()
         }
         self.updatedLocation = true
+    }
+    
+    private func processDownloadedLocalProfileImage(result: JSON) {
+        if (result != "") {
+            if (result["Data"] != "") { // decode base64 and display image
+                DispatchQueue.main.async {
+                    
+                    let fixedBase64 = result["Data"].stringValue.fixedBase64Format
+                    let dataDecoded = Data.init(base64Encoded: fixedBase64, options: .ignoreUnknownCharacters)
+                    let decodedImage = UIImage(data: dataDecoded!)
+                    
+                    self.imageViewProfilePic.maskCircleWithShadow(anyImage: decodedImage!)
+                    self.imageContextSet()
+                    
+                    Singleton.sharedInstance.CurrentLocalUser?.setProfilePic(newProfilePic: decodedImage!)
+                }
+            }
+            else { // display default user pic
+                let defaultProfileImage: UIImage = UIImage(systemName: "person.fill")!
+                self.imageViewProfilePic.maskCircleWithShadow(anyImage: defaultProfileImage)
+                self.imageContextSet()
+                Singleton.sharedInstance.CurrentLocalUser?.setProfilePic(newProfilePic: defaultProfileImage)
+            }
+        }
+        else {
+            print("Error occured while downloading profile picture.")
+            let defaultProfileImage: UIImage = UIImage(systemName: "person.fill")!
+            self.imageViewProfilePic.maskCircleWithShadow(anyImage: defaultProfileImage)
+            self.imageContextSet()
+            Singleton.sharedInstance.CurrentLocalUser?.setProfilePic(newProfilePic: defaultProfileImage)
+        }
+    }
+    
+    private func processDownloadedPopupProfileImage(result: JSON, user: User) {
+        // to keep in mind, Swift functions are pass by reference
+        if (result != "") {
+            if (result["Data"] != "") { // decode base64 and display image
+                
+                let fixedBase64 = result["Data"].stringValue.fixedBase64Format
+                let dataDecoded = Data.init(base64Encoded: fixedBase64, options: .ignoreUnknownCharacters)
+                let decodedImage = UIImage(data: dataDecoded!)
+                
+                user.setProfilePic(newProfilePic: decodedImage!)
+                
+            }
+            else { // display default user pic
+                let defaultProfileImage: UIImage = UIImage(systemName: "person.fill")!
+                user.setProfilePic(newProfilePic: defaultProfileImage)
+            }
+        }
+        else {
+            print("Error occured while downloading profile picture.")
+            let defaultProfileImage: UIImage = UIImage(systemName: "person.fill")!
+            user.setProfilePic(newProfilePic: defaultProfileImage)
+        }
     }
     
 }

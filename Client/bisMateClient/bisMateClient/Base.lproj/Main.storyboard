@@ -707,7 +707,7 @@
                                     <constraint firstAttribute="height" constant="34" id="jE9-GA-VMx"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="tintColor" cyan="0.0" magenta="0.45000000000000001" yellow="0.16" black="0.19" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                <color key="tintColor" red="0.92412823440000003" green="0.60360080000000005" blue="0.63921409849999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" backgroundImage="arrow.up.circle.fill" catalog="system"/>
                                 <connections>
                                     <action selector="sendMessageAction" destination="JqB-HE-X8t" eventType="touchUpInside" id="vyM-IG-OBZ"/>
@@ -862,7 +862,7 @@
                                 <rect key="frame" x="20" y="132" width="374" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Submit">
-                                    <color key="titleColor" cyan="0.0" magenta="0.45000000000000001" yellow="0.16" black="0.19" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                    <color key="titleColor" red="0.70980392156862748" green="0.42352941176470588" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="close" destination="ZWj-tx-aEO" eventType="touchUpInside" id="3eh-fE-6sg"/>

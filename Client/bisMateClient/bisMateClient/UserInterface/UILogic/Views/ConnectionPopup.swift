@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ConnectionPopup: UIView, UITextViewDelegate {
+class ConnectionPopup: UIView, UITextViewDelegate, UIGestureRecognizerDelegate {
     
     static let shared = ConnectionPopup()
     
@@ -33,6 +33,10 @@ class ConnectionPopup: UIView, UITextViewDelegate {
         self.setupConnectionPopup(user: user)
     }
     
+    @objc public func dismissConnectionPopup(sender: UIButton!) {
+        self.alpha = 0.0
+    }
+    
     private func setupConnectionPopup(user: User) {
         
         // self UIView styling
@@ -53,63 +57,56 @@ class ConnectionPopup: UIView, UITextViewDelegate {
         // SHOULD REFACTOR AND USE THE WIDTH OF SELF TO POSITION THE LABELS
         // USES SCREENSIZE WIDTH AT THE MOMENT
         
-        let newConnectionLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 25))
-        newConnectionLabel.alpha = 0.0
+        let newConnectionLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
         newConnectionLabel.textColor = .label
         newConnectionLabel.textAlignment = .center
-        newConnectionLabel.text = "You've got a new connection !"
+        newConnectionLabel.text = "New Connection"
         newConnectionLabel.center = CGPoint(x: self.frame.width / 2, y: 45)
-        newConnectionLabel.font = UIFont(name: newConnectionLabel.font.fontName, size: 20)
+        newConnectionLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
         self.addSubview(newConnectionLabel)
         
         // user data display
+        let userProfilePicView = UIImageView(frame: CGRect(x: 0, y: 0, width: 85, height: 85))
+        userProfilePicView.center = CGPoint(x: self.frame.width / 2, y: 130)
+        userProfilePicView.maskCircleWithShadow(anyImage: user.getProfilePic())
+        userProfilePicView.layer.cornerRadius = userProfilePicView.frame.width / 2
+        
         let userNameLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 25))
-        userNameLabel.alpha = 0.0
         userNameLabel.textColor = .label
         userNameLabel.textAlignment = .center
-        userNameLabel.center = CGPoint(x: self.frame.width / 2, y: 100)
+        userNameLabel.center = CGPoint(x: self.frame.width / 2, y: 200)
+        userNameLabel.font = UIFont.systemFont(ofSize: 17.0)
         userNameLabel.text = user.getDisplayName()
         
-        let userBioTextView = UITextView(frame: CGRect(x: 0, y: 0, width: 200, height: 125))
+        let userBioTextView = UITextView(frame: CGRect(x: 0, y: 0, width: (80 / 100.0) * self.screenSize.width, height: 125))
         userBioTextView.delegate = self
         userBioTextView.isScrollEnabled = true
-        userBioTextView.alpha = 0.0
         userBioTextView.textColor = .label
+        userBioTextView.isSelectable = false
         userBioTextView.textAlignment = .center
-        userBioTextView.center = CGPoint(x: self.frame.width / 2, y: 150)
+        userBioTextView.center = CGPoint(x: self.frame.width / 2, y: 300)
+        userBioTextView.font = UIFont.systemFont(ofSize: 16.0)
         userBioTextView.text = user.getBio()
+        
+        // functionals
+        let dismissButon = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 50))
+        dismissButon.setTitle("Dismiss", for: .normal)
+        dismissButon.setTitleColor(UIColor(rgb: 0xB56C77), for: .normal)
+        dismissButon.center = CGPoint(x: self.frame.width / 2, y: (85 / 100.0) * self.screenSize.height)
+        dismissButon.titleLabel?.font =  UIFont.boldSystemFont(ofSize: 20.0)
+        // set the button functionality
+        dismissButon.addTarget(self, action: #selector(dismissConnectionPopup), for: .touchUpInside)
         
         // add user data subviews
         self.addSubview(userNameLabel)
         self.addSubview(userBioTextView)
+        self.addSubview(userProfilePicView)
+        self.addSubview(dismissButon)
         
         // fade in connection popup
-        UIView.animate(withDuration: 1.5, animations: {
+        UIView.animate(withDuration: 1.75, animations: {
             self.alpha = 1.0
-        }) {
-            _ in
-            
-            // animate user data -- will animate the whole profile at once, after animating greeting
-            // animate notification greeting
-            UIView.animate(withDuration: 2.0, animations: {
-                newConnectionLabel.alpha = 1.0
-            }) {
-                _ in
-                // animate user data
-                UIView.animate(withDuration: 1.5, animations: {
-                    // change user data views alphas here
-                    userNameLabel.alpha = 1.0
-                    userBioTextView.alpha = 1.0
-                }) {
-                    _ in
-                    // fade out connection popup -- might remove and add an exit button for the popup
-                    UIView.animate(withDuration: 5.5, animations: {
-                        self.alpha = 0.0
-                    }, completion: nil)
-                }
-            }
-            
-        }
+        })
         
         self.setNeedsLayout()
         self.reloadInputViews()

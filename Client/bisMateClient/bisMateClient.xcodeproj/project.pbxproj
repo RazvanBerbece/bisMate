@@ -70,6 +70,9 @@
 		6F8A1EC425BB9BB500D52D6E /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8A1EC325BB9BB500D52D6E /* SignInViewController.swift */; };
 		6F8A1EC525BB9BB500D52D6E /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8A1EC325BB9BB500D52D6E /* SignInViewController.swift */; };
 		6F8A1EC625BB9BB500D52D6E /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8A1EC325BB9BB500D52D6E /* SignInViewController.swift */; };
+		6F9026F226BF354100E2243C /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9026F126BF354100E2243C /* UIColor.swift */; };
+		6F9026F326BF354100E2243C /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9026F126BF354100E2243C /* UIColor.swift */; };
+		6F9026F426BF354100E2243C /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9026F126BF354100E2243C /* UIColor.swift */; };
 		6F96EA6525BC8647000476EA /* UserDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F96EA6425BC8647000476EA /* UserDashboardViewController.swift */; };
 		6F96EA6625BC8647000476EA /* UserDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F96EA6425BC8647000476EA /* UserDashboardViewController.swift */; };
 		6F96EA7425BCEB05000476EA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F96EA7325BCEB05000476EA /* SettingsViewController.swift */; };
@@ -143,6 +146,7 @@
 		6F8A1EAF25BB7D2900D52D6E /* RestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestClient.swift; sourceTree = "<group>"; };
 		6F8A1EB925BB8CA400D52D6E /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		6F8A1EC325BB9BB500D52D6E /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		6F9026F126BF354100E2243C /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		6F96EA6425BC8647000476EA /* UserDashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDashboardViewController.swift; sourceTree = "<group>"; };
 		6F96EA7325BCEB05000476EA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		6FD3EC0825CEE5B00089115B /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
@@ -355,6 +359,7 @@
 				6F8A1EB925BB8CA400D52D6E /* UIView.swift */,
 				6FD3EC0825CEE5B00089115B /* UIViewController.swift */,
 				6F82A95826ADE32700B4D0C4 /* ImagePicker.swift */,
+				6F9026F126BF354100E2243C /* UIColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -664,6 +669,7 @@
 				6F0509B925B3A255001F7521 /* FirebaseAuthClient.swift in Sources */,
 				6F798ECB26BDD25800173295 /* security.swift in Sources */,
 				6F7FE5C526B603340068BF39 /* SummaryMessageCell.swift in Sources */,
+				6F9026F226BF354100E2243C /* UIColor.swift in Sources */,
 				6F44F5EF26A610000081C316 /* BioEditController.swift in Sources */,
 				6F82A95926ADE32700B4D0C4 /* ImagePicker.swift in Sources */,
 				6F2EAB3C26A3245200ECDAFC /* Globals.swift in Sources */,
@@ -696,6 +702,7 @@
 				6F44F5F026A610000081C316 /* BioEditController.swift in Sources */,
 				6F7FE5C626B603340068BF39 /* SummaryMessageCell.swift in Sources */,
 				6F0509BA25B3A255001F7521 /* FirebaseAuthClient.swift in Sources */,
+				6F9026F326BF354100E2243C /* UIColor.swift in Sources */,
 				6F798ED026BDD33F00173295 /* public.swift in Sources */,
 				6F78C2AC25B20D450006C01B /* SocketClient.swift in Sources */,
 				6F82A96626AE055100B4D0C4 /* TypeExtensions.swift in Sources */,
@@ -719,6 +726,7 @@
 				6F09E1D125C6293900404F65 /* MessagesViewController.swift in Sources */,
 				6F7FE5C726B603340068BF39 /* SummaryMessageCell.swift in Sources */,
 				6F82A95B26ADE32700B4D0C4 /* ImagePicker.swift in Sources */,
+				6F9026F426BF354100E2243C /* UIColor.swift in Sources */,
 				6F8A1EBB25BB8CA400D52D6E /* UIView.swift in Sources */,
 				6F798ED526BDD6B100173295 /* private.swift in Sources */,
 				6FFBCC75269650E9008ACDE6 /* Error.swift in Sources */,

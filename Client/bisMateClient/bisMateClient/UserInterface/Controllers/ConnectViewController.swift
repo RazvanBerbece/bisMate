@@ -52,7 +52,7 @@ class NearbyUsers {
  1. Add local id to remote awaiting connections list
  2. If remote connects, add ids to successful connections on each end
  */
-class ConnectViewController: UIViewController {
+class ConnectViewController: UIViewController, UITextViewDelegate {
     
     /** UIView container for user profiles which can be swiped */
     private var firstViewInit = false
@@ -98,7 +98,14 @@ class ConnectViewController: UIViewController {
         
         // Initialize view that will be swiped
         // 90% of width (empty 5% left 5% right), 73.33% of height
-        let view = UIView(frame: CGRect(origin: CGPoint(x: (5/100) * screenSize.width, y: 125.0), size: CGSize(width: (90/100) * screenSize.width, height: (73.33/100) * screenSize.height)))
+        let viewWidth = (90/100) * screenSize.width
+        let viewHeight = (73.33/100) * screenSize.height
+        let view = UIView(frame: CGRect(origin: CGPoint(x: (5/100) * screenSize.width, y: 125.0), size: CGSize(width: viewWidth, height: viewHeight)))
+        view.alpha = 1.0
+        
+        // Border setup for each connection tab that belongs to a user
+        // view.layer.borderWidth = 1.0
+        // view.layer.borderColor = CGColor(gray: 1, alpha: 1.0)
         
         // Configure swipe recognizers for swipeable view
         // left = skip (False), right = like (True)
@@ -106,19 +113,39 @@ class ConnectViewController: UIViewController {
         view.addGestureRecognizer(self.getSwipeGesture(for: .right))
         
         // Subviews (profile data) to be added to swipeable view
-        let remoteNameLabel = UILabel(frame: CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.width * 0.40, height: view.frame.height * 0.15))
+        let userProfilePicView = UIImageView(frame: CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: 85, height: 85))
+        userProfilePicView.center = CGPoint(x: viewWidth / 2, y: viewHeight * 0.075)
+        userProfilePicView.layer.cornerRadius = userProfilePicView.frame.width / 2
+        
+        let remoteNameLabel = UILabel(frame: CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: viewWidth * 0.50, height: 30))
+        remoteNameLabel.font = UIFont.systemFont(ofSize: 18.0)
         remoteNameLabel.textColor = .label
         remoteNameLabel.textAlignment = .center
-        remoteNameLabel.center = CGPoint(x: view.frame.width / 2, y: view.frame.height * 0.075)
+        remoteNameLabel.center = CGPoint(x: viewWidth / 2, y: viewHeight * 0.20)
+        
+        let userBioTextView = UITextView(frame: CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: (80 / 100.0) * viewWidth, height: 125))
+        userBioTextView.delegate = self
+        userBioTextView.isScrollEnabled = true
+        userBioTextView.isSelectable = false
+        userBioTextView.textColor = .label
+        userBioTextView.textAlignment = .center
+        userBioTextView.center = CGPoint(x: viewWidth / 2, y: viewHeight * 0.40)
+        userBioTextView.font = UIFont.systemFont(ofSize: 16.0)
         
         // Subivew data logic
         remoteNameLabel.text = user.getDisplayName()
+        userProfilePicView.maskCircleWithShadow(anyImage: user.getProfilePic())
+        userBioTextView.text = user.getBio()
         
         // Add subviews
         view.addSubview(remoteNameLabel)
+        view.addSubview(userProfilePicView)
+        view.addSubview(userBioTextView)
         
         // Configration
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.setNeedsLayout()
+        view.reloadInputViews()
         
         return view
         
@@ -169,6 +196,8 @@ class ConnectViewController: UIViewController {
                         
                         self.errorOn = false
                         self.swipeableView?.removeFromSuperview()
+                        self.swipeableView?.alpha = 0.0
+                        
                         noUsersNearby = false
                         
                         Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "0", input: uid) {
@@ -177,9 +206,11 @@ class ConnectViewController: UIViewController {
                                 self.nearbyUsers.pushUser(user: User.getUserFromData(data: result))
                                 // initialise first swipeable view -- once
                                 if (!self.firstViewInit) {
-                                    self.swipeableView = self.getUIView(with: self.nearbyUsers.getUsers()[0])
-                                    self.view.addSubview(self.swipeableView!)
-                                    self.firstViewInit = true
+                                    self.downloadUserData(user: self.nearbyUsers.getUsers()[0]) {
+                                        self.swipeableView = self.getUIView(with: self.nearbyUsers.getUsers()[0])
+                                        self.view.addSubview(self.swipeableView!)
+                                        self.firstViewInit = true
+                                    }
                                 }
                             }
                             else {
@@ -252,14 +283,17 @@ class ConnectViewController: UIViewController {
             
             // Current frame and positions
             var frame = self.swipeableView!.frame
+            var alpha = self.swipeableView!.alpha
             
             // Check direction of swipe and process accordingly
             switch sender.direction {
             case .left: // skip; false
                 frame.origin.x -= screenSize.width + 150
+                alpha = 0.0
                 self.likes.append(self.nearbyUsers.getUsers()[self.nearbyUsersIndex].getUID()) // add this to the array so false swipes aren't seen twice in the same instance
             case .right: // like; true
                 frame.origin.x += screenSize.width + 150
+                alpha = 0.0
                 self.likes.append(self.nearbyUsers.getUsers()[self.nearbyUsersIndex].getUID())
                 Singleton.sharedInstance.HTTPClient!.sendOperationWithToken(operation: "xs", input: self.nearbyUsers.getUsers()[self.nearbyUsersIndex].getUID()) {
                     (result, status) in
@@ -274,8 +308,9 @@ class ConnectViewController: UIViewController {
                 break
             }
             
-            UIView.animate(withDuration: 0.40) {
+            UIView.animate(withDuration: 0.50) {
                 self.swipeableView!.frame = frame
+                self.swipeableView!.alpha = alpha
             }
             
             self.nearbyUsersIndex += 1
@@ -288,12 +323,60 @@ class ConnectViewController: UIViewController {
                 self.errorOn = true
             }
             else { // there are users left in area
-                self.swipeableView = self.getUIView(with: self.nearbyUsers.getUsers()[self.nearbyUsersIndex])
-                self.view.addSubview(self.swipeableView!)
+                self.downloadUserData(user: self.nearbyUsers.getUsers()[self.nearbyUsersIndex]) {
+                    self.swipeableView = self.getUIView(with: self.nearbyUsers.getUsers()[self.nearbyUsersIndex])
+                    self.view.addSubview(self.swipeableView!)
+                }
             }
             
         }
         
+    }
+    
+    // MARK: - Utils
+    private func downloadUserData(user: User, callback: @escaping () -> Void) {
+        
+        // TODO: Modify callback to check for error codes after downloading user data
+        
+        // Download user bio
+        Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "ubg", input: user.getUID()) {
+            (resultBio, errStatusBio) in
+            if (resultBio != "") {
+                user.setBio(newBio: resultBio["Data"].stringValue)
+                // Download profile pic
+                Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "ppg", input: user.getUID()) {
+                    (resultPic, errStatusPic) in
+                    if (resultPic != "") {
+                        if (resultPic["Data"] != "") { // decode base64 and display image
+                            
+                            let fixedBase64 = resultPic["Data"].stringValue.fixedBase64Format
+                            let dataDecoded = Data.init(base64Encoded: fixedBase64, options: .ignoreUnknownCharacters)
+                            let decodedImage = UIImage(data: dataDecoded!)
+                            
+                            user.setProfilePic(newProfilePic: decodedImage!)
+                            
+                            callback()
+                            
+                        }
+                        else { // display default user pic
+                            let defaultProfileImage: UIImage = UIImage(systemName: "person.fill")!
+                            user.setProfilePic(newProfilePic: defaultProfileImage)
+                            callback()
+                        }
+                    }
+                    else {
+                        print("Error occured while downloading profile picture.")
+                        let defaultProfileImage: UIImage = UIImage(systemName: "person.fill")!
+                        user.setProfilePic(newProfilePic: defaultProfileImage)
+                        callback()
+                    }
+                }
+            }
+            else {
+                print("Error occured while downloading user bio")
+                callback()
+            }
+        }
     }
     
 }
