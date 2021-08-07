@@ -11,7 +11,7 @@ Connecting-type app for people to match profesionally and discuss/implement busi
 - [ ] Connection Popup Styling and Populating
 - [ ] Location Remover on Location Change
 - [ ] Go Server Secured -- HTTP for now (TLS implemented but there are some config issues)
-- [ ] Encrypt Data sent to Firebase (ie. Messages)
+- [x] Encrypt Data sent to Firebase (ie. Messages) -- Client-side encryption, uses a 512-bit RSA key pair.
 
 ## Further Dev Cycles
 - [ ] watchOS Client
@@ -49,11 +49,12 @@ Response {\
 
 ### Operations (<Number> = Description (Params))
 #### User Profile Data
-- 0 = Get User Profile                    (UID : String)
-- ubg = Get Bio                          (UID : String)
-- ubs = Set Bio                          (Bio : String)
-- 2 = Change Display Name                 (DisplayName : String)
-- 3 = Add Profile Picture                 (URL : String)
+- 0 = Get User Profile                        (UID : String)
+- ubg = Get Bio                                 (UID : String)
+- ubs = Set Bio                                  (Bio : String)
+- 2 = Change Display Name              (DisplayName : String)
+- pps = Set Profile Picture                 (Multiform Data : Base64String)
+- ppg = Get Profile Picture                 (UID : String)
 
 #### User Account High Security Operations
 - d = Delete Account
@@ -61,17 +62,17 @@ Response {\
 
 #### Location Handling
 - ws = UID Location (City) (PUSH)         (UID : String, City : String)
-- wg = UID Location (City) (GET ALL)      (UID : String, City : String)
+- wg = UID Location (City) (GET ALL)     (UID : String, City : String)
 
 #### Connections component
-- xs = LikedBy (PUSH)                     (UID : String, LikedUID: String)
+- xs = LikedBy (PUSH)                   (UID : String, LikedUID: String)
 - xg = LikedBy (GET)                      (UID : String, LikedUID: String)
-- xx = Likes (GET)                        (UID : String)
-- xxy = Matches (GET)                     (UID : String)
+- xx = Likes (GET)                           (UID : String)
+- xxy = Matches (GET)                    (UID : String)
 
 #### Messaging Component
 - y = Get chat history of user (list of chats with users)
-- z = Get detailed chat history between two users on Firebase database for future retrieval
+- z = Get detailed chat history between two users on Firebase database for future retrieval     (Remote_UID : String)
 
 ## Go Frameworks 
 - [Gorilla Websocket]("https://github.com/gorilla/websocket")
@@ -88,5 +89,6 @@ The Client is built in Swift (UIKit).
 - Firebase (+ Auth)
 - Starscream
 - Alamofire
+- SwiftyRSA
 
 There is a possibility in the future that there will be a lightweight version of the iOS Client developed for the watchOS.

@@ -45,12 +45,16 @@ PODS:
   - PromisesObjC (1.2.12)
   - Starscream (4.0.4)
   - SwiftyJSON (4.3.0)
+  - SwiftyRSA (1.7.0):
+    - SwiftyRSA/ObjC (= 1.7.0)
+  - SwiftyRSA/ObjC (1.7.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.4)
   - Firebase/Auth
   - Starscream (~> 4.0.0)
   - SwiftyJSON (~> 4.0)
+  - SwiftyRSA
 
 SPEC REPOS:
   trunk:
@@ -66,6 +70,7 @@ SPEC REPOS:
     - PromisesObjC
     - Starscream
     - SwiftyJSON
+    - SwiftyRSA
 
 SPEC CHECKSUMS:
   Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
@@ -80,7 +85,8 @@ SPEC CHECKSUMS:
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
+  SwiftyRSA: 8c6dd1ea7db1b8dc4fb517a202f88bb1354bc2c6
 
-PODFILE CHECKSUM: 217af33f9ca75304aa198b40966db63011301645
+PODFILE CHECKSUM: 9dcc4d36f31b84bfd1221ea3163279fa580594df
 
 COCOAPODS: 1.9.3

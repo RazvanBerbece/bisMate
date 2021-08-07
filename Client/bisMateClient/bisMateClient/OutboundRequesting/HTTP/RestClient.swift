@@ -96,6 +96,11 @@ public class RestClient {
             }
         }
         else {
+            
+            // client side encryption
+            // encrypt data here before sending to server
+            
+            
             var components = URLComponents()
             components.scheme = "http"
             components.host = "macbook.local"

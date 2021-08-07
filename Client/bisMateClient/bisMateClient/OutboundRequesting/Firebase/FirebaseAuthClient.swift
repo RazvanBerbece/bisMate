@@ -25,6 +25,8 @@ class User {
     private var bio            : String?
     private var profilePic     : UIImage?
     
+    private var privateKey     : String? // generated on first login and stored, downloaded after
+    
     /** Constructor */
     init(UID: String, email: String, displayName: String, phoneNumber: String, photoURL: String, emailVerified: Bool, token: String) {
         self.UID = UID
@@ -64,6 +66,9 @@ class User {
     public func getProfilePic() -> UIImage {
         return self.profilePic!
     }
+    public func getPrivateKey() -> String {
+        return self.privateKey!
+    }
     
     /** Setters */
     public func setDisplayName(newName: String) {
@@ -92,6 +97,9 @@ class User {
     }
     public func setProfilePic(newProfilePic: UIImage) {
         self.profilePic = newProfilePic
+    }
+    public func setPrivateKey(newKey: String) {
+        self.privateKey = newKey
     }
     
     /** Utils */
