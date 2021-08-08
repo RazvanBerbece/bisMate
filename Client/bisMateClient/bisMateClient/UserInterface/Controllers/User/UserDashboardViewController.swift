@@ -136,15 +136,19 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
         }
         
         // get profile pic
-        Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "ppg", input: Singleton.sharedInstance.CurrentLocalUser!.getUID()) {
-            (result, errStatus) in
-            if (errStatus == 0) {
-                print("Error occured while downloading profile picture")
+        DispatchQueue.background(background: {
+            Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "ppg", input: Singleton.sharedInstance.CurrentLocalUser!.getUID()) {
+                (result, errStatus) in
+                if (errStatus == 0) {
+                    print("Error occured while downloading profile picture")
+                }
+                else {
+                    self.processDownloadedLocalProfileImage(result: result)
+                }
             }
-            else {
-                self.processDownloadedLocalProfileImage(result: result)
-            }
-        }
+        }, completion: {
+            // NOTHING HERE
+        })
         
         
     }

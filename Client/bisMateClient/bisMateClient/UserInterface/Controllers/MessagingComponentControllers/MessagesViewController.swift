@@ -9,10 +9,13 @@ import UIKit
 
 /** Simple structure of a message in the message list */
 class Message {
+    
     public var from     : String?
     public var text     : String?
     public var time     : Int64?
     private var uid     : String?
+    
+    private var picture : UIImage?
     
     /** Constructor */
     init(from: String, text: String, time: Int64, uid: String) {
@@ -22,9 +25,18 @@ class Message {
         self.uid = uid
     }
     
+    /** Setters */
+    public func setPicture(newPictrue: UIImage) {
+        self.picture = newPictrue
+    }
+    
     /** Getters */
     public func getUID() -> String {
         return self.uid!
+    }
+    
+    public func getPicture() -> UIImage {
+        return self.picture!
     }
 }
 
@@ -67,7 +79,7 @@ class MessagesViewController: UITableViewController {
         customCell.userNameLabel?.text = "\(String(describing: model[indexPath.row].from!))"
         customCell.messageLabel?.text = "\(String(describing: model[indexPath.row].text!))"
         
-        self.getRemoteProfilePic(forUID: model[indexPath.row].getUID()) {
+        self.getRemoteProfilePic(forUID: self.model[indexPath.row].getUID()) {
             (image) in
             DispatchQueue.main.async {
                 customCell.userPhotoView?.maskCircleWithShadow(anyImage: image)
@@ -109,9 +121,12 @@ class MessagesViewController: UITableViewController {
             Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "0", input: connection) {
                 (result, status) in
                 if (result != "") {
+                    
                     let user = User.getUserFromData(data: result)
+                    
                     self.model.append(Message(from: user.getDisplayName(), text: "Start up a conversation !", time: Date().currentTimeMillis(), uid: connection))
                     self.tableView.reloadData()
+                    
                 }
                 else {
                     print("Error occured while collecting nearby users.")
