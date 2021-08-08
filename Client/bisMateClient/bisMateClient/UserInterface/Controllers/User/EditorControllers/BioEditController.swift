@@ -67,21 +67,22 @@ class BioEditController: UIViewController, UITextViewDelegate {
     
     @IBAction private func setUserBio() {
         
-        Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "ubs", input: self.bioTextArea.text) {
-            (result, errCheck) in
-            if result != "" {
-                
-                Singleton.sharedInstance.CurrentLocalUser?.setBio(newBio: self.bioTextArea.text)
-                
-                // update bio locally from text view input & dismiss screen on successful operation and return to user dashboard
-                self.dismiss(animated: true, completion: self.delegate?.popoverDidDismiss)
+        DispatchQueue.background(delay: 3.0, background: {
+            Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "ubs", input: self.bioTextArea.text) {
+                (result, errCheck) in
+                if result != "" {
+                    Singleton.sharedInstance.CurrentLocalUser?.setBio(newBio: self.bioTextArea.text)
+                }
+                else {
+                    // err handling
+                    print("Error occured while saving user bio to server.")
+                    // TODO DISPLAY ERROR LABEL
+                }
             }
-            else {
-                // err handling
-                print("Error occured while saving user bio to server.")
-                // TODO DISPLAY ERROR LABEL
-            }
-        }
+        }, completion: {
+            // update bio locally from text view input & dismiss screen on successful operation and return to user dashboard
+            self.dismiss(animated: true, completion: self.delegate?.popoverDidDismiss)
+        })
         
     }
     

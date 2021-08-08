@@ -381,7 +381,6 @@
 				6FCBE9BE26C04B8B00869AF8 /* User */,
 				6FCBE9BD26C04B6600869AF8 /* MessagingComponentControllers */,
 				6FCBE9B426C0463300869AF8 /* ConnectController */,
-				6F44F5ED26A60FED0081C316 /* EditorControllers */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -410,6 +409,7 @@
 				6F8A1EC325BB9BB500D52D6E /* SignInViewController.swift */,
 				6F96EA6425BC8647000476EA /* UserDashboardViewController.swift */,
 				6F96EA7325BCEB05000476EA /* SettingsViewController.swift */,
+				6F44F5ED26A60FED0081C316 /* EditorControllers */,
 			);
 			path = User;
 			sourceTree = "<group>";

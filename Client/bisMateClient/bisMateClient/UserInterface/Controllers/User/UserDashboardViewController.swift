@@ -221,9 +221,16 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
     
     // MARK: - Connection Updater Method (This SHOULD be reworked)
     private func subscribeToConnections() {
-        // Executes downloadConnections every second
+        // Executes downloadConnections every 2.5 seconds in background thread
         // Updates UI if the connections list has changed
-        Singleton.sharedInstance.timer = Timer.scheduledTimer(timeInterval: 2.50, target: self, selector: #selector(self.downloadConnections), userInfo: nil, repeats: true)
+        Singleton.sharedInstance.timer = Timer.scheduledTimer(withTimeInterval: 2.5, repeats: true) { (_) in
+            DispatchQueue.global(qos: .background).async { // in background thread
+                self.downloadConnections()
+                DispatchQueue.main.async { // in main thread
+                    // NOTHING HERE, BUT UI WOULD GET UPDATED HERE
+                }
+            }
+        }
     }
     
     @objc private func downloadConnections() {
@@ -416,15 +423,20 @@ extension UserDashboardViewController: ImagePickerDelegate {
             let imageData: Data = pickedImg.jpegData(compressionQuality: 1)!
             let imageBase64Str = imageData.base64EncodedString(options: .lineLength64Characters)
             
-            Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "pps", input: imageBase64Str) {
-                (result, errStatus) in
-                if (result != "") {
-                    print("Profile picture uploaded successfully")
+            // Run image upload in background
+            DispatchQueue.background(delay: 0.0, background: { // in background thread
+                Singleton.sharedInstance.HTTPClient?.sendOperationWithToken(operation: "pps", input: imageBase64Str) {
+                    (result, errStatus) in
+                    if (result != "") {
+                        print("Profile picture uploaded successfully")
+                    }
+                    else {
+                        print("An error occured while uploading your profile picture")
+                    }
                 }
-                else {
-                    print("An error occured while uploading your profile picture")
-                }
-            }
+            }, completion: {
+                // when background job finishes, wait <delay> seconds and do something in main thread
+            })
             
         }
         else {
