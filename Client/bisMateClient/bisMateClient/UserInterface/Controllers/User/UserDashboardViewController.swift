@@ -67,6 +67,7 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
                 
                 // subscribe
                 self.subscribeToConnections()
+
             }
             else {
                 self.dismiss(animated: false, completion: nil)
@@ -189,8 +190,6 @@ class UserDashboardViewController: UIViewController, CLLocationManagerDelegate, 
                     (result, errCheck) in
                     if result != "" {
                         // successful upload
-                        print(result)
-                        
                         // delete previous location - TODO
                     }
                     else {

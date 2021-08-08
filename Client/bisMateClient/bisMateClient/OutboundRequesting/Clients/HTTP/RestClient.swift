@@ -37,7 +37,7 @@ public class RestClient {
             (response) in
             switch response.result {
             case .success(let data):
-                print(data)
+                print(data as Any) // 'as Any' to silence warning
                 callback(1)
             case .failure(let error):
                 print(error)

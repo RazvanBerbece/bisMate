@@ -159,14 +159,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MOX-7D-lXW">
-                                <rect key="frame" x="20" y="481.66666666666669" width="125" height="36.000000000000057"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="125" id="iXT-I7-HJu">
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </constraint>
-                                </constraints>
+                                <rect key="frame" x="20" y="511" width="374" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Back">
                                     <color key="titleColor" cyan="0.0" magenta="0.45000000000000001" yellow="0.16" black="0.19" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
@@ -214,20 +207,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tv4-QS-x7S">
-                                <rect key="frame" x="20" y="543.66666666666663" width="374" height="70"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="Epv-uz-M9b"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qKe-p6-KGe">
-                                <rect key="frame" x="269" y="481.66666666666669" width="125" height="36.000000000000057"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="125" id="CXA-Zc-zNd"/>
-                                </constraints>
+                                <rect key="frame" x="20" y="467" width="374" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Sign In">
                                     <color key="titleColor" cyan="0.0" magenta="0.45000000000000001" yellow="0.16" black="0.19" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
@@ -236,10 +217,20 @@
                                     <action selector="signInAction" destination="ZWj-tx-aEO" eventType="touchUpInside" id="oWh-wI-7Mk"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tv4-QS-x7S">
+                                <rect key="frame" x="20" y="555" width="374" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="Epv-uz-M9b"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wws-b5-yUj"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="wws-b5-yUj" firstAttribute="trailing" secondItem="MOX-7D-lXW" secondAttribute="trailing" constant="20" id="2AE-Ga-S2w"/>
                             <constraint firstItem="wws-b5-yUj" firstAttribute="trailing" secondItem="3ks-LG-qsY" secondAttribute="trailing" constant="20" id="53s-zD-Exq">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
@@ -255,11 +246,14 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </constraint>
+                            <constraint firstItem="Tv4-QS-x7S" firstAttribute="top" secondItem="MOX-7D-lXW" secondAttribute="bottom" constant="8" id="L1U-PL-SG9"/>
                             <constraint firstItem="OFb-me-a2F" firstAttribute="leading" secondItem="wws-b5-yUj" secondAttribute="leading" constant="20" id="N7a-xL-exg">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </constraint>
+                            <constraint firstItem="wws-b5-yUj" firstAttribute="trailing" secondItem="qKe-p6-KGe" secondAttribute="trailing" constant="20" id="Nin-iQ-aem"/>
+                            <constraint firstItem="MOX-7D-lXW" firstAttribute="top" secondItem="qKe-p6-KGe" secondAttribute="bottom" constant="8" id="NrH-x5-bMi"/>
                             <constraint firstItem="3ks-LG-qsY" firstAttribute="leading" secondItem="wws-b5-yUj" secondAttribute="leading" constant="20" id="UKg-3M-jvs">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
@@ -270,6 +264,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </constraint>
+                            <constraint firstItem="qKe-p6-KGe" firstAttribute="top" secondItem="6u9-Cg-Wec" secondAttribute="bottom" constant="25.333333333333314" id="WRn-VU-qgz"/>
                             <constraint firstItem="6u9-Cg-Wec" firstAttribute="leading" secondItem="wws-b5-yUj" secondAttribute="leading" constant="20" id="X0b-Vh-nfF">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
@@ -290,11 +285,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </constraint>
-                            <constraint firstItem="wws-b5-yUj" firstAttribute="trailing" secondItem="qKe-p6-KGe" secondAttribute="trailing" constant="20" id="be0-Da-PGy">
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
-                                </userDefinedRuntimeAttributes>
-                            </constraint>
+                            <constraint firstItem="MOX-7D-lXW" firstAttribute="leading" secondItem="wws-b5-yUj" secondAttribute="leading" constant="20" id="hQU-6q-Ls4"/>
                             <constraint firstItem="r5G-7G-kfB" firstAttribute="top" secondItem="3ks-LG-qsY" secondAttribute="bottom" constant="20" id="iaW-qC-TOf">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
@@ -305,27 +296,8 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </constraint>
+                            <constraint firstItem="qKe-p6-KGe" firstAttribute="leading" secondItem="wws-b5-yUj" secondAttribute="leading" constant="20" id="kpi-MQ-orx"/>
                             <constraint firstItem="r5G-7G-kfB" firstAttribute="leading" secondItem="wws-b5-yUj" secondAttribute="leading" constant="20" id="lb3-SA-1Tr">
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
-                                </userDefinedRuntimeAttributes>
-                            </constraint>
-                            <constraint firstItem="MOX-7D-lXW" firstAttribute="top" secondItem="6u9-Cg-Wec" secondAttribute="bottom" constant="40" id="m9E-hp-p7o">
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
-                                </userDefinedRuntimeAttributes>
-                            </constraint>
-                            <constraint firstItem="MOX-7D-lXW" firstAttribute="leading" secondItem="wws-b5-yUj" secondAttribute="leading" constant="20" id="mOm-RI-Td6">
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
-                                </userDefinedRuntimeAttributes>
-                            </constraint>
-                            <constraint firstItem="Tv4-QS-x7S" firstAttribute="top" secondItem="MOX-7D-lXW" secondAttribute="bottom" constant="26" id="rJI-l1-EGF">
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
-                                </userDefinedRuntimeAttributes>
-                            </constraint>
-                            <constraint firstItem="qKe-p6-KGe" firstAttribute="top" secondItem="6u9-Cg-Wec" secondAttribute="bottom" constant="40" id="tRd-7k-TcP">
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
                                 </userDefinedRuntimeAttributes>
@@ -342,7 +314,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TOQ-l0-JOe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="745" y="-196"/>
+            <point key="canvasLocation" x="744.92753623188412" y="-196.46739130434784"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="qOG-WQ-dBR">
@@ -391,20 +363,39 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="n6g-UB-uxU">
+                                <rect key="frame" x="185" y="348" width="44" height="37"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading profiles ..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XgW-ZF-BLY">
+                                <rect key="frame" x="20" y="393" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2fd-iL-3w5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="XgW-ZF-BLY" firstAttribute="top" secondItem="n6g-UB-uxU" secondAttribute="bottom" constant="8" id="1GY-Oe-sG9"/>
                             <constraint firstItem="2fd-iL-3w5" firstAttribute="trailing" secondItem="aze-1w-hNj" secondAttribute="trailing" constant="20" id="1cK-ha-R3L"/>
+                            <constraint firstItem="2fd-iL-3w5" firstAttribute="trailing" secondItem="n6g-UB-uxU" secondAttribute="trailing" constant="185" id="2dP-Vc-W5I"/>
+                            <constraint firstItem="2fd-iL-3w5" firstAttribute="trailing" secondItem="XgW-ZF-BLY" secondAttribute="trailing" constant="20" id="F8l-0Q-Tdf"/>
+                            <constraint firstItem="n6g-UB-uxU" firstAttribute="leading" secondItem="2fd-iL-3w5" secondAttribute="leading" constant="185" id="KCG-hk-qGQ"/>
                             <constraint firstItem="aze-1w-hNj" firstAttribute="top" secondItem="2fd-iL-3w5" secondAttribute="top" constant="16" id="Meb-JE-Z7b"/>
                             <constraint firstItem="aze-1w-hNj" firstAttribute="leading" secondItem="2fd-iL-3w5" secondAttribute="leading" constant="20" id="cGT-n6-E8h"/>
+                            <constraint firstItem="XgW-ZF-BLY" firstAttribute="leading" secondItem="2fd-iL-3w5" secondAttribute="leading" constant="20" id="gsy-SB-mZu"/>
+                            <constraint firstItem="n6g-UB-uxU" firstAttribute="top" secondItem="aze-1w-hNj" secondAttribute="bottom" constant="273" id="vVa-HI-XAL"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Connect" image="link" catalog="system" landscapeImage="link" selectedImage="link" id="VbH-Fy-lho"/>
+                    <connections>
+                        <outlet property="labelLoadingProfiles" destination="XgW-ZF-BLY" id="Ff1-38-lJ4"/>
+                        <outlet property="loadingProfilesIndicator" destination="n6g-UB-uxU" id="Lcf-eb-WHq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F4Y-6M-n2H" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3650.7246376811595" y="-382.36607142857139"/>
+            <point key="canvasLocation" x="3650.7246376811595" y="-383.1521739130435"/>
         </scene>
         <!--Profile-->
         <scene sceneID="ZFe-Zf-VZG">
@@ -883,11 +874,6 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JSN-No-lPa">
                                 <rect key="frame" x="20" y="637" width="374" height="35"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="374" id="4Vk-DU-ZHR">
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </constraint>
                                     <constraint firstAttribute="height" constant="35" id="L7P-Kt-Ka3">
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="setAdaptiveLayout" value="NO"/>
