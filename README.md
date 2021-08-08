@@ -7,8 +7,8 @@ Connecting-type app for people to match profesionally and discuss/implement busi
 - [x] Messaging -- Functional on simulator (doesn't currently work on physical devices)
 - [x] Location Uploader
 - [x] 'Connect' functionality
-- [ ] User Profile Info Enhancement (Pic, Bio, Work Place, Position etc.)
-- [ ] Connection Popup Styling and Populating
+- [ ] User Profile Info Enhancement (~~Pic~~, ~~Bio~~, Work Place, Position etc.)
+- [ ] Connection Popup Styling and Populating (~~Pic~~, ~~Bio~~, Work Place, Position etc.)
 - [ ] Location Remover on Location Change
 - [ ] Go Server Secured -- HTTP for now (TLS implemented but there are some config issues)
 - [x] Encrypt Data sent to Firebase (ie. Messages) -- Client-side encryption, uses a 512-bit RSA key pair.

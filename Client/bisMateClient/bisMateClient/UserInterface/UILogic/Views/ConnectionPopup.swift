@@ -35,6 +35,11 @@ class ConnectionPopup: UIView, UITextViewDelegate, UIGestureRecognizerDelegate {
     
     @objc public func dismissConnectionPopup(sender: UIButton!) {
         self.alpha = 0.0
+        for subview in self.subviews {
+            subview.removeFromSuperview()
+            subview.alpha = 0.0
+        }
+        self.removeFromSuperview()
     }
     
     private func setupConnectionPopup(user: User) {
@@ -104,7 +109,7 @@ class ConnectionPopup: UIView, UITextViewDelegate, UIGestureRecognizerDelegate {
         self.addSubview(dismissButon)
         
         // fade in connection popup
-        UIView.animate(withDuration: 1.75, animations: {
+        UIView.animate(withDuration: 3.33, animations: {
             self.alpha = 1.0
         })
         
