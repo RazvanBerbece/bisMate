@@ -101,11 +101,11 @@ func (fbapp *FirebaseApp) SignUp(email string, pass string) {
 	// get liked and connected references and push empty lists
 	refLiked := client.NewRef(fmt.Sprintf("connections/%s/liked", u.UID))
 	if _, errSender := refLiked.Push(context.Background(), ""); errSender != nil {
-		log.Printf("error initialising databse: %v", errSender)
+		log.Printf("error initialising 'liked' list: %v", errSender)
 	}
 	refConnected := client.NewRef(fmt.Sprintf("connections/%s/connected", u.UID))
 	if _, errSender := refConnected.Push(context.Background(), ""); errSender != nil {
-		log.Printf("error initialising databse: %v", errSender)
+		log.Printf("error initialising 'connected' list: %v", errSender)
 	}
 
 }
@@ -127,13 +127,13 @@ func (fbapp *FirebaseApp) SaveMsgToRTDatabase(msg message.Message) bool {
 	// get references and push
 	refSender := client.NewRef(fmt.Sprintf("messaging/saved-msg/%s/%s", msg.FromID, msg.ToID))
 	if _, errSender := refSender.Push(context.Background(), msg); errSender != nil {
-		log.Printf("error saving to database: %v", errSender)
+		log.Printf("error saving user message to database: %v", errSender)
 		return false
 	}
 
 	refReceiver := client.NewRef(fmt.Sprintf("messaging/saved-msg/%s/%s", msg.ToID, msg.FromID))
 	if _, errReceiver := refReceiver.Push(context.Background(), msg); errReceiver != nil {
-		log.Printf("error saving to database: %v", errReceiver)
+		log.Printf("error saving user message to database: %v", errReceiver)
 		return false
 	}
 
@@ -157,7 +157,7 @@ func (fbapp *FirebaseApp) GetChatWithUID(status *int, sourceUID string, destUID 
 	// get ordered instances of messages
 	results, err := ref.OrderByChild("time").GetOrdered(context.Background())
 	if err != nil {
-		log.Printf("error getting messages from databse: %v", err)
+		log.Printf("error getting chat between users with UIDs: %v", err)
 		*status = 0
 		*messages = list.List{}
 	}
@@ -166,7 +166,7 @@ func (fbapp *FirebaseApp) GetChatWithUID(status *int, sourceUID string, destUID 
 	for _, element := range results {
 		var msg message.Message
 		if err := element.Unmarshal(&msg); err != nil {
-			log.Printf("error unmarhsaling result: %v", err)
+			log.Printf("error unmarshaling result: %v", err)
 			*status = 0
 			*messages = *list
 		}
@@ -185,7 +185,7 @@ func (fbapp *FirebaseApp) GetUserProfile(status *int, UID string) User {
 
 	u, err := fbapp.Auth.GetUser(context.Background(), UID)
 	if err != nil {
-		log.Printf("error getting user: %v\n", err)
+		log.Printf("error getting user profile: %v\n", err)
 		*status = 0
 	}
 
@@ -206,10 +206,10 @@ func (fbapp *FirebaseApp) ChangeDisplayName(newName string, status *int, UID str
 		DisplayName(newName)
 	u, err := fbapp.Auth.UpdateUser(context.Background(), UID, params)
 	if err != nil {
-		log.Printf("error updating user: %v\n", err)
+		log.Printf("error updating user display name: %v\n", err)
 		*status = 0
 	}
-	log.Printf("Successfully updated user: %v\n", u.UID)
+	log.Printf("Successfully updated user display name: %v\n", u.UID)
 	*status = 1
 }
 
@@ -230,13 +230,13 @@ func (fbapp *FirebaseApp) SaveUIDToLocation(status *int, UID string, City string
 	// check if UID is already in current city instance, skip if it is
 	var data map[string]bool
 	if err := ref.Get(context.Background(), &data); err != nil {
-		log.Printf("error getting messages from databse: %v", err)
+		log.Printf("error getting UID from location (checking duplicate): %v", err)
 		*status = 0
 	}
 	if len(data) == 0 {
 		// push UID
 		if _, errSender := ref.Push(context.Background(), true); errSender != nil {
-			log.Printf("error saving to database: %v", errSender)
+			log.Printf("error saving UID to location: %v", errSender)
 			*status = 0
 		}
 		// remove from other locations on update
@@ -262,7 +262,7 @@ func (fbapp *FirebaseApp) GetUIDFromLocation(status *int, City string, UIDList *
 	ref := client.NewRef(fmt.Sprintf("locations/saved-locations/%s", City))
 	var data map[string]bool
 	if err := ref.Get(context.Background(), &data); err != nil {
-		log.Printf("error getting messages from database: %v", err)
+		log.Printf("error getting UIDs from location: %v", err)
 		*status = 0
 		*UIDList = list.List{}
 	}
@@ -276,6 +276,26 @@ func (fbapp *FirebaseApp) GetUIDFromLocation(status *int, City string, UIDList *
 	*UIDList = *list
 	*status = 1
 
+}
+
+// RemoveUserFromLocation
+func (fbapp *FirebaseApp) RemoveUserFromLocation(UID string, location string) (string, string) {
+
+	// get app for database
+	client, err := fbapp.App.Database(context.Background())
+	if err != nil {
+		log.Printf("error establishing connection to database: %v", err)
+		return "", fmt.Sprintf("error establishing connection to database: %v", err)
+	}
+
+	// get references and the messages from the reference
+	ref := client.NewRef(fmt.Sprintf("locations/saved-locations/%s/%s", location, UID))
+	if err := ref.Delete(context.Background()); err != nil {
+		log.Printf("error deleting location from database: %v", err)
+		return "", fmt.Sprintf("error deleting location from database: %v", err)
+	}
+
+	return "Successfully removed user from location", ""
 }
 
 // Connection-related operations
@@ -297,7 +317,7 @@ func (fbapp *FirebaseApp) LikeUser(status *int, sourceUID string, destUID string
 	refLikedBy := client.NewRef(fmt.Sprintf("connections/%s/likedBy", destUID))
 	if errSender := refLikedBy.Get(context.Background(), &data); errSender != nil {
 		*status = 0
-		log.Printf("error getting likedBy list: %v", errSender)
+		log.Printf("error getting 'likedBy' list: %v", errSender)
 	}
 	for key := range data {
 		if data[key] == sourceUID {
@@ -312,14 +332,14 @@ func (fbapp *FirebaseApp) LikeUser(status *int, sourceUID string, destUID string
 		// get likedBy reference and push UID
 		if _, errSender := refLikedBy.Push(context.Background(), sourceUID); errSender != nil {
 			*status = 0
-			log.Printf("error adding user to likedBy list: %v", errSender)
+			log.Printf("error adding user to 'likedBy' list: %v", errSender)
 		}
 
 		// save like for sourceUID
 		refSaved := client.NewRef(fmt.Sprintf("connections/%s/likes", sourceUID))
 		if _, errSender := refSaved.Push(context.Background(), destUID); errSender != nil {
 			*status = 0
-			log.Printf("error getting liked list: %v", errSender)
+			log.Printf("error saving user like in 'liked' list: %v", errSender)
 		}
 
 		// check if liked by the other user and move UIDs to matches list if so
@@ -327,7 +347,7 @@ func (fbapp *FirebaseApp) LikeUser(status *int, sourceUID string, destUID string
 		refMatchClient := client.NewRef(fmt.Sprintf("connections/%s/likedBy", sourceUID))
 		if errSender := refMatchClient.Get(context.Background(), &data); errSender != nil {
 			*status = 0
-			log.Printf("error adding user to likedBy list: %v", errSender)
+			log.Printf("error getting 'likedBy' list: %v", errSender)
 		}
 
 		// iterate likedBy list for current user
@@ -340,12 +360,12 @@ func (fbapp *FirebaseApp) LikeUser(status *int, sourceUID string, destUID string
 				refMatchUserTwo := client.NewRef(fmt.Sprintf("connections/%s/matches", destUID))
 				if _, errSenderOne := refMatchUserOne.Push(context.Background(), destUID); errSenderOne != nil {
 					*status = 0
-					log.Printf("error adding user to matches list: %v", errSenderOne)
+					log.Printf("error adding user to source 'matches' list: %v", errSenderOne)
 					return
 				}
 				if _, errSenderTwo := refMatchUserTwo.Push(context.Background(), sourceUID); errSenderTwo != nil {
 					*status = 0
-					log.Printf("error adding user to matches list: %v", errSenderTwo)
+					log.Printf("error adding user to dest 'matches' list: %v", errSenderTwo)
 					return
 				}
 
@@ -381,7 +401,7 @@ func (fbapp *FirebaseApp) GetLikedByListForUser(status *int, UID string, UIDList
 	if err := refLiked.Get(context.Background(), &data); err != nil {
 		*status = 0
 		*UIDList = list.List{}
-		log.Printf("error adding user to liked list: %v", err)
+		log.Printf("error getting 'liked' list: %v", err)
 	}
 
 	// data will be returned as a list of strings
@@ -413,7 +433,7 @@ func (fbapp *FirebaseApp) GetLikesListForUser(status *int, UID string, UIDList *
 	if err := refLiked.Get(context.Background(), &data); err != nil {
 		*status = 0
 		*UIDList = list.List{}
-		log.Printf("error adding user to liked list: %v", err)
+		log.Printf("error getting 'likes' list: %v", err)
 	}
 
 	// data will be returned as a list of strings
@@ -446,7 +466,7 @@ func (fbapp *FirebaseApp) GetMatches(status *int, sourceUID string, UIDList *lis
 	if errLikes := refLikes.Get(context.Background(), &matchesDict); errLikes != nil {
 		*status = 0
 		*UIDList = list.List{}
-		log.Printf("error getting dict: %v", errLikes)
+		log.Printf("error getting 'matches' dict: %v", errLikes)
 		return
 	}
 
@@ -477,7 +497,7 @@ func (fbapp *FirebaseApp) DeleteLikesAfterMatch(status *int, sourceUID string, m
 	refLikes := client.NewRef(fmt.Sprintf("connections/%s/likes", sourceUID))
 	if errLikes := refLikes.Get(context.Background(), &likesDict); errLikes != nil {
 		*status = 0
-		log.Printf("error getting dict: %v", errLikes)
+		log.Printf("error getting 'likes' dict: %v", errLikes)
 		return
 	}
 
@@ -498,7 +518,7 @@ func (fbapp *FirebaseApp) DeleteLikesAfterMatch(status *int, sourceUID string, m
 	refLikedBy := client.NewRef(fmt.Sprintf("connections/%s/likedBy", sourceUID))
 	if errLikedBy := refLikedBy.Get(context.Background(), &likedByDict); errLikedBy != nil {
 		*status = 0
-		log.Printf("error getting dict: %v", errLikedBy)
+		log.Printf("error getting 'likedBy' dict: %v", errLikedBy)
 		return
 	}
 
@@ -508,7 +528,7 @@ func (fbapp *FirebaseApp) DeleteLikesAfterMatch(status *int, sourceUID string, m
 			refDeleteLikedBy := client.NewRef(fmt.Sprintf("connections/%s/likedBy/%s", sourceUID, extKey))
 			if errDeleteLikedBy := refDeleteLikedBy.Delete(context.Background()); errDeleteLikedBy != nil {
 				*status = 0
-				log.Printf("error deleting user from likedBy list: %v", errDeleteLikedBy)
+				log.Printf("error deleting user from 'likedBy' list: %v", errDeleteLikedBy)
 				return
 			}
 		}
@@ -555,7 +575,7 @@ func (fbapp *FirebaseApp) SetUserBio(status *int, UID string, bio string) {
 	// get references and push
 	refSender := client.NewRef(fmt.Sprintf("users/%s", UID))
 	if errSender := refSender.Child("bio").Set(context.Background(), bio); errSender != nil {
-		log.Printf("error saving to database: %v", errSender)
+		log.Printf("error saving user bio to database: %v", errSender)
 		*status = 0
 	}
 
@@ -599,8 +619,8 @@ func (fbapp *FirebaseApp) GetProfilePicture(UID string) (string, string) {
 	// get references and the messages from the reference
 	imageSnap, errGet := client.Collection("ProfilePictures").Doc(UID).Get(context.Background())
 	if errGet != nil {
-		log.Printf("error getting user bio from database: %v", err)
-		return "", "Get User Bio failed"
+		log.Printf("error getting user profile pic from database: %v", err)
+		return "", "Get Profile Pic failed"
 	}
 
 	type Image struct {
