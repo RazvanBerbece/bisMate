@@ -21,7 +21,7 @@ jobs:
     - name: Install dependencies
       run: |
         go version
-        go mod download cloud.google.com/go/firestore
+        go get firebase.google.com/go
 
     - name: Build
       run: cd Server/src && go test -v ./...
