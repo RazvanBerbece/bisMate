@@ -23,7 +23,6 @@ jobs:
         go version
         go mod init example.com/m/v2
         go mod tidy
-        go mod download cloud.google.com/go/firestore
         go get firebase.google.com/go
         go get firebase.google.com/go/auth
         go get google.golang.org/api/option
