@@ -21,7 +21,7 @@ jobs:
     - name: Install dependencies
       run: |
         go version
-        go mod init
+        go mod init example.com/m/v2
         go mod tidy
         go mod download cloud.google.com/go/firestore
         go get firebase.google.com/go
