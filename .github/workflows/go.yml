@@ -21,7 +21,7 @@ jobs:
     - name: Install dependencies
       run: |
         go version
-        cd Server/src && go mod init
+        go env -w GOFLAGS=-mod=mod
         go mod tidy
         go mod download cloud.google.com/go/firestore
         go get firebase.google.com/go
