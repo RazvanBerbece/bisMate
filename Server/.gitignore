@@ -1,4 +1,5 @@
 src/go.sum
 .DS_Store
 src/firebase/conf.json
+src/firebase/firebase/
 src/cert/
