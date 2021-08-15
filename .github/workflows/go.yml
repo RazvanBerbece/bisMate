@@ -20,13 +20,13 @@ jobs:
     
     - name: Install dependencies
       run: |
-        cd Server/src && go version
+        go version
         cd Server/src && go mod init
-        cd Server/src && go mod tidy
-        cd Server/src && go mod download cloud.google.com/go/firestore
-        cd Server/src && go get firebase.google.com/go
-        cd Server/src && go get firebase.google.com/go/auth
-        cd Server/src && go get google.golang.org/api/option
+        go mod tidy
+        go mod download cloud.google.com/go/firestore
+        go get firebase.google.com/go
+        go get firebase.google.com/go/auth
+        go get google.golang.org/api/option
 
     - name: Test
       run: cd Server/src && go test -v ./...
