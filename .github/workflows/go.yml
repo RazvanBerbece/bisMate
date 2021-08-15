@@ -22,6 +22,7 @@ jobs:
       run: |
         go version
         go mod tidy
+        cd Server/src/firebase && go mod init fbadmin_test
         go mod download cloud.google.com/go/firestore
         go get firebase.google.com/go
         go get firebase.google.com/go/auth
