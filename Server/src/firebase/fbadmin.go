@@ -240,7 +240,7 @@ func (fbapp *FirebaseApp) SaveUIDToLocation(status *int, UID string, City string
 			*status = 0
 		}
 		// remove from other locations on update
-		// TODO
+		// done on client
 	}
 
 	*status = 1
@@ -278,8 +278,8 @@ func (fbapp *FirebaseApp) GetUIDFromLocation(status *int, City string, UIDList *
 
 }
 
-// RemoveUserFromLocation
-func (fbapp *FirebaseApp) RemoveUserFromLocation(UID string, location string) (string, string) {
+// RemoveUIDFromLocation -- removes UID from location passed as string
+func (fbapp *FirebaseApp) RemoveUIDFromLocation(UID string, location string) (string, string) {
 
 	// get app for database
 	client, err := fbapp.App.Database(context.Background())

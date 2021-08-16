@@ -350,7 +350,7 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 			}
 		case "wd":
 			// delete UID from location entry in DB
-			success, fail := httpserver.App.RemoveUserFromLocation(httpserver.CurrentToken.UID, input)
+			success, fail := httpserver.App.RemoveUIDFromLocation(httpserver.CurrentToken.UID, input)
 			if success != "" {
 				data := HTTPResponse{}
 				data.TransactionID = "wd"
