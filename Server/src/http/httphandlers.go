@@ -77,6 +77,7 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 		LOCATION HANDLERS
 		ws 	= UID Location (PUSH) 					(params -> UID : String, City : String)
 		wg 	= UID Location (GET)					(params -> UID : String, City : String)
+		wd  = UID Loication (DELETE)				(params -> UID : string, City : String)
 
 		CONNECTION COMPONENT
 		xs 	= LikedBy (PUSH)						(params -> UID : String, LikedUID: String)
@@ -343,6 +344,30 @@ func (httpserver *HTTPServ) HandleTokenVerify(w http.ResponseWriter, r *http.Req
 				data.Data = "0"
 				data.Message = "Failed to get UIDs from city instance."
 
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			}
+		case "wd":
+			// delete UID from location entry in DB
+			success, fail := httpserver.App.RemoveUIDFromLocation(httpserver.CurrentToken.UID, input)
+			if success != "" {
+				data := HTTPResponse{}
+				data.TransactionID = "wd"
+				data.Result = 1
+				// Iterate the list
+				data.Data = input
+				data.Message = fmt.Sprint("Successfully deleted UID from ", input, " !")
+				w.Header().Set("Content-Type", "application/json")
+				w.WriteHeader(http.StatusCreated)
+				json.NewEncoder(w).Encode(data)
+			} else {
+				data := HTTPResponse{}
+				data.TransactionID = "wd"
+				data.Result = 0
+				// Iterate the list
+				data.Data = input
+				data.Message = fmt.Sprint(fail)
 				w.Header().Set("Content-Type", "application/json")
 				w.WriteHeader(http.StatusCreated)
 				json.NewEncoder(w).Encode(data)

@@ -90,5 +90,12 @@ The Client is built in Swift (UIKit).
 - Starscream
 - Alamofire
 - SwiftyRSA
+  
+# Testing
+Testing has been implemented for the Go side of the project and a GitHub Action was created to run them on every push & merge to main. 
+The action will always fail online because the conf.json file which contains the Firebase API credentials & config is not pushed.
+Testing for Swift-side to be implemented in the near future.
+- [  ] Backend Testing (Firebase, Sockets, other units) -- in progress
+- [  ] Frontend Testing (UI, Requests, other units)
 
 There is a possibility in the future that there will be a lightweight version of the iOS Client developed for the watchOS.
